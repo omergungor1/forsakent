@@ -8,7 +8,6 @@ import {
 } from "@material-tailwind/react";
 
 
-
 interface EventContentCardProps {
   title: string;
   des: string;
