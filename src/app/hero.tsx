@@ -1,7 +1,6 @@
 "use client";
 
-import { IconButton, Button, Typography } from "@material-tailwind/react";
-import { PlayIcon } from "@heroicons/react/24/solid";
+import { Typography } from "@material-tailwind/react";
 
 function Hero() {
   return (
@@ -10,17 +9,16 @@ function Hero() {
       <div className="grid min-h-screen px-8">
         <div className="container relative z-10 my-auto mx-auto grid place-items-center text-center">
           <Typography variant="h3" color="white" className="mb-2">
-            test
+            Hayalinizdeki Mekanlar
           </Typography>
           <Typography variant="h1" color="white" className="lg:max-w-3xl">
-            Forsa
+            Forsa Peyzaj
           </Typography>
           <Typography
             variant="lead"
             color="white"
-            className="mt-1 mb-12 w-full md:max-w-full lg:max-w-2xl"
-          >
-            Peyzaj Çözümleri
+            className="mt-1 mb-12 w-full md:max-w-full lg:max-w-2xl">
+            Estetik ve fonksiyonelliği bir araya getiren peyzaj tasarımları.
           </Typography>
         </div>
       </div>
