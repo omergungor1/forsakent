@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".", // Projenin kök dizini
+        "paths": {
+            "@/*": [
+                "../*"
+            ] // "@" alias'ını proje kök dizinine yönlendirir
+        }
+    }
+}

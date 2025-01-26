@@ -28,7 +28,7 @@ const FAQS = [
 
 export function Faq() {
   const [open, setOpen] = React.useState(0);
-  const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
+  const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
   return (
     <section className="py-8 px-8 lg:py-20">

@@ -5,13 +5,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 
-interface AboutCardProp {
-  title: string;
-  subTitle: string;
-  description: string;
-}
-
-export function AboutCard({ title, description, subTitle }: AboutCardProp) {
+const AboutCard = ({ title, description, subTitle }) => {
   return (
     <Card shadow={false}>
       <CardBody className="h-[453px] p-5 flex flex-col justify-center items-center rounded-2xl bg-gray-900 ">

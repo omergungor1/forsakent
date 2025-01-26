@@ -1,7 +1,7 @@
 "use client";
 
 import { Typography } from "@material-tailwind/react";
-import AboutCard from "@/components/about-card";
+import AboutCard from "../components/about-card";
 
 const EVENT_INFO = [
   {
@@ -29,8 +29,7 @@ export function AboutEvent() {
       </Typography>
       <Typography
         variant="lead"
-        className="mt-2 lg:max-w-4xl mb-8 w-full text-center font-normal !text-gray-500"
-      >
+        className="mt-2 lg:max-w-4xl mb-8 w-full text-center font-normal !text-gray-500">
         Welcome to the AI Conference 2023, where the future unfolds! Whether
         you&apos;re a seasoned AI professional, a curious newcomer, or a
         business leader looking to harness the power of AI, this conference is

@@ -1,11 +1,7 @@
 
 import { Typography, Card } from "@material-tailwind/react";
-interface StatsCardProps {
-  count: string;
-  title: string;
-}
 
-export function StatsCard({ count, title }: StatsCardProps) {
+export function StatsCard({ count, title }) {
   return (
     <Card color="transparent" shadow={false}>
       <Typography variant="h1" className="font-bold" color="blue-gray">

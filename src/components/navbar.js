@@ -18,12 +18,7 @@ import {
   PhoneIcon
 } from "@heroicons/react/24/solid";
 
-interface NavItemProps {
-  children: React.ReactNode;
-  href?: string;
-}
-
-function NavItem({ children, href }: NavItemProps) {
+function NavItem({ children, href }) {
   return (
     <li>
       <Typography

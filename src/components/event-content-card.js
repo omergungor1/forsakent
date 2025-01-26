@@ -8,14 +8,6 @@ import {
 } from "@material-tailwind/react";
 
 
-interface EventContentCardProps {
-  title: string;
-  des: string;
-  name: string;
-  position: string;
-  panel: string;
-  img: string;
-}
 export function EventContentCard({
   title,
   des,
@@ -23,7 +15,7 @@ export function EventContentCard({
   position,
   panel,
   img,
-}: EventContentCardProps) {
+}) {
   return (
     <Card
       color="transparent"

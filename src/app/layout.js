@@ -1,7 +1,7 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import { Layout } from "@/components";
+import { Layout } from "../components";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -9,17 +9,13 @@ const roboto = Roboto({
   display: "swap",
 });
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Forsa Peyzaj Çözümleri",
   description:
     "Forsa Peyzaj Çözümleri olarak, peyzaj sektöründe hizmet veren bir firma olarak, peyzaj projelerinizde profesyonel çözümler sunuyoruz.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
