@@ -1,5 +1,6 @@
 "use client";
 
+export * from "../theme";
 export * from "./navbar";
 export * from "./footer";
 export * from "./layout";

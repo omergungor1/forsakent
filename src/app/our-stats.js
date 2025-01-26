@@ -44,9 +44,11 @@ export function OurStats() {
       </div>
       <div>
         <div className="grid grid-cols-2 gap-8 gap-x-28">
-          {STATS.map((props, key) => (
-            <StatsCard key={key} {...props} />
-          ))}
+          {
+            STATS.map((props, key) => (
+              <StatsCard key={key} {...props} />
+            ))
+          }
         </div>
       </div>
     </section>

@@ -20,16 +20,18 @@ export function SponsoredBy() {
           Referanslar
         </Typography>
         <div className="flex flex-wrap items-center justify-center gap-6">
-          {SPONSORS.map((logo, key) => (
-            <Image
-              width={256}
-              height={256}
-              key={key}
-              src={`/logos/logo-${logo}.svg`}
-              alt={logo}
-              className="w-40"
-            />
-          ))}
+          {
+            SPONSORS.map((logo, key) => (
+              <Image
+                width={256}
+                height={256}
+                key={key}
+                src={`/logos/logo-${logo}.svg`}
+                alt={logo}
+                className="w-40"
+              />
+            ))
+          }
         </div>
       </div>
     </section>

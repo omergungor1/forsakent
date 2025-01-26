@@ -6,10 +6,10 @@ import { Typography, Accordion, AccordionHeader, AccordionBody } from "@material
 const FAQS = [
   {
     title: "1. Hangi peyzaj hizmetlerini sunuyorsunuz?",
-    desc: "Forsa Peyzaj olarak, bahçe tasarımı, peyzaj düzenlemesi, sulama sistemleri kurulumu, aydınlatma çözümleri, çim ekimi ve bakımı, dış mekan dekorasyonu gibi geniş bir hizmet yelpazesi sunuyoruz. İstanbul&apos;daki tüm alanlara yönelik özelleştirilmiş çözümlerimizle peyzaj projelerinizi hayata geçiriyoruz.",
+    desc: "Forsa Peyzaj olarak, bahçe tasarımı, peyzaj düzenlemesi, sulama sistemleri kurulumu, aydınlatma çözümleri, çim ekimi ve bakımı, dış mekan dekorasyonu gibi geniş bir hizmet yelpazesi sunuyoruz. İstanbul’daki tüm alanlara yönelik özelleştirilmiş çözümlerimizle peyzaj projelerinizi hayata geçiriyoruz.",
   },
   {
-    title: "2. Hizmetleriniz İstanbul&apos;un hangi bölgelerinde geçerli?",
+    title: "2. Hizmetleriniz İstanbul’un hangi bölgelerinde geçerli?",
     desc: "Forsa Peyzaj, İstanbul’un her bölgesine hizmet vermektedir. Beşiktaş, Kadıköy, Şişli, Bakırköy, Üsküdar gibi merkezi bölgelerden, Ataşehir, Pendik, Ümraniye gibi dış ilçelere kadar geniş bir hizmet ağına sahibiz.",
   },
   {
@@ -44,30 +44,32 @@ export function Faq() {
           <Typography
             variant="lead"
             className="mx-auto mb-24 lg:w-3/5 !text-gray-500">
-            Hoş geldiniz! Forsa Peyzaj olarak, İstanbul&apos;da sunduğumuz profesyonel peyzaj hizmetleriyle ilgili en sık sorulan soruları bu bölümde yanıtlıyoruz. Amacımız, peyzaj projelerinizi en verimli şekilde tasarlamak ve uygulamak. Aşağıda, hizmetlerimiz ve süreçlerimizle ilgili merak edilen tüm detayları bulabilirsiniz.
+            Hoş geldiniz! Forsa Peyzaj olarak, İstanbul’da sunduğumuz profesyonel peyzaj hizmetleriyle ilgili en sık sorulan soruları bu bölümde yanıtlıyoruz. Amacımız, peyzaj projelerinizi en verimli şekilde tasarlamak ve uygulamak. Aşağıda, hizmetlerimiz ve süreçlerimizle ilgili merak edilen tüm detayları bulabilirsiniz.
           </Typography>
         </div>
 
         <div className="mx-auto lg:max-w-screen-lg lg:px-20">
-          {FAQS.map(({ title, desc }, key) => (
-            <Accordion
-              key={key}
-              open={open === key + 1}
-              onClick={() => handleOpen(key + 1)}
-            >
-              <AccordionHeader className="text-left text-gray-900">
-                {title}
-              </AccordionHeader>
-              <AccordionBody>
-                <Typography
-                  color="blue-gray"
-                  className="font-normal text-gray-500"
-                >
-                  {desc}
-                </Typography>
-              </AccordionBody>
-            </Accordion>
-          ))}
+          {
+            FAQS.map(({ title, desc }, key) => (
+              <Accordion
+                key={key}
+                open={open === key + 1}
+                onClick={() => handleOpen(key + 1)}
+              >
+                <AccordionHeader className="text-left text-gray-900">
+                  {title}
+                </AccordionHeader>
+                <AccordionBody>
+                  <Typography
+                    color="blue-gray"
+                    className="font-normal text-gray-500"
+                  >
+                    {desc}
+                  </Typography>
+                </AccordionBody>
+              </Accordion>
+            ))
+          }
         </div>
       </div>
     </section>

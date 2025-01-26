@@ -37,19 +37,21 @@ export function Footer() {
             className="w-40 "
           />
           <ul className="flex flex-wrap justify-center my-4 md:my-0 w-full mx-auto items-center gap-4">
-            {LINKS.map((link, index) => (
-              <li key={index}>
-                <Typography
-                  as="a"
-                  href="#"
-                  variant="small"
-                  color="white"
-                  className="font-normal !text-gray-700 hover:!text-gray-900 transition-colors"
-                >
-                  {link}
-                </Typography>
-              </li>
-            ))}
+            {
+              LINKS.map((link, index) => (
+                <li key={index}>
+                  <Typography
+                    as="a"
+                    href="#"
+                    variant="small"
+                    color="white"
+                    className="font-normal !text-gray-700 hover:!text-gray-900 transition-colors"
+                  >
+                    {link}
+                  </Typography>
+                </li>
+              ))
+            }
           </ul>
           <div className="flex w-fit justify-center gap-2">
             <IconButton size="sm" color="gray" variant="text">
@@ -67,7 +69,7 @@ export function Footer() {
           color="blue-gray"
           className="text-center mt-12 font-normal !text-gray-700"
         >
-          &copy; {CURRENT_YEAR} Tüm hakları Forsa Peyzaj&apos;a aittir.{" "}
+          &copy; {CURRENT_YEAR} Tüm hakları Forsa Peyzaj’a aittir.{" "}
         </Typography>
       </div>
     </footer>

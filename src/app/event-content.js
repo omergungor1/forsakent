@@ -55,9 +55,11 @@ export function EventContent() {
         </div>
       </Tabs>
       <div className="mx-auto container">
-        {EVENT_CONTENT.map((props, idx) => (
-          <EventContentCard key={idx} {...props} />
-        ))}
+        {
+          EVENT_CONTENT.map((props, idx) => (
+            <EventContentCard key={idx} {...props} />
+          ))
+        }
       </div>
     </section>
   );
