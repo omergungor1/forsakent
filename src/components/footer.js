@@ -22,7 +22,7 @@ export function Footer() {
             Tüm soru ve önerileriniz için bizimle iletişime geçebilirsiniz.
           </Typography>
           <div className="flex w-full md:w-fit gap-3 mt-2 flex-col md:flex-row">
-            <Button color="green" size="md" className="flex items-center gap-2 animate-pulse">
+            <Button color="green" size="md" className="flex items-center justify-center gap-2 animate-pulse">
               <i className="fa-solid fa-phone  text-md" />
               Hemen Ara
             </Button>
