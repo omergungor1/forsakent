@@ -5,24 +5,28 @@ import { Typography, Accordion, AccordionHeader, AccordionBody } from "@material
 
 const FAQS = [
   {
-    title: "1. How do I register for the AI Conference 2023?",
-    desc: "You can register for the AI Conference 2023 by visiting our registration page. Follow the simple steps to complete your registration and secure your spot at the conference.",
+    title: "1. Hangi peyzaj hizmetlerini sunuyorsunuz?",
+    desc: "Forsa Peyzaj olarak, bahçe tasarımı, peyzaj düzenlemesi, sulama sistemleri kurulumu, aydınlatma çözümleri, çim ekimi ve bakımı, dış mekan dekorasyonu gibi geniş bir hizmet yelpazesi sunuyoruz. İstanbul'daki tüm alanlara yönelik özelleştirilmiş çözümlerimizle peyzaj projelerinizi hayata geçiriyoruz.",
   },
   {
-    title: "2. What are the registration fees, and what is included?",
-    desc: "It really matters and then like it really doesn't matter. What matters is the people who are sparked by it. And the people who are like offended by it, it doesn't matter. Because it's about motivating the doers. Because I'm here to follow my dreams and inspire other people to follow their dreams, too. We're not always in the position that we want to be at. We're constantly growing. We're constantly making mistakes. We're constantly trying to express ourselves and actualize our dreams. If you have the opportunity to play this game of life you need to appreciate every moment. A lot of people don't appreciate the moment until it's passed.",
+    title: "2. Hizmetleriniz İstanbul'un hangi bölgelerinde geçerli?",
+    desc: "Forsa Peyzaj, İstanbul’un her bölgesine hizmet vermektedir. Beşiktaş, Kadıköy, Şişli, Bakırköy, Üsküdar gibi merkezi bölgelerden, Ataşehir, Pendik, Ümraniye gibi dış ilçelere kadar geniş bir hizmet ağına sahibiz.",
   },
   {
-    title: "3. Can I get a refund if I need to cancel my registration?",
-    desc: "The time is now for it to be okay to be great. People in this world shun people for being great. For being a bright color. For standing out. But the time is now to be okay to be the greatest you. Would you believe in what you believe in, if you were the only one who believed it? If everything I did failed - which it doesn't, it actually succeeds - just the fact that I'm willing to fail is an inspiration. People are so scared to lose that they don't even try. Like, one thing people can't say is that I'm not trying, and I'm not trying my hardest, and I'm not trying to do the best way I know how.",
+    title: "3. Peyzaj projeleri için nasıl bir süreç izliyorsunuz?",
+    desc: "Projelerimiz, ilk görüşme ve alan incelemesi ile başlar. İhtiyaçlarınıza uygun bir tasarım önerisi sunarız ve onayınız sonrası uygulama aşamasına geçeriz. Peyzaj uygulamalarının tamamlanmasının ardından düzenli bakım ve izleme hizmeti de sunmaktayız.",
   },
   {
-    title: "4. Will there be on-site registration available?",
-    desc: "I always felt like I could do anything. That's the main thing people are controlled by! Thoughts- their perception of themselves! They're slowed down by their perception of themselves. If you're taught you can't do anything, you won't do anything. I was taught I could do everything. If everything I did failed - which it doesn't, it actually succeeds - just the fact that I'm willing to fail is an inspiration. People are so scared to lose that they don't even try. Like, one thing people can't say is that I'm not trying, and I'm not trying my hardest, and I'm not trying to do the best way I know how.",
+    title: "4. Peyzaj tasarımı için nasıl bir fiyatlandırma yapıyorsunuz?",
+    desc: "Fiyatlandırmamız, projenin büyüklüğü, ihtiyaçlar ve tercih edilen malzemelere göre değişiklik gösterebilir. Her projeye özel bir teklif sunuyoruz. Ücretsiz keşif hizmeti ile alanınıza en uygun çözümü belirleyip fiyatlandırma yapıyoruz.",
   },
   {
-    title: "5. What is the dress code for the conference?",
-    desc: "There's nothing I really wanted to do in life that I wasn't able to get good at. That's my skill. I'm not really specifically talented at anything except for the ability to learn. That's what I do. That's what I'm here for. Don't be afraid to be wrong because you can't learn anything from a compliment. I always felt like I could do anything. That's the main thing people are controlled by! Thoughts- their perception of themselves! They're slowed down by their perception of themselves. If you're taught you can't do anything, you won't do anything. I was taught I could do everything.",
+    title: "5. Bahçem için bakım hizmeti alabilir miyim?",
+    desc: "Evet, belirli aralıklarla yapılan bahçe bakımı hizmetimiz bulunmaktadır. Çim biçme, bitki bakımı, sulama sistemleri kontrolleri ve temizlik gibi bakım işlemleri düzenli olarak yapılmaktadır.",
+  },
+  {
+    title: "6. Peyzaj projelerinde kullanılan malzemeler konusunda tercihlerim var mı?",
+    desc: "Elbette! Kullanacağımız malzemeler konusunda tamamen sizin tercihleriniz doğrultusunda hareket ediyoruz. Doğal taşlar, suni çimler, su özellikleri gibi farklı seçenekler arasında istediğiniz tarzda bir peyzaj tasarımı oluşturabiliyoruz.",
   },
 ];
 
@@ -35,15 +39,12 @@ export function Faq() {
       <div className="container mx-auto">
         <div className="text-center">
           <Typography variant="h1" color="blue-gray" className="mb-4">
-            Frequently asked questions
+            Sık Sorulan Sorular
           </Typography>
           <Typography
             variant="lead"
-            className="mx-auto mb-24 lg:w-3/5 !text-gray-500"
-          >
-            Welcome to the AI Conference 2023 FAQ section. We&apos;re here to
-            address your most common queries and provide you with the
-            information you need to make the most of your conference experience.
+            className="mx-auto mb-24 lg:w-3/5 !text-gray-500">
+            Hoş geldiniz! Forsa Peyzaj olarak, İstanbul'da sunduğumuz profesyonel peyzaj hizmetleriyle ilgili en sık sorulan soruları bu bölümde yanıtlıyoruz. Amacımız, peyzaj projelerinizi en verimli şekilde tasarlamak ve uygulamak. Aşağıda, hizmetlerimiz ve süreçlerimizle ilgili merak edilen tüm detayları bulabilirsiniz.
           </Typography>
         </div>
 
