@@ -113,7 +113,7 @@ function Hizmetlerimiz() {
                             height="768"
                             decoding="async"
                             className="absolute inset-0 h-full w-full object-cover object-center"
-                            src="/image/img4.jpg"
+                            src="/image/img6.jpg"
                             style={{ color: "transparent" }}
                         />
                         <div className="absolute inset-0 h-full w-full bg-black/70"></div>

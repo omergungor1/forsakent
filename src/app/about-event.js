@@ -42,8 +42,8 @@ export function AboutEvent() {
           <Image
             width={768}
             height={768}
-            src={'/image/img8.jpg'}
-            alt="testimonial image"
+            src={'/image/img5.jpg'}
+            alt="Forsa Peyzaj hakkında"
             className="h-full w-full object-cover"
           />
         </CardHeader>
