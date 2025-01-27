@@ -4,8 +4,11 @@ import { Navbar, Footer } from "../../components";
 function hizmetler() {
     return (
         <div>
-            <Navbar />
-            Hizmetler
+            <Navbar defaultIsScrolling={true} />
+            <div className='mt-24 '>
+
+                Hizmetler
+            </div>
             <Footer />
         </div>
     )

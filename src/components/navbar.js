@@ -40,7 +40,7 @@ const NAV_MENU = [
     href: "/",
   },
   {
-    name: "Hizmetler",
+    name: "Hizmetlerimiz",
     icon: RectangleStackIcon,
     href: "/hizmetler",
   },
@@ -61,9 +61,9 @@ const NAV_MENU = [
   },
 ];
 
-export function Navbar() {
+export function Navbar({ defaultIsScrolling = false }) {
   const [open, setOpen] = React.useState(false);
-  const [isScrolling, setIsScrolling] = React.useState(false);
+  const [isScrolling, setIsScrolling] = React.useState(defaultIsScrolling);
 
   const handleOpen = () => setOpen((cur) => !cur);
 
@@ -75,6 +75,10 @@ export function Navbar() {
   }, []);
 
   React.useEffect(() => {
+    if (defaultIsScrolling) {
+      return;
+    }
+
     function handleScroll() {
       if (window.scrollY > 0) {
         setIsScrolling(true);

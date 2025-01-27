@@ -1,10 +1,37 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Typography, Button, IconButton } from "@material-tailwind/react";
 
 const CURRENT_YEAR = new Date().getFullYear();
-const LINKS = ["Ana Sayfa", "Hizmetlerimiz", "Projeler", "Referanslar", "İletişim"];
+
+const phoneNumber = "+905555555555"; // Telefon numaranız
+const whatsappMessage = "Merhaba, sizinle iletişime geçmek istiyorum."; // WhatsApp mesajı
+
+const LINKS = [
+  {
+    name: "Ana Sayfa",
+    href: "/",
+  },
+  {
+    name: "Hizmetlerimiz",
+    href: "/hizmetler",
+  },
+  {
+    name: "Projeler",
+    href: "/projeler",
+  },
+  {
+    name: "Referanslar",
+    href: "/referanslar",
+  },
+  {
+    name: "İletişim",
+    href: "/iletisim",
+  },
+];
 
 export function Footer() {
+
   return (
     <footer className="pb-5 p-10 md:pt-10">
       <div className="container flex flex-col mx-auto">
@@ -22,9 +49,21 @@ export function Footer() {
             Tüm soru ve önerileriniz için bizimle iletişime geçebilirsiniz.
           </Typography>
           <div className="flex w-full md:w-fit gap-3 mt-2 flex-col md:flex-row">
-            <Button color="green" size="md" className="flex items-center justify-center gap-2 animate-pulse">
+            <Button
+              onClick={() => {
+                window.open(`tel:${phoneNumber}`);
+              }}
+              color="blue" size="md" className="flex items-center justify-center gap-2 animate-pulse">
               <i className="fa-solid fa-phone  text-md" />
               Hemen Ara
+            </Button>
+            <Button
+              onClick={() => {
+                window.open(`https://wa.me/${phoneNumber.replace("+", "")}?text=${encodeURIComponent(whatsappMessage)}`);
+              }}
+              color="green" size="md" className="flex items-center justify-center gap-2 animate-pulse">
+              <i className="fa-brands fa-whatsapp  text-xl" />
+              WhatsApp
             </Button>
           </div>
         </div>
@@ -40,15 +79,14 @@ export function Footer() {
             {
               LINKS.map((link, index) => (
                 <li key={index}>
-                  <Typography
-                    as="a"
-                    href="#"
+                  <Link
+                    href={link.href}
                     variant="small"
                     color="white"
                     className="font-normal !text-gray-700 hover:!text-gray-900 transition-colors"
                   >
-                    {link}
-                  </Typography>
+                    {link.name}
+                  </Link>
                 </li>
               ))
             }
