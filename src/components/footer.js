@@ -5,7 +5,7 @@ import { Typography, Button, IconButton } from "@material-tailwind/react";
 const CURRENT_YEAR = new Date().getFullYear();
 
 const phoneNumber = "+905325484587";
-const whatsappMessage = "Merhaba, size web sitesi üzerinden ulaşıyorum. Sizden bilgi almak istiyorum.";
+const whatsappMessage = "Merhaba, size web siteniz üzerinden ulaşıyorum. Sizden bilgi almak istiyorum.";
 
 const LINKS = [
   {
