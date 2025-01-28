@@ -1,8 +1,8 @@
 import { Navbar, Footer } from "../components";
 
 import Hero from "./hero";
-import SponsoredBy from "./sponsored-by";
-import AboutEvent from "./about-event";
+import Testimonials from "./testimonials";
+import AboutUs from "./about-us";
 import OurStats from "./our-stats";
 import Contact from "../components/contact";
 // import EventContent from "./event-content";
@@ -14,9 +14,9 @@ export default function Portfolio() {
     <>
       <Navbar />
       <Hero />
-      <AboutEvent />
+      <AboutUs />
       <Hizmetlerimiz />
-      <SponsoredBy />
+      <Testimonials />
       <OurStats />
       {/* <EventContent /> */}
       <Faq />

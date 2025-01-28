@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 function Hizmetlerimiz() {
     return (
@@ -33,9 +34,11 @@ function Hizmetlerimiz() {
                         <p className="block antialiased font-sans text-base leading-relaxed text-white mt-4 mb-14 font-normal opacity-50">
                             Peyzaj alanlarında en iyi çözümleri sunmak için profesyonel danışmanlık hizmeti veriyoruz. İhtiyaçlarınızı analiz ederek, alanınıza özel yenilikçi ve sürdürülebilir fikirler sunuyoruz.
                         </p>
-                        <button className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-white text-blue-gray-900 shadow-md shadow-blue-gray-500/10 hover:shadow-lg hover:shadow-blue-gray-500/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none" type="button">
+                        <Link
+                            href='/danismanlik'
+                            className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-white text-blue-gray-900 shadow-md shadow-blue-gray-500/10 hover:shadow-lg hover:shadow-blue-gray-500/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none" type="button">
                             Detaylar
-                        </button>
+                        </Link>
                     </div>
                 </div>
 
@@ -57,6 +60,13 @@ function Hizmetlerimiz() {
                             <div>
                                 <h5 className="block antialiased tracking-normal font-sans text-xl font-semibold leading-snug text-white mb-1">Projelendirme 3D Görselleştirme</h5>
                                 <p className="block antialiased font-sans text-white text-xs font-bold opacity-50">Doğanın estetiğini modern tasarımlarla buluşturarak, peyzaj projelerinizi hayata geçiriyoruz. İşlevsellik, estetik ve çevre dostu yaklaşımları bir arada sunuyoruz.</p>
+                                <div className='w-full flex justify-end'>
+                                    <Link
+                                        href='/projeler'
+                                        className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-white text-blue-gray-900 shadow-md shadow-blue-gray-500/10 hover:shadow-lg hover:shadow-blue-gray-500/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none" type="button">
+                                        Detaylar
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -78,6 +88,13 @@ function Hizmetlerimiz() {
                             <div>
                                 <h5 className="block antialiased tracking-normal font-sans text-xl font-semibold leading-snug text-white mb-1">Uygulama</h5>
                                 <p className="block antialiased font-sans text-white text-xs font-bold opacity-50">Tasarladığımız projeleri, uzman ekibimizle en yüksek kalite standartlarında uyguluyoruz. Bitkilerin dikiminden sert zemin uygulamalarına kadar tüm süreçlerde yanınızdayız.</p>
+                                <div className='w-full flex justify-end'>
+                                    <Link
+                                        href='/uygulama'
+                                        className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-white text-blue-gray-900 shadow-md shadow-blue-gray-500/10 hover:shadow-lg hover:shadow-blue-gray-500/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none" type="button">
+                                        Detaylar
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -101,6 +118,13 @@ function Hizmetlerimiz() {
                             <div>
                                 <h5 className="block antialiased tracking-normal font-sans text-xl font-semibold leading-snug text-white mb-1">Bakım</h5>
                                 <p className="block antialiased font-sans text-white text-xs font-bold opacity-50">Yeşil alanlarınızın uzun ömürlü ve sağlıklı kalması için düzenli bakım hizmeti sağlıyoruz. Bitki bakımından çim kesimine kadar her detayı profesyonellikle yönetiyoruz.</p>
+                                <div className='w-full flex justify-end'>
+                                    <Link
+                                        href='/bakim'
+                                        className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-white text-blue-gray-900 shadow-md shadow-blue-gray-500/10 hover:shadow-lg hover:shadow-blue-gray-500/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none" type="button">
+                                        Detaylar
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -123,6 +147,13 @@ function Hizmetlerimiz() {
                             <div>
                                 <h5 className="block antialiased tracking-normal font-sans text-xl font-semibold leading-snug text-white mb-1">Megstore</h5>
                                 <p className="block antialiased font-sans text-white text-xs font-bold opacity-50">Peyzaj ihtiyaçlarınızı karşılamak için geniş ürün yelpazemizle hizmetinizdeyiz. Magstore’da peyzaj projeleriniz için bitkiler, aksesuarlar ve ekipmanlar bulabilirsiniz.</p>
+                                <div className='w-full flex justify-end'>
+                                    <Link
+                                        href='/megstore'
+                                        className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-white text-blue-gray-900 shadow-md shadow-blue-gray-500/10 hover:shadow-lg hover:shadow-blue-gray-500/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none" type="button">
+                                        Detaylar
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>

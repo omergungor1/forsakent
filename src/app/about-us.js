@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardBody,
 } from "@material-tailwind/react";
-import AboutCard from "../components/about-card";
 import Image from "next/image";
 
 
@@ -25,7 +24,7 @@ const EVENT_INFO = [
   },
 ];
 
-export function AboutEvent() {
+export function AboutUs() {
 
   return (
     <section className="container mx-auto flex flex-col items-center px-4 py-10">
@@ -96,4 +95,4 @@ export function AboutEvent() {
   );
 }
 
-export default AboutEvent;
+export default AboutUs;
