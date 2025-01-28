@@ -153,10 +153,16 @@ export function Navbar({ defaultIsScrolling = false }) {
           <ul className="flex flex-col gap-4 text-gray-900">
             {
               NAV_MENU.map(({ name, icon: Icon, href }) => (
-                <NavItem key={name} href={href}>
-                  <Icon className="h-5 w-5" />
-                  {name}
-                </NavItem>
+                <Link
+                  href={href}
+                  key={name}
+                  className="flex items-center gap-2"
+                >
+                  <NavItem key={name}>
+                    <Icon className="h-5 w-5" />
+                    {name}
+                  </NavItem>
+                </Link>
               ))
             }
           </ul>

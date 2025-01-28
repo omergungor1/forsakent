@@ -4,7 +4,7 @@ import { Typography, Button, IconButton } from "@material-tailwind/react";
 
 const CURRENT_YEAR = new Date().getFullYear();
 
-const phoneNumber = "+905325484587";
+const phoneNumber = "+905051333322";
 const whatsappMessage = "Merhaba, size web siteniz üzerinden ulaşıyorum. Sizden bilgi almak istiyorum.";
 
 const LINKS = [
@@ -51,7 +51,7 @@ export function Footer() {
           <div className="flex w-full md:w-fit gap-3 mt-2 flex-col md:flex-row">
             <Button
               onClick={() => {
-                window.open(`tel:${phoneNumber}`);
+                window.location.href = `tel:${phoneNumber}`;
               }}
               color="blue" size="md" className="flex items-center justify-center gap-2 animate-pulse">
               <i className="fa-solid fa-phone  text-md" />
