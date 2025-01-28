@@ -7,10 +7,10 @@ function iletisim() {
             <Navbar defaultIsScrolling={true} />
             <div className='mt-24 '>
 
-
                 {/* Main Content */}
                 <main className="container mx-auto px-4 py-10">
                     <div className="grid md:grid-cols-2 gap-8">
+
                         {/* Contact Info */}
                         <div className="bg-white shadow-lg rounded-lg p-6">
                             <h2 className="text-2xl font-bold text-gray-800">İletişim Bilgileri</h2>
@@ -47,12 +47,9 @@ function iletisim() {
                         </div>
                     </div>
                 </main>
-
-
-
-            </div >
+            </div>
             <Footer />
-        </div >
+        </div>
     )
 }
 
