@@ -8,28 +8,28 @@ const projects = [
         title: "Proje 1",
         description: "Bu proje, AI destekli bir araçtır.",
         imageUrl: "/image/img1.jpg",
-        detailsUrl: "/projects/1",
+        detailsUrl: "/projeler/1",
     },
     {
         id: 2,
         title: "Proje 2",
         description: "Bu proje, mobil uygulama geliştirme üzerine.",
         imageUrl: "/image/img2.jpg",
-        detailsUrl: "/projects/2",
+        detailsUrl: "/projeler/2",
     },
     {
         id: 3,
         title: "Proje 3",
         description: "Bu proje, web uygulama geliştirme üzerine.",
         imageUrl: "/image/img3.jpg",
-        detailsUrl: "/projects/3",
+        detailsUrl: "/projeler/3",
     },
     {
         id: 4,
         title: "Proje 4",
         description: "Bu proje, veri analizi üzerine.",
         imageUrl: "/image/img4.jpg",
-        detailsUrl: "/projects/4",
+        detailsUrl: "/projeler/4",
     },
 ];
 
