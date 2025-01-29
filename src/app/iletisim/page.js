@@ -28,7 +28,7 @@ function iletisim() {
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <i className="fa-solid fa-location-dot text-blue-500 text-xl"></i>
-                                    <p className="text-gray-700">Adres: Akşemsettin Mah. Petrol Yolu Cad. No:482 A/1 SULTANBEYLİ</p>
+                                    <p className="text-gray-700">Adres: Akşemsettin Mah. Petrol Yolu Cad. No:482 A/1 SULTANBEYLİ/İSTANBUL</p>
                                 </div>
                             </div>
                         </div>

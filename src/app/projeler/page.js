@@ -1,104 +1,96 @@
+import React from 'react'
 import { Navbar, Footer } from "../../components";
-// import { Card, CardBody, CardFooter, Button } from "@material-tailwind/react";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
-const projects = [
-    {
-        id: 1,
-        title: "Proje 1",
-        description: "Bu proje, AI destekli bir araçtır.",
-        imageUrl: "/image/img1.jpg",
-        detailsUrl: "/projeler/1",
-    },
-    {
-        id: 2,
-        title: "Proje 2",
-        description: "Bu proje, mobil uygulama geliştirme üzerine.",
-        imageUrl: "/image/img2.jpg",
-        detailsUrl: "/projeler/2",
-    },
-    {
-        id: 3,
-        title: "Proje 3",
-        description: "Bu proje, web uygulama geliştirme üzerine.",
-        imageUrl: "/image/img3.jpg",
-        detailsUrl: "/projeler/3",
-    },
-    {
-        id: 4,
-        title: "Proje 4",
-        description: "Bu proje, veri analizi üzerine.",
-        imageUrl: "/image/img4.jpg",
-        detailsUrl: "/projeler/4",
-    },
-];
+function hizmetler() {
 
-function projeler() {
-    const Card = ({ children, className }) => {
-        return (
-            <div className={`rounded-lg overflow-hidden shadow-lg bg-white ${className}`}>
-                {children}
-            </div>
-        );
-    };
-
-    const CardBody = ({ children }) => {
-        return (
-            <div className="p-6 space-y-4">
-                {children}
-            </div>
-        );
-    };
-
-    const CardFooter = ({ children }) => {
-        return (
-            <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
-                {children}
-            </div>
-        );
-    };
-
-    const Button = ({ onClick, children, color = "blue" }) => {
-        const colorClasses = {
-            blue: "bg-blue-600 hover:bg-blue-700 text-white",
-            lightBlue: "bg-lightBlue-500 hover:bg-lightBlue-600 text-white",
-            gray: "bg-gray-500 hover:bg-gray-600 text-white",
-        };
-
-        return (
-            <button
-                onClick={onClick}
-                className={`w-full px-5 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 ${colorClasses[color]}`}
-            >
-                {children}
-            </button>
-        );
-    };
+    const projects = [
+        {
+            id: 1,
+            title: "Proje 1",
+            description: "Bu proje, AI destekli bir araçtır.",
+            images: ["/image/img1.jpg", "/images/project1-2.jpg"],
+            url: "/projeler/detay"
+        },
+        {
+            id: 2,
+            title: "Proje 2",
+            description: "Bu proje, mobil uygulama geliştirme üzerine.",
+            images: ["/image/img2.jpg", "/images/project2-2.jpg"],
+            url: "/projeler/detay"
+        },
+        {
+            id: 3,
+            title: "Proje 3",
+            description: "Bu proje, bir web sitesi üzerine.",
+            images: ["/image/img3.jpg", "/images/project3-2.jpg"],
+            url: "/projeler/detay"
+        },
+        {
+            id: 4,
+            title: "Proje 4",
+            description: "Bu proje, bir e-ticaret sitesi üzerine.",
+            images: ["/image/img4.jpg", "/images/project4-2.jpg"],
+            url: "/projeler/detay"
+        },
+        {
+            id: 5,
+            title: "Proje 5",
+            description: "Bu proje, bir blog sitesi üzerine.",
+            images: ["/image/img5.jpg", "/images/project5-2.jpg"],
+            url: "/projeler/detay"
+        },
+    ];
 
     return (
         <div>
             <Navbar defaultIsScrolling={true} />
             <div className='mt-24 '>
-                {/**Main Content */}
-                {
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-                        {projects.map((project) => (
-                            <Card key={project.id} className="shadow-lg">
-                                <img src={project.imageUrl} alt={project.title} className="h-48 w-full object-cover" />
-                                <CardBody>
-                                    <h5 className="text-xl font-bold">{project.title}</h5>
-                                    <p>{project.description}</p>
-                                </CardBody>
-                                <CardFooter>
-                                    <Link href={project.detailsUrl}>
-                                        <Button color="lightBlue">Detaylar</Button>
-                                    </Link>
-                                </CardFooter>
-                            </Card>
-                        ))}
-                    </div>
-                }
 
+                {/* Main Content */}
+                <section className="container mx-auto px-8 py-20 lg:py-28">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl lg:text-5xl font-bold text-blue-gray-900 mb-4">
+                            Projeler
+                        </h2>
+                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                            Estetik, fonksiyonellik ve çevre dostu yaklaşımları bir araya getirerek, peyzaj alanında uçtan uca çözümler sunuyoruz. Tasarımdan uygulamaya, düzenli bakım hizmetlerinden danışmanlığa kadar her aşamada yanınızdayız.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                        {
+                            projects.map((project, index) => (
+                                <div className="bg-white rounded-xl shadow-lg overflow-hidden relative" key={index}>
+                                    <Image
+                                        src={project.images[0]}
+                                        alt="Danışmanlık"
+                                        width={768}
+                                        height={512}
+                                        className="w-full h-64 object-cover"
+                                    />
+                                    <div className="p-6">
+                                        <h3 className="text-2xl font-bold text-gray-800 mb-3">
+                                            {project.title}
+                                        </h3>
+                                        <p className="text-gray-600 mb-4">
+                                            {project.description}
+                                        </p>
+                                        <Link
+                                            href={project.url}
+                                            className="text-blue-600 font-semibold hover:underline"
+                                        >
+                                            Detaylar
+                                        </Link>
+                                    </div>
+                                </div>
+                            ))
+                        }
+
+                    </div>
+                </section>
 
             </div>
             <Footer />
@@ -106,4 +98,4 @@ function projeler() {
     )
 }
 
-export default projeler
+export default hizmetler
