@@ -2,6 +2,9 @@ import "./globals.css";
 import { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { Layout } from "../components";
+import Contact from "../components/contact";
+import { LanguageProvider } from "../context/LanguageContext";
+
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -22,9 +25,11 @@ export default function RootLayout({ children }) {
         <link rel="shortcut icon" href="/logos/favicon.png" type="image/png" />
       </head>
       <body className={roboto.className}>
-        <Layout>
-          {children}
-        </Layout>
+        <LanguageProvider>
+          <Layout>
+            {children}
+          </Layout>
+        </LanguageProvider>
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
@@ -32,6 +37,7 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
+        <Contact />
       </body>
     </html>
   );

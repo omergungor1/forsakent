@@ -127,9 +127,9 @@ function hizmetler() {
                                 className="w-full h-64 object-cover"
                             />
                             <div className="p-6">
-                                <h3 className="text-2xl font-bold text-gray-800 mb-3">Megstore</h3>
+                                <h3 className="text-2xl font-bold text-gray-800 mb-3">İç Mekan Bitkilendirme</h3>
                                 <p className="text-gray-600 mb-4">
-                                    Bahçe ve peyzaj alanlarınız için özel tasarım ürünler ve malzemeleri Megstore mağazamızda bulabilirsiniz. Modern peyzaj aksesuarlarından sürdürülebilir çözümlere kadar her şey bir arada.
+                                    Bahçe ve peyzaj alanlarınız için özel tasarım ürünler ve malzemeleri mağazamızda bulabilirsiniz. Modern peyzaj aksesuarlarından sürdürülebilir çözümlere kadar her şey bir arada.
                                 </p>
                                 <Link
                                     href="/megstore"

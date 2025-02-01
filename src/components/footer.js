@@ -93,7 +93,7 @@ export function Footer() {
           </ul>
           <div className="flex w-fit justify-center gap-2">
             <IconButton size="sm" color="gray" variant="text">
-              <i className="fa-brands fa-twitter text-lg" />
+              <i className="fa-brands fa-youtube text-lg" />
             </IconButton>
             <IconButton size="sm" color="gray" variant="text">
               <i className="fa-brands fa-facebook text-lg" />

@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from 'next/link';
+import LanguageToggle from "./toggle-languge";
 import {
   Navbar as MTNavbar,
   Collapse,
@@ -147,6 +148,7 @@ export function Navbar({ defaultIsScrolling = false }) {
             <Bars3Icon strokeWidth={2} className="h-6 w-6" />
           )}
         </IconButton>
+        <LanguageToggle />
       </div>
       <Collapse open={open}>
         <div className="container mx-auto mt-4 rounded-lg bg-white px-6 py-5">
