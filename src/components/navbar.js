@@ -74,17 +74,29 @@ export function Navbar() {
     },
   ];
 
-  useEffect(() => {
-    if (pathname === '/') {
-      if (window.scrollY > 0) {
-        setIsScrolling(true);
-      } else {
-        setIsScrolling(false);
-      }
-    } else {
-      setIsScrolling(true)
-    }
-  }, [pathname]);
+
+
+  // useEffect(() => {
+  //   if (pathname === '/') {
+  //     window.addEventListener("scroll", handleScroll);
+  //   } else {
+  //     window.removeEventListener("scroll", handleScroll)
+  //     // setIsScrolling(true)
+  //   }
+  // }, [pathname]);
+
+
+  // useEffect(() => {
+  //   if (pathname === '/') {
+  //     if (window.scrollY > 0) {
+  //       setIsScrolling(true);
+  //     } else {
+  //       setIsScrolling(false);
+  //     }
+  //   } else {
+  //     setIsScrolling(true)
+  //   }
+  // }, [pathname]);
 
   const handleOpen = () => setOpen((cur) => !cur);
 
@@ -96,22 +108,25 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
+    if (window.scrollY > 0 || pathname != '/') {
+      setIsScrolling(true);
+    } else {
+      setIsScrolling(false);
+    }
+
     function handleScroll() {
-      if (pathname === '/') {
-        if (window.scrollY > 0) {
-          setIsScrolling(true);
-        } else {
-          setIsScrolling(false);
-        }
-      } else {
+      if (window.scrollY > 0 || pathname != '/') {
         setIsScrolling(true);
+      } else {
+        setIsScrolling(false);
       }
+      console.log(isScrolling, pathname)
     }
 
     window.addEventListener("scroll", handleScroll);
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [pathname]);
 
   return (
     <MTNavbar
@@ -122,17 +137,16 @@ export function Navbar() {
       className="fixed top-0 z-50 border-0"
     >
       <div className="container mx-auto flex items-center justify-between">
-        <Image
-          width={256}
-          height={125}
-          src={'/logos/logo.png'}
-          alt={"Forsa Kent Logo"}
-          className="w-40 "
-        />
-        <ul
-          className={`ml-10 hidden items-center gap-6 lg:flex ${isScrolling ? "text-gray-900" : "text-white"
-            }`}
-        >
+        <Link href="/">
+          <Image
+            width={256}
+            height={125}
+            src={'/logos/logo.png'}
+            alt={"Forsa Kent Logo"}
+            className="w-40 "
+          />
+        </Link>
+        <ul className={`ml-10 hidden items-center gap-6 lg:flex ${isScrolling ? "text-gray-900" : "text-white"}`}>
           {
             NAV_MENU.map(({ name, icon: Icon, href }) => (
               <Link
@@ -160,8 +174,7 @@ export function Navbar() {
           variant="text"
           color={isScrolling ? "gray" : "white"}
           onClick={handleOpen}
-          className="ml-auto inline-block lg:hidden"
-        >
+          className="ml-auto inline-block lg:hidden">
           {open ? (
             <XMarkIcon strokeWidth={2} className="h-6 w-6" />
           ) : (
