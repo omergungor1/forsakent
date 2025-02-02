@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useLanguage } from "../../../src/context/LanguageContext";
 
-function hizmetler() {
+function Projeler() {
     const { texts, t, language } = useLanguage();
 
     const projects = [
@@ -84,7 +84,7 @@ function hizmetler() {
                                             href={project.url}
                                             className="text-blue-600 font-semibold hover:underline"
                                         >
-                                            Detaylar
+                                            {language === "tr" ? "Detaylar" : "Details"}
                                         </Link>
                                     </div>
                                 </div>
@@ -98,4 +98,4 @@ function hizmetler() {
     )
 }
 
-export default hizmetler
+export default Projeler

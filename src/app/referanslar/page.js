@@ -1,10 +1,10 @@
 "use client"
 
-import React from 'react'
+import Image from 'next/image';
 import { useLanguage } from "../../../src/context/LanguageContext";
 
 
-function referanslar() {
+function Referanslar() {
     const { texts, t } = useLanguage();
 
     const references = [
@@ -76,8 +76,10 @@ function referanslar() {
                                     key={reference.id}
                                     className="bg-white shadow-md rounded-xl p-6 flex flex-col items-center text-center transition hover:shadow-lg"
                                 >
-                                    <img
+                                    <Image
                                         src={reference.logo}
+                                        width={80}
+                                        height={80}
                                         alt={`${reference.name} logo`}
                                         className="w-20 h-20 object-contain mb-4"
                                     />
@@ -95,4 +97,4 @@ function referanslar() {
     )
 }
 
-export default referanslar
+export default Referanslar

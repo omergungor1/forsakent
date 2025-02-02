@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
 
@@ -54,9 +55,11 @@ export default function ProjectDetails() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-6">
                             {project.images.map((image, index) => (
                                 <PhotoView key={index} src={image}>
-                                    <img
+                                    <Image
                                         src={image}
                                         alt={`Project Image ${index + 1}`}
+                                        width={300}
+                                        height={200}
                                         className="w-full h-48 object-cover rounded-lg cursor-pointer hover:scale-105 transition-transform"
                                     />
                                 </PhotoView>
