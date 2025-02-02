@@ -29,34 +29,60 @@ function page() {
 
                     {/* İçerik Bölümü */}
                     <div className="container mx-auto px-6 md:px-12 lg:px-20 mt-12">
+
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-                            {/* Metin Alanı */}
+                            {/* Projelendirme & 3D Görselleştirme Açıklaması */}
                             <div>
-                                <h2 className="text-2xl md:text-3xl font-bold text-gray-800">Doğanın Estetiğini Modern Tasarımlarla Buluşturuyoruz</h2>
+                                <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
+                                    Peyzaj Projelendirme ve 3D Görselleştirme ile Hayalinizdeki Mekanı Yaratın
+                                </h2>
+
                                 <p className="text-gray-600 mt-4 leading-relaxed">
-                                    Peyzaj projelerinizi en ince ayrıntısına kadar planlayarak, size özel tasarımlar sunuyoruz.
-                                    İşlevsellik, estetik ve çevre dostu yaklaşımları bir araya getirerek, yaşam alanlarınıza değer katıyoruz.
+                                    Profesyonel peyzaj projelendirme ve 3D görselleştirme hizmetlerimiz ile açık ve kapalı mekanlarınıza estetik ve fonksiyonellik kazandırıyoruz.
+                                    Alanınızı en iyi şekilde değerlendirmek için yenilikçi tasarımlar ve sürdürülebilir çözümler sunuyoruz.
                                 </p>
+
                                 <p className="text-gray-600 mt-4 leading-relaxed">
-                                    3D görselleştirme teknolojileri sayesinde, projelerinizi hayata geçirmeden önce dijital ortamda deneyimleyebilir,
-                                    ihtiyaçlarınıza göre revizyon yapabilirsiniz.
+                                    3D görselleştirme sayesinde, projelerinizi hayata geçirmeden önce dijital ortamda detaylı bir önizleme sunuyoruz.
+                                    Böylece, her detayı önceden planlayabilir, değişiklikleri projelendirme aşamasında yaparak zaman ve maliyetten tasarruf edebilirsiniz.
                                 </p>
+
                                 <p className="text-gray-600 mt-4 leading-relaxed">
-                                    Uzman ekibimizle birlikte, yeşil alanlarınızı daha fonksiyonel ve estetik hale getirmek için çalışıyoruz.
+                                    Modern peyzaj tasarımı, bitki seçimi, yürüyüş yolları, su öğeleri, oturma alanları ve ışıklandırma gibi tüm detayları planlayarak,
+                                    doğal ve konforlu mekanlar oluşturuyoruz.
                                 </p>
                             </div>
 
-                            {/* Görsel Alanı */}
-                            <div className='hidden md:block'>
-                                <Image
-                                    src="/image/img1.jpg"
-                                    alt="3D Peyzaj Tasarımı"
-                                    className="rounded-lg shadow-lg"
-                                    width={640}
-                                    height={480}
-                                />
+                            {/* Hizmet Detayları ve Faydaları */}
+                            <div>
+                                <ul className="mt-6 space-y-3 text-gray-700">
+                                    <li className="flex items-start">
+                                        🎨 <span className="ml-2">Gerçekçi 3D modelleme ile projenizi önceden deneyimleyin</span>
+                                    </li>
+                                    <li className="flex items-start">
+                                        🏡 <span className="ml-2">Açık ve kapalı mekanlara özel peyzaj çözümleri</span>
+                                    </li>
+                                    <li className="flex items-start">
+                                        🌿 <span className="ml-2">İklime ve mekan özelliklerine uygun bitki ve malzeme seçimi</span>
+                                    </li>
+                                    <li className="flex items-start">
+                                        💡 <span className="ml-2">Aydınlatma, su öğeleri ve dekoratif tasarımlarla estetik dokunuşlar</span>
+                                    </li>
+                                    <li className="flex items-start">
+                                        ⏳ <span className="ml-2">Zaman ve maliyet açısından en verimli çözümler</span>
+                                    </li>
+                                    <li className="flex items-start">
+                                        🛠️ <span className="ml-2">Uygulama aşamasında profesyonel destek ve proje takibi</span>
+                                    </li>
+                                </ul>
+
+                                <p className="text-gray-600 mt-6 leading-relaxed">
+                                    Hayal ettiğiniz peyzaj tasarımını gerçeğe dönüştürmek için <strong>projelendirme ve 3D görselleştirme</strong> hizmetlerimizden yararlanın.
+                                    Doğru planlama ile <strong>estetik, işlevsellik ve doğallığı</strong> bir araya getiriyoruz.
+                                </p>
                             </div>
                         </div>
+
                     </div>
 
                     {/**Image gallery */}
