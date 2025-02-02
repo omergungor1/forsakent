@@ -48,55 +48,36 @@ export function Navbar() {
 
   const NAV_MENU = [
     {
-      name: language == 'tr' ? "Ana Sayfa" : "Home",
+      name_tr: "Ana Sayfa",
+      name_en: "Home",
       icon: HomeIcon,
       href: "/",
     },
     {
-      name: language == 'tr' ? "Hizmetlerimiz" : "Services",
+      name_tr: "Hizmetlerimiz",
+      name_en: "Services",
       icon: RectangleStackIcon,
       href: "/hizmetler",
     },
     {
-      name: language == 'tr' ? "Projeler" : "Projects",
+      name_tr: "Projeler",
+      name_en: "Projects",
       icon: Squares2X2Icon,
       href: "/projeler",
     },
     {
-      name: language == 'tr' ? "Referanslar" : "References",
+      name_tr: "Referanslar",
+      name_en: "References",
       icon: UserCircleIcon,
       href: "/referanslar",
     },
     {
-      name: language == 'tr' ? "İletişim" : "Contact",
+      name_tr: "İletişim",
+      name_en: "Contact",
       icon: PhoneIcon,
       href: "/iletisim",
     },
   ];
-
-
-
-  // useEffect(() => {
-  //   if (pathname === '/') {
-  //     window.addEventListener("scroll", handleScroll);
-  //   } else {
-  //     window.removeEventListener("scroll", handleScroll)
-  //     // setIsScrolling(true)
-  //   }
-  // }, [pathname]);
-
-
-  // useEffect(() => {
-  //   if (pathname === '/') {
-  //     if (window.scrollY > 0) {
-  //       setIsScrolling(true);
-  //     } else {
-  //       setIsScrolling(false);
-  //     }
-  //   } else {
-  //     setIsScrolling(true)
-  //   }
-  // }, [pathname]);
 
   const handleOpen = () => setOpen((cur) => !cur);
 
@@ -148,15 +129,15 @@ export function Navbar() {
         </Link>
         <ul className={`ml-10 hidden items-center gap-6 lg:flex ${isScrolling ? "text-gray-900" : "text-white"}`}>
           {
-            NAV_MENU.map(({ name, icon: Icon, href }) => (
+            NAV_MENU.map(({ name_tr, name_en, icon: Icon, href }) => (
               <Link
                 href={href}
-                key={name}
+                key={name_en}
                 className="flex items-center gap-2"
               >
-                <NavItem key={name}>
+                <NavItem key={name_en}>
                   <Icon className="h-5 w-5" />
-                  <span>{name}</span>
+                  <span>{language == 'tr' ? name_tr : name_en}</span>
                 </NavItem>
               </Link>
             ))
@@ -187,15 +168,15 @@ export function Navbar() {
         <div className="container mx-auto mt-4 rounded-lg bg-white px-6 py-5">
           <ul className="flex flex-col gap-4 text-gray-900">
             {
-              NAV_MENU.map(({ name, icon: Icon, href }) => (
+              NAV_MENU.map(({ name_tr, name_en, icon: Icon, href }) => (
                 <Link
                   href={href}
-                  key={name}
+                  key={name_en}
                   className="flex items-center gap-2"
                 >
-                  <NavItem key={name}>
+                  <NavItem key={name_en}>
                     <Icon className="h-5 w-5" />
-                    {name}
+                    {language == 'tr' ? name_tr : name_en}
                   </NavItem>
                 </Link>
               ))

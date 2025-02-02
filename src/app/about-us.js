@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import {
   Typography,
   Card,
@@ -7,24 +8,26 @@ import {
   CardBody,
 } from "@material-tailwind/react";
 import Image from "next/image";
+import { useLanguage } from "../../src/context/LanguageContext";
 
 
-const EVENT_INFO = [
-  {
-    title: "Cutting-Edge Insights!",
-    description:
-      "Gain deep insights into the latest AI trends, developments, and applications that are reshaping industries worldwide. ",
-    subTitle: "Presentation",
-  },
-  {
-    title: "Practical Knowledge!",
-    description:
-      "Attend workshops and hands-on sessions to acquire practical skills that you can apply immediately.",
-    subTitle: "Workshops",
-  },
-];
+// const EVENT_INFO = [
+//   {
+//     title: "Cutting-Edge Insights!",
+//     description:
+//       "Gain deep insights into the latest AI trends, developments, and applications that are reshaping industries worldwide. ",
+//     subTitle: "Presentation",
+//   },
+//   {
+//     title: "Practical Knowledge!",
+//     description:
+//       "Attend workshops and hands-on sessions to acquire practical skills that you can apply immediately.",
+//     subTitle: "Workshops",
+//   },
+// ];
 
 export function AboutUs() {
+  const { texts, t } = useLanguage();
 
   return (
     <section className="container mx-auto flex flex-col items-center px-4 py-10">
@@ -48,13 +51,15 @@ export function AboutUs() {
         </CardHeader>
         <CardBody className="col-span-full lg:col-span-3">
           <Typography variant="h2" color="blue-gray" className="mb-4 font-medium">
-            Hakkımızda
+            {t(texts.home_page.about_us.title)}
           </Typography>
           <Typography className="mb-12 md:w-8/12 font-medium !text-gray-500">
-            2018 yılında kurulan firmamız, peyzaj sektöründe yenilikçi ve sürdürülebilir çözümler sunarak müşterilerimizin yaşam alanlarını güzelleştirmeyi hedeflemektedir. Kurulduğumuz günden bu yana, kaliteli hizmet anlayışımız ve müşteri memnuniyetine verdiğimiz önemle sektördeki yerimizi sağlamlaştırdık.<br />
-            Alanında uzman ekibimizle, peyzaj tasarımından uygulamaya kadar her aşamada profesyonel hizmet sunuyoruz. Estetiği ve fonksiyonelliği bir araya getirerek, müşterilerimizin hayallerindeki mekanları gerçeğe dönüştürmek için çalışıyoruz.<br />
-            Doğaya olan tutkumuz ve çevreye duyarlılığımızla, projelerimizde en iyi malzemeleri kullanarak, sürdürülebilir ve estetik çözümler üretmeye devam ediyoruz. Her bir projemiz, müşteri ihtiyaçlarına göre özel olarak tasarlanmakta ve titizlikle uygulanmaktadır.<br />
-            Bizimle çalışarak, yaşam alanlarınızı doğanın huzurunu ve güzelliğini yansıtan eşsiz mekanlara dönüştürebilirsiniz.
+            {t(texts.home_page.about_us.content1).split("\n").map((line, index) => (
+              <React.Fragment key={index}>
+                {line}
+                <br />
+              </React.Fragment>
+            ))}
           </Typography>
         </CardBody>
       </Card>
