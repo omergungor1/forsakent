@@ -8,7 +8,6 @@ export default function LanguageToggle() {
   const { language, toggleLanguage } = useLanguage();
 
   return (
-    // <div className="absolute top-4 right-4 flex items-center space-x-2">
     <div>
       <button
         onClick={toggleLanguage}

@@ -2,17 +2,31 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-function Hizmetlerimiz() {
+function Hizmetlerimiz({ isSection = false }) {
     return (
         <section className="container mx-auto px-8 pb-20 pt-20 lg:pt-0">
-            <div className="mb-20 grid place-items-center text-center">
-                <h2 className="block antialiased tracking-normal font-sans text-4xl font-semibold leading-[1.3] text-blue-gray-900 my-3">
-                    Hizmetlerimiz
-                </h2>
-                <p className="block antialiased font-sans text-xl font-normal leading-relaxed text-inherit !text-gray-500 lg:w-6/12">
-                    Peyzaj tasarımından uygulamaya kadar her aşamada profesyonel hizmet sunuyoruz. Estetiği ve fonksiyonelliği bir araya getirerek, müşterilerimizin hayallerindeki mekanları gerçeğe dönüştürmek için çalışıyoruz.
-                </p>
-            </div>
+            {
+                isSection ? (
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl lg:text-5xl font-bold text-blue-gray-900 mb-4">
+                            Hizmetlerimiz
+                        </h2>
+                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                            Estetik, fonksiyonellik ve çevre dostu yaklaşımları bir araya getirerek, peyzaj alanında uçtan uca çözümler sunuyoruz. Tasarımdan uygulamaya, düzenli bakım hizmetlerinden danışmanlığa kadar her aşamada yanınızdayız.
+                        </p>
+                    </div>
+                ) : (
+                    <div className="mb-20 grid place-items-center text-center">
+                        <h2 className="block antialiased tracking-normal font-sans text-4xl font-semibold leading-[1.3] text-blue-gray-900 my-3">
+                            Hizmetlerimiz
+                        </h2>
+                        <p className="block antialiased font-sans text-xl font-normal leading-relaxed text-inherit !text-gray-500 lg:w-6/12">
+                            Estetik, fonksiyonellik ve çevre dostu yaklaşımları bir araya getirerek, peyzaj alanında uçtan uca çözümler sunuyoruz. Tasarımdan uygulamaya, düzenli bakım hizmetlerinden danışmanlığa kadar her aşamada yanınızdayız.
+                        </p>
+                    </div>
+                )
+            }
+
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                 <div className="flex-col bg-clip-border rounded-xl bg-gray-900 text-white shadow-gray-900/20 shadow-md relative grid h-full w-full place-items-center overflow-hidden text-center">
                     <Image
@@ -143,10 +157,10 @@ function Hizmetlerimiz() {
                         <div className="absolute inset-0 h-full w-full bg-black/70"></div>
                         <div className="p-6 relative flex flex-col justify-between">
 
-                            <i className="fa-solid fa-shop text-white h-8 w-8 text-2xl" />
+                            <i className="fa-brands fa-pagelines text-white h-8 w-8 text-2xl" />
                             <div>
-                                <h5 className="block antialiased tracking-normal font-sans text-xl font-semibold leading-snug text-white mb-1">Megstore</h5>
-                                <p className="block antialiased font-sans text-white text-xs font-bold opacity-50">Peyzaj ihtiyaçlarınızı karşılamak için geniş ürün yelpazemizle hizmetinizdeyiz. Magstore’da peyzaj projeleriniz için bitkiler, aksesuarlar ve ekipmanlar bulabilirsiniz.</p>
+                                <h5 className="block antialiased tracking-normal font-sans text-xl font-semibold leading-snug text-white mb-1">İç Mekan Bitkilendirme</h5>
+                                <p className="block antialiased font-sans text-white text-xs font-bold opacity-50">Yaşam ve çalışma alanlarınızı yeşillendirmek için dekoratif bitkiler, saksılar, bakım ürünleri ve aksesuarlara kadar geniş ürün yelpazemizle hizmetinizdeyiz.</p>
                                 <div className='w-full flex justify-end'>
                                     <Link
                                         href='/megstore'

@@ -7,40 +7,40 @@ function hizmetler() {
 
     const projects = [
         {
-            id: 1,
-            title: "Proje 1",
-            description: "Bu proje, AI destekli bir araçtır.",
-            images: ["/image/img1.jpg", "/images/project1-2.jpg"],
-            url: "/projeler/detay"
+            "id": 1,
+            "title": "A Etabı Bahçe Düzenleme Projesi",
+            "description": "İstanbul’un en prestijli sitelerinden birinde gerçekleştirilen bu proje, modern ve doğal peyzaj unsurlarını bir araya getirerek huzurlu bir yaşam alanı oluşturdu.",
+            "images": ["/image/img1.jpg", "/images/project1-2.jpg"],
+            "url": "/projeler/detay"
         },
         {
-            id: 2,
-            title: "Proje 2",
-            description: "Bu proje, mobil uygulama geliştirme üzerine.",
-            images: ["/image/img2.jpg", "/images/project2-2.jpg"],
-            url: "/projeler/detay"
+            "id": 2,
+            "title": "Lüks Konutlar İçin Peyzaj Tasarımı",
+            "description": "Şehrin kalbinde yer alan lüks konutlar için tasarlanan bu peyzaj projesinde, yeşil alanlar ve su öğeleri bir arada kullanılarak doğal bir atmosfer yaratıldı.",
+            "images": ["/image/img2.jpg", "/images/project2-2.jpg"],
+            "url": "/projeler/detay"
         },
         {
-            id: 3,
-            title: "Proje 3",
-            description: "Bu proje, bir web sitesi üzerine.",
-            images: ["/image/img3.jpg", "/images/project3-2.jpg"],
-            url: "/projeler/detay"
+            "id": 3,
+            "title": "Villa Bahçesi Peyzaj Düzenlemesi",
+            "description": "Boğaz manzaralı özel bir villa için gerçekleştirilen bu projede, doğal taş yürüyüş yolları, süs havuzları ve egzotik bitkilerle estetik bir bahçe oluşturuldu.",
+            "images": ["/image/img3.jpg", "/images/project3-2.jpg"],
+            "url": "/projeler/detay"
         },
         {
-            id: 4,
-            title: "Proje 4",
-            description: "Bu proje, bir e-ticaret sitesi üzerine.",
-            images: ["/image/img4.jpg", "/images/project4-2.jpg"],
-            url: "/projeler/detay"
+            "id": 4,
+            "title": "Şehir Parkı Yenileme Çalışması",
+            "description": "İstanbul’un en büyük parklarından birinde yapılan yenileme çalışmaları kapsamında, sürdürülebilir peyzaj tasarımıyla doğayla uyumlu sosyal alanlar oluşturuldu.",
+            "images": ["/image/img4.jpg", "/images/project4-2.jpg"],
+            "url": "/projeler/detay"
         },
         {
-            id: 5,
-            title: "Proje 5",
-            description: "Bu proje, bir blog sitesi üzerine.",
-            images: ["/image/img5.jpg", "/images/project5-2.jpg"],
-            url: "/projeler/detay"
-        },
+            "id": 5,
+            "title": "Ofis Binası Çevre Düzenleme Projesi",
+            "description": "Modern ofis binalarının çevresini yeşil dokuyla bütünleştiren bu projede, çalışanlar için dinlenme alanları ve doğal peyzaj elemanları kullanıldı.",
+            "images": ["/image/img5.jpg", "/images/project5-2.jpg"],
+            "url": "/projeler/detay"
+        }
     ];
 
     return (
