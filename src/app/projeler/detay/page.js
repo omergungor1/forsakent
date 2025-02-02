@@ -1,9 +1,6 @@
 'use client';
 
-import { useState } from 'react';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
-
-import { Navbar, Footer } from "../../../components";
 import 'react-photo-view/dist/react-photo-view.css';
 
 const project = {
@@ -40,12 +37,8 @@ export default function ProjectDetails() {
     // if (!project) return <div>Yükleniyor...</div>;
 
     return (
-
-
         <div>
-            <Navbar />
             <div className='mt-24 '>
-
                 {/* Main Content */}
                 <section className="container mx-auto px-8 py-20 lg:py-28">
                     <div className="text-center mb-16">
@@ -70,10 +63,8 @@ export default function ProjectDetails() {
                             ))}
                         </div>
                     </PhotoProvider>
-
                 </section>
             </div>
-            <Footer />
         </div>
     );
 }

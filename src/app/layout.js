@@ -4,7 +4,7 @@ import { Roboto } from "next/font/google";
 import { Layout } from "../components";
 import Contact from "../components/contact";
 import { LanguageProvider } from "../context/LanguageContext";
-
+import { Navbar, Footer } from "../components";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -27,7 +27,9 @@ export default function RootLayout({ children }) {
       <body className={roboto.className}>
         <LanguageProvider>
           <Layout>
+            <Navbar />
             {children}
+            <Footer />
           </Layout>
         </LanguageProvider>
         <link

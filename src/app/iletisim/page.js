@@ -1,10 +1,8 @@
 import React from 'react'
-import { Navbar, Footer } from "../../components";
 
 function iletisim() {
     return (
         <div>
-            <Navbar />
             <div className='mt-24 '>
 
                 {/* Main Content */}
@@ -48,7 +46,6 @@ function iletisim() {
                     </div>
                 </main>
             </div>
-            <Footer />
         </div>
     )
 }

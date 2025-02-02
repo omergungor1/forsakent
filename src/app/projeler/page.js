@@ -1,5 +1,4 @@
 import React from 'react'
-import { Navbar, Footer } from "../../components";
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -45,7 +44,6 @@ function hizmetler() {
 
     return (
         <div>
-            <Navbar />
             <div className='mt-24 '>
 
                 {/* Main Content */}
@@ -91,9 +89,7 @@ function hizmetler() {
 
                     </div>
                 </section>
-
             </div>
-            <Footer />
         </div>
     )
 }

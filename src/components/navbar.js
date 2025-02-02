@@ -1,10 +1,11 @@
 "use client"
 
-import React from "react";
 import Image from "next/image";
 import Link from 'next/link';
+import { usePathname } from "next/navigation";
 import LanguageToggle from "./toggle-languge";
 import { useState, useEffect } from "react";
+import { useLanguage } from "../../src/context/LanguageContext";
 import {
   Navbar as MTNavbar,
   Collapse,
@@ -25,7 +26,7 @@ import {
 
 function NavItem({ children, href }) {
   return (
-    <li>
+    <li className="cursor-pointer">
       <Typography
         href={href || "#"}
         target={href ? "_blank" : "_self"}
@@ -37,72 +38,73 @@ function NavItem({ children, href }) {
   );
 }
 
-const NAV_MENU = [
-  {
-    name: "Ana Sayfa",
-    icon: HomeIcon,
-    href: "/",
-  },
-  {
-    name: "Hizmetlerimiz",
-    icon: RectangleStackIcon,
-    href: "/hizmetler",
-  },
-  {
-    name: "Projeler",
-    icon: Squares2X2Icon,
-    href: "/projeler",
-  },
-  {
-    name: "Referanslar",
-    icon: UserCircleIcon,
-    href: "/referanslar",
-  },
-  {
-    name: "İletişim",
-    icon: PhoneIcon,
-    href: "/iletisim",
-  },
-];
+
 
 export function Navbar() {
-  const [open, setOpen] = React.useState(false);
-  const [isScrolling, setIsScrolling] = React.useState(false);
-  const [defaultIsScrolling, setDefaultIsScrolling] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(true);
+  const pathname = usePathname();
+  const { language } = useLanguage();
+
+  const NAV_MENU = [
+    {
+      name: language == 'tr' ? "Ana Sayfa" : "Home",
+      icon: HomeIcon,
+      href: "/",
+    },
+    {
+      name: language == 'tr' ? "Hizmetlerimiz" : "Services",
+      icon: RectangleStackIcon,
+      href: "/hizmetler",
+    },
+    {
+      name: language == 'tr' ? "Projeler" : "Projects",
+      icon: Squares2X2Icon,
+      href: "/projeler",
+    },
+    {
+      name: language == 'tr' ? "Referanslar" : "References",
+      icon: UserCircleIcon,
+      href: "/referanslar",
+    },
+    {
+      name: language == 'tr' ? "İletişim" : "Contact",
+      icon: PhoneIcon,
+      href: "/iletisim",
+    },
+  ];
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (window.location.pathname == '/') {
-        setIsScrolling(false)
-        setDefaultIsScrolling(true)
+    if (pathname === '/') {
+      if (window.scrollY > 0) {
+        setIsScrolling(true);
+      } else {
+        setIsScrolling(false);
       }
-      else {
-        setIsScrolling(true)
-        setDefaultIsScrolling(false)
-      }
+    } else {
+      setIsScrolling(true)
     }
-  }, [])
-
+  }, [pathname]);
 
   const handleOpen = () => setOpen((cur) => !cur);
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpen(false)
     );
   }, []);
 
-  React.useEffect(() => {
-    if (defaultIsScrolling) {
-      return;
-    }
-
+  useEffect(() => {
     function handleScroll() {
-      if (window.scrollY > 0) {
-        setIsScrolling(true);
+      if (pathname === '/') {
+        if (window.scrollY > 0) {
+          setIsScrolling(true);
+        } else {
+          setIsScrolling(false);
+        }
       } else {
-        setIsScrolling(false);
+        setIsScrolling(true);
       }
     }
 

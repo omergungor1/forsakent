@@ -1,5 +1,4 @@
 import React from 'react'
-import { Navbar, Footer } from "../../components";
 
 function referanslar() {
     const references = [
@@ -55,9 +54,7 @@ function referanslar() {
 
     return (
         <div>
-            <Navbar />
             <div className='mt-24'>
-
                 {/**Main Content */}
                 <div className="min-h-screen bg-white py-10">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -90,9 +87,7 @@ function referanslar() {
                         </div>
                     </div>
                 </div>
-
             </div>
-            <Footer />
         </div>
     )
 }
