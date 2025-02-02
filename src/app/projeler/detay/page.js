@@ -43,7 +43,7 @@ export default function ProjectDetails() {
 
 
         <div>
-            <Navbar defaultIsScrolling={true} />
+            <Navbar />
             <div className='mt-24 '>
 
                 {/* Main Content */}

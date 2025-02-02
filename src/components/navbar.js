@@ -1,7 +1,10 @@
+"use client"
+
 import React from "react";
 import Image from "next/image";
 import Link from 'next/link';
 import LanguageToggle from "./toggle-languge";
+import { useState, useEffect } from "react";
 import {
   Navbar as MTNavbar,
   Collapse,
@@ -62,9 +65,24 @@ const NAV_MENU = [
   },
 ];
 
-export function Navbar({ defaultIsScrolling = false }) {
+export function Navbar() {
   const [open, setOpen] = React.useState(false);
-  const [isScrolling, setIsScrolling] = React.useState(defaultIsScrolling);
+  const [isScrolling, setIsScrolling] = React.useState(false);
+  const [defaultIsScrolling, setDefaultIsScrolling] = React.useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (window.location.pathname == '/') {
+        setIsScrolling(false)
+        setDefaultIsScrolling(true)
+      }
+      else {
+        setIsScrolling(true)
+        setDefaultIsScrolling(false)
+      }
+    }
+  }, [])
+
 
   const handleOpen = () => setOpen((cur) => !cur);
 

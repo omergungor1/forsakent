@@ -49,7 +49,7 @@ function Hizmetlerimiz({ isSection = false }) {
                             Peyzaj alanlarında en iyi çözümleri sunmak için profesyonel danışmanlık hizmeti veriyoruz. İhtiyaçlarınızı analiz ederek, alanınıza özel yenilikçi ve sürdürülebilir fikirler sunuyoruz.
                         </p>
                         <Link
-                            href='/danismanlik'
+                            href='/hizmetler/danismanlik'
                             className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-white text-blue-gray-900 shadow-md shadow-blue-gray-500/10 hover:shadow-lg hover:shadow-blue-gray-500/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none" type="button">
                             Detaylar
                         </Link>
@@ -76,7 +76,7 @@ function Hizmetlerimiz({ isSection = false }) {
                                 <p className="block antialiased font-sans text-white text-xs font-bold opacity-50">Doğanın estetiğini modern tasarımlarla buluşturarak, peyzaj projelerinizi hayata geçiriyoruz. İşlevsellik, estetik ve çevre dostu yaklaşımları bir arada sunuyoruz.</p>
                                 <div className='w-full flex justify-end'>
                                     <Link
-                                        href='/projeler'
+                                        href='/hizmetler/projelendirme'
                                         className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-white text-blue-gray-900 shadow-md shadow-blue-gray-500/10 hover:shadow-lg hover:shadow-blue-gray-500/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none" type="button">
                                         Detaylar
                                     </Link>
@@ -84,36 +84,6 @@ function Hizmetlerimiz({ isSection = false }) {
                             </div>
                         </div>
                     </div>
-
-                    <div className="flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md relative grid min-h-[12rem] w-full overflow-hidden">
-                        <Image
-                            alt="School Books"
-                            loading="lazy"
-                            width="768"
-                            height="768"
-                            decoding="async"
-                            className="absolute inset-0 h-full w-full object-cover object-center"
-                            src="/image/img2.jpg"
-                            style={{ color: "transparent" }}
-                        />
-                        <div className="absolute inset-0 h-full w-full bg-black/70"></div>
-                        <div className="p-6 relative flex flex-col justify-between">
-                            <i className="fa-solid fa-hammer text-white h-8 w-8 text-2xl" />
-                            <div>
-                                <h5 className="block antialiased tracking-normal font-sans text-xl font-semibold leading-snug text-white mb-1">Uygulama</h5>
-                                <p className="block antialiased font-sans text-white text-xs font-bold opacity-50">Tasarladığımız projeleri, uzman ekibimizle en yüksek kalite standartlarında uyguluyoruz. Bitkilerin dikiminden sert zemin uygulamalarına kadar tüm süreçlerde yanınızdayız.</p>
-                                <div className='w-full flex justify-end'>
-                                    <Link
-                                        href='/uygulama'
-                                        className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-white text-blue-gray-900 shadow-md shadow-blue-gray-500/10 hover:shadow-lg hover:shadow-blue-gray-500/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none" type="button">
-                                        Detaylar
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-span-1 flex flex-col gap-6">
                     <div className="flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md relative grid min-h-[12rem] w-full overflow-hidden">
                         <Image
                             alt="Fiction Books"
@@ -134,7 +104,37 @@ function Hizmetlerimiz({ isSection = false }) {
                                 <p className="block antialiased font-sans text-white text-xs font-bold opacity-50">Yeşil alanlarınızın uzun ömürlü ve sağlıklı kalması için düzenli bakım hizmeti sağlıyoruz. Bitki bakımından çim kesimine kadar her detayı profesyonellikle yönetiyoruz.</p>
                                 <div className='w-full flex justify-end'>
                                     <Link
-                                        href='/bakim'
+                                        href='/hizmetler/bakim'
+                                        className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-white text-blue-gray-900 shadow-md shadow-blue-gray-500/10 hover:shadow-lg hover:shadow-blue-gray-500/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none" type="button">
+                                        Detaylar
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-span-1 flex flex-col gap-6">
+
+                    <div className="flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md relative grid min-h-[12rem] w-full overflow-hidden">
+                        <Image
+                            alt="School Books"
+                            loading="lazy"
+                            width="768"
+                            height="768"
+                            decoding="async"
+                            className="absolute inset-0 h-full w-full object-cover object-center"
+                            src="/image/img2.jpg"
+                            style={{ color: "transparent" }}
+                        />
+                        <div className="absolute inset-0 h-full w-full bg-black/70"></div>
+                        <div className="p-6 relative flex flex-col justify-between">
+                            <i className="fa-solid fa-hammer text-white h-8 w-8 text-2xl" />
+                            <div>
+                                <h5 className="block antialiased tracking-normal font-sans text-xl font-semibold leading-snug text-white mb-1">Uygulama</h5>
+                                <p className="block antialiased font-sans text-white text-xs font-bold opacity-50">Tasarladığımız projeleri, uzman ekibimizle en yüksek kalite standartlarında uyguluyoruz. Bitkilerin dikiminden sert zemin uygulamalarına kadar tüm süreçlerde yanınızdayız.</p>
+                                <div className='w-full flex justify-end'>
+                                    <Link
+                                        href='/hizmetler/uygulama'
                                         className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-white text-blue-gray-900 shadow-md shadow-blue-gray-500/10 hover:shadow-lg hover:shadow-blue-gray-500/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none" type="button">
                                         Detaylar
                                     </Link>
@@ -163,7 +163,7 @@ function Hizmetlerimiz({ isSection = false }) {
                                 <p className="block antialiased font-sans text-white text-xs font-bold opacity-50">Yaşam ve çalışma alanlarınızı yeşillendirmek için dekoratif bitkiler, saksılar, bakım ürünleri ve aksesuarlara kadar geniş ürün yelpazemizle hizmetinizdeyiz.</p>
                                 <div className='w-full flex justify-end'>
                                     <Link
-                                        href='/megstore'
+                                        href='/hizmetler/bitkilendirme'
                                         className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-white text-blue-gray-900 shadow-md shadow-blue-gray-500/10 hover:shadow-lg hover:shadow-blue-gray-500/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none" type="button">
                                         Detaylar
                                     </Link>

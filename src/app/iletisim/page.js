@@ -4,7 +4,7 @@ import { Navbar, Footer } from "../../components";
 function iletisim() {
     return (
         <div>
-            <Navbar defaultIsScrolling={true} />
+            <Navbar />
             <div className='mt-24 '>
 
                 {/* Main Content */}
