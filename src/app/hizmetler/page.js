@@ -6,7 +6,7 @@ function hizmetler() {
     return (
         <div>
             <Navbar defaultIsScrolling={true} />
-            <div className='mt-24 '>
+            <div className='mt-4 '>
 
                 {/* Main Content */}
                 <section className="container mx-auto px-8 py-20 lg:py-28">
