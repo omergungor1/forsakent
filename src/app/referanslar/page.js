@@ -1,6 +1,12 @@
+"use client"
+
 import React from 'react'
+import { useLanguage } from "../../../src/context/LanguageContext";
+
 
 function referanslar() {
+    const { texts, t } = useLanguage();
+
     const references = [
         {
             id: 1,
@@ -59,13 +65,10 @@ function referanslar() {
                 <div className="min-h-screen bg-white py-10">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <h1 className="text-3xl font-bold text-gray-800 text-center mb-8">
-                            Referanslarımız
+                            {t(texts.references.title)}
                         </h1>
                         <p className="text-lg text-gray-600 text-center mb-12">
-                            Farklı sektörlerden değerli iş ortaklarımızla gerçekleştirdiğimiz projelerle gurur duyuyoruz.
-                            Kaliteli hizmet anlayışımız ve çözüm odaklı yaklaşımımızla, iş dünyasında güvenilir bir partner olmayı başardık.
-                            Referanslarımız, birlikte büyüdüğümüz ve başarı hikayeleri yazdığımız müşterilerimizi temsil ediyor.
-
+                            {t(texts.references.desc)}
                         </p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                             {references.map((reference) => (

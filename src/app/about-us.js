@@ -54,7 +54,7 @@ export function AboutUs() {
             {t(texts.home_page.about_us.title)}
           </Typography>
           <Typography className="mb-12 md:w-8/12 font-medium !text-gray-500">
-            {t(texts.home_page.about_us.content1).split("\n").map((line, index) => (
+            {t(texts.home_page.about_us.content).split("\n").map((line, index) => (
               <React.Fragment key={index}>
                 {line}
                 <br />

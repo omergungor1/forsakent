@@ -1,8 +1,12 @@
+"use client"
+
 import React from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
+import { useLanguage } from "../../../src/context/LanguageContext";
 
 function hizmetler() {
+    const { texts, t, language } = useLanguage();
 
     const projects = [
         {
@@ -50,10 +54,10 @@ function hizmetler() {
                 <section className="container mx-auto px-8 py-20 lg:py-28">
                     <div className="text-center mb-16">
                         <h2 className="text-4xl lg:text-5xl font-bold text-blue-gray-900 mb-4">
-                            Projeler
+                            {t(texts.projects.title)}
                         </h2>
                         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                            Estetik, fonksiyonellik ve çevre dostu yaklaşımları bir araya getirerek, peyzaj alanında uçtan uca çözümler sunuyoruz. Tasarımdan uygulamaya, düzenli bakım hizmetlerinden danışmanlığa kadar her aşamada yanınızdayız.
+                            {t(texts.projects.desc)}
                         </p>
                     </div>
 
