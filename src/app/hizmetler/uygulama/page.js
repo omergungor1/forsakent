@@ -3,16 +3,6 @@
 import ImageGallery from '../../../components/image-gallery';
 
 function page() {
-
-    const Images = [
-        "/image/img1.jpg",
-        "/image/img2.jpg",
-        "/image/img3.jpg",
-        "/image/img5.jpg",
-        "/image/img6.jpg",
-        "/image/img7.jpg",
-    ]
-
     const categories = [
         {
             title: "Bitkisel Tasarım Uygulamaları",
@@ -23,7 +13,6 @@ function page() {
                 "/image/bitkisel-tasarim-uygulamalari/img4.jpg",
                 "/image/bitkisel-tasarim-uygulamalari/img5.jpg",
                 "/image/bitkisel-tasarim-uygulamalari/img6.jpg",
-                "/image/bitkisel-tasarim-uygulamalari/img7.jpg",
             ],
         },
         {
