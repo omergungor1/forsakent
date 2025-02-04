@@ -1,14 +1,20 @@
 'use client';
 
-import { PhotoProvider, PhotoView } from 'react-photo-view';
-import 'react-photo-view/dist/react-photo-view.css';
+import { useLanguage } from "../../../../src/context/LanguageContext";
+import ImageGallery2 from 'src/components/image-gallery2';
 
 
-function page() {
+function Page() {
+    const { texts, t, language } = useLanguage();
     const Images = [
-        "/image/img1.jpg",
-        "/image/img2.jpg",
-        "/image/img3.jpg",
+        "/image/bakim-hizmetleri/img3.jpg",
+        "/image/bakim-hizmetleri/img4.jpg",
+        "/image/bakim-hizmetleri/img6.jpg",
+        "/image/bakim-hizmetleri/img7.jpg",
+        "/image/bakim-hizmetleri/img8.jpg",
+        "/image/bakim-hizmetleri/img10.jpg",
+        "/image/bakim-hizmetleri/img11.jpg",
+        "/image/bakim-hizmetleri/img12.jpg",
     ]
 
     return (
@@ -19,7 +25,7 @@ function page() {
                     {/* Hero Bölümü */}
                     <div className="relative w-full rounded-xl bg-cover bg-center h-80 md:h-96" style={{ backgroundImage: "url('/image/img1.jpg')" }}>
                         <div className="absolute rounded-xl inset-0 bg-black/50 flex items-center justify-center">
-                            <h1 className="text-white text-3xl md:text-5xl font-bold text-center">Bakım</h1>
+                            <h1 className="text-white text-3xl md:text-5xl font-bold text-center">{t(texts.home_page.services.content.care.title)}</h1>
                         </div>
                     </div>
 
@@ -29,69 +35,64 @@ function page() {
                             {/* Bakım Hizmetleri Alanı */}
                             <div>
                                 <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
-                                    Yeşil Alanlarınıza Profesyonel Bakım Hizmeti
+                                    {t(texts.home_page.services.content.care.title2)}
                                 </h2>
 
                                 <p className="text-gray-600 mt-4 leading-relaxed">
-                                    Peyzaj alanlarınızın her zaman sağlıklı, estetik ve düzenli kalmasını sağlamak için kapsamlı bakım hizmetleri sunuyoruz.
-                                    Alanınızın gereksinimlerini analiz ederek, ihtiyaca yönelik düzenli bakım programları oluşturuyoruz.
+                                    {
+                                        language === 'tr' ? `Peyzaj alanlarınızın her zaman sağlıklı, estetik ve düzenli kalmasını sağlamak için kapsamlı bakım hizmetleri sunuyoruz. Alanınızın gereksinimlerini analiz ederek, ihtiyaca yönelik düzenli bakım programları oluşturuyoruz.`
+                                            : `We offer comprehensive maintenance services to ensure that your landscapes always remain healthy, aesthetic and organized. By analyzing the requirements of your area, we create regular maintenance programs tailored to your needs.`
+                                    }
                                 </p>
 
                                 <p className="text-gray-600 mt-4 leading-relaxed">
-                                    Uzman ekibimiz, bitkilerin gelişimini desteklemek, hastalıklara karşı önlem almak ve çevre dostu bakım uygulamaları ile
-                                    peyzaj alanlarınızı her zaman en iyi durumda tutmak için çalışmaktadır.
+                                    {
+                                        language === 'tr' ? `Uzman ekibimiz, bitkilerin gelişimini desteklemek, hastalıklara karşı önlem almak ve çevre dostu bakım uygulamaları ile peyzaj alanlarınızı her zaman en iyi durumda tutmak için çalışmaktadır.`
+                                            : `Our team of experts works to support the development of plants, take precautions against diseases and keep your landscaping areas in top condition with environmentally friendly maintenance practices.`
+                                    }
                                 </p>
                             </div>
                             <div>
                                 {/* Hizmet Listesi */}
                                 <ul className="mt-6 space-y-3 text-gray-700">
                                     <li className="flex items-start">
-                                        ✅ <span className="ml-2">Çim biçme ve çim alanlarının bakımı</span>
+                                        ✅ <span className="ml-2">{language === 'tr' ? 'Çim biçme ve çim alanlarının bakımı' : 'Mowing and maintenance of lawns'}</span>
                                     </li>
                                     <li className="flex items-start">
-                                        ✅ <span className="ml-2">Ağaç budama ve zararlı kontrolü</span>
+                                        ✅ <span className="ml-2">{language === 'tr' ? 'Ağaç budama ve zararlı kontrolü' : 'Tree pruning and pest control'}</span>
                                     </li>
                                     <li className="flex items-start">
-                                        ✅ <span className="ml-2">Bitki gübreleme ve toprak iyileştirme</span>
+                                        ✅ <span className="ml-2">{language === 'tr' ? 'Bitki gübreleme ve toprak iyileştirme' : 'Plant fertilization and soil improvement'}</span>
                                     </li>
                                     <li className="flex items-start">
-                                        ✅ <span className="ml-2">Otomatik sulama sistemlerinin bakımı</span>
+                                        ✅ <span className="ml-2">{language === 'tr' ? 'Otomatik sulama sistemlerinin bakımı' : 'Maintenance of automatic irrigation systems'}</span>
                                     </li>
                                     <li className="flex items-start">
-                                        ✅ <span className="ml-2">Mevsimsel bitki değişimi ve yenileme</span>
+                                        ✅ <span className="ml-2">{language === 'tr' ? 'Mevsimsel bitki değişimi ve yenileme' : 'Seasonal plant change and renewal'}</span>
                                     </li>
                                     <li className="flex items-start">
-                                        ✅ <span className="ml-2">Haşere ve hastalık kontrolü</span>
+                                        ✅ <span className="ml-2">{language === 'tr' ? 'Haşere ve hastalık kontrolü' : 'Pest and disease control'}</span>
                                     </li>
                                 </ul>
 
                                 <p className="text-gray-600 mt-6 leading-relaxed">
-                                    Bitkilerinizin sağlıklı gelişimini sürdürmesi ve peyzaj alanlarınızın her zaman düzenli ve canlı kalması için <strong>periyodik bakım hizmetlerimizden</strong> faydalanabilirsiniz.
+                                    {
+                                        language === 'tr' ? `Bitkilerinizin sağlıklı gelişimini sürdürmesi ve peyzaj alanlarınızın her zaman düzenli ve canlı kalması için periyodik bakım hizmetlerimizden faydalanabilirsiniz.`
+                                            : `You can benefit from our periodic maintenance services to ensure that your plants continue their healthy growth and that your landscaping areas are always organized and vibrant.`
+                                    }
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    {/**Image gallery */}
-                    {
-                        // <PhotoProvider>
-                        //     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-12 md:mt-24">
-                        //         {Images.map((image, index) => (
-                        //             <PhotoView key={index} src={image}>
-                        //                 <img
-                        //                     src={image}
-                        //                     alt={`Project Image ${index + 1}`}
-                        //                     className="w-full h-48 object-cover rounded-lg cursor-pointer hover:scale-105 transition-transform"
-                        //                 />
-                        //             </PhotoView>
-                        //         ))}
-                        //     </div>
-                        // </PhotoProvider>
-                    }
+                    {/* Image Gallery */}
+                    <div className='space-y-12 mt-6 md:mt-12'>
+                        <ImageGallery2 Images={Images} />
+                    </div>
                 </div>
             </section>
         </div>
     )
 }
 
-export default page
+export default Page

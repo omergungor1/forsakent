@@ -1,11 +1,17 @@
 'use client';
 
 import ImageGallery from '../../../components/image-gallery';
+import { useLanguage } from "../../../../src/context/LanguageContext";
 
-function page() {
+function Page() {
+    const { texts, t, language } = useLanguage();
+
     const categories = [
         {
-            title: "Bitkisel Tasarım Uygulamaları",
+            title: {
+                tr: "Bitkisel Tasarım Uygulamaları",
+                en: "Botanical Design Applications"
+            },
             images: [
                 "/image/bitkisel-tasarim-uygulamalari/img1.jpg",
                 "/image/bitkisel-tasarim-uygulamalari/img2.jpg",
@@ -13,33 +19,30 @@ function page() {
                 "/image/bitkisel-tasarim-uygulamalari/img4.jpg",
                 "/image/bitkisel-tasarim-uygulamalari/img5.jpg",
                 "/image/bitkisel-tasarim-uygulamalari/img6.jpg",
+                "/image/bitkisel-tasarim-uygulamalari/img7.jpg",
+                "/image/bitkisel-tasarim-uygulamalari/img6.jpg",
+                "/image/bitkisel-tasarim-uygulamalari/img9.webp",
+                "/image/bitkisel-tasarim-uygulamalari/img10.webp",
             ],
         },
         {
-            title: "Çocuk Oyun Alanı Uygulamaları",
+            title: {
+                tr: "Çocuk Oyun Alanı Uygulamaları",
+                en: "Children's Play Area Applications"
+            },
             images: [
                 "/image/cocuk-oyun-alanlari/img1.jpg",
                 "/image/cocuk-oyun-alanlari/img2.jpg",
                 "/image/cocuk-oyun-alanlari/img3.jpg",
-                "/image/cocuk-oyun-alanlari/img4.jpg",
                 "/image/cocuk-oyun-alanlari/img5.jpg",
                 "/image/cocuk-oyun-alanlari/img6.jpg",
             ],
         },
         {
-            title: "Bitkilendirme Uygulamaları",
-            images: ["/image/ic-mekan-bitkilendirme/img1.jpg",
-                "/image/ic-mekan-bitkilendirme/img2.jpg",
-                "/image/ic-mekan-bitkilendirme/img3.jpg",
-                "/image/ic-mekan-bitkilendirme/img5.jpg",
-                "/image/ic-mekan-bitkilendirme/img6.jpg",
-                "/image/ic-mekan-bitkilendirme/img7.jpg",
-                "/image/ic-mekan-bitkilendirme/img8.jpg",
-                "/image/ic-mekan-bitkilendirme/img9.jpg",
-                "/image/ic-mekan-bitkilendirme/img10.jpg",],
-        },
-        {
-            title: "Altyapı ve Drenaj Uygulamaları",
+            title: {
+                tr: "Altyapı ve Drenaj Uygulamaları",
+                en: "Infrastructure and Drainage Applications"
+            },
             images: [
                 "/image/altyapi-uygulamalari/img1.jpeg",
                 "/image/altyapi-uygulamalari/img2.jpg",
@@ -47,30 +50,14 @@ function page() {
                 "/image/altyapi-uygulamalari/img4.jpg",
                 "/image/altyapi-uygulamalari/img5.jpg",
                 "/image/altyapi-uygulamalari/img6.jpg",
-                "/image/altyapi-uygulamalari/img7.jpg",
-                "/image/altyapi-uygulamalari/img8.jpg",
                 "/image/altyapi-uygulamalari/img9.jpg",
             ],
         },
         {
-            title: "Bakım Hizmetleri",
-            images: [
-                "/image/bakim-hizmetleri/img1.jpg",
-                "/image/bakim-hizmetleri/img2.jpg",
-                "/image/bakim-hizmetleri/img3.jpg",
-                "/image/bakim-hizmetleri/img4.jpg",
-                "/image/bakim-hizmetleri/img5.jpg",
-                "/image/bakim-hizmetleri/img6.jpg",
-                "/image/bakim-hizmetleri/img7.jpg",
-                "/image/bakim-hizmetleri/img8.jpg",
-                "/image/bakim-hizmetleri/img9.jpg",
-                "/image/bakim-hizmetleri/img10.jpg",
-                "/image/bakim-hizmetleri/img11.jpg",
-                "/image/bakim-hizmetleri/img12.jpg",
-            ],
-        },
-        {
-            title: "Peyzaj Donatı Elemanları",
+            title: {
+                tr: "Peyzaj Donatı Elemanları",
+                en: "Landscape Equipment Elements"
+            },
             images: [
                 "/image/donati-elemanlari/img1.jpg",
                 "/image/donati-elemanlari/img2.jpg",
@@ -85,7 +72,10 @@ function page() {
             ],
         },
         {
-            title: "Peyzaj Sert Zemin Uygulamaları",
+            title: {
+                tr: "Peyzaj Sert Zemin Uygulamaları",
+                en: "Landscape Hard Floor Applications"
+            },
             images: [
                 "/image/set-zemin-uygulama/img1.jpg",
                 "/image/set-zemin-uygulama/img2.jpg",
@@ -100,7 +90,10 @@ function page() {
             ],
         },
         {
-            title: "Yüzme Havuzu ve Süs havuzları",
+            title: {
+                tr: "Yüzme Havuzu ve Süs havuzları",
+                en: "Swimming Pools and Ornamental Pools"
+            },
             images: [
                 "/image/yuzme-havuzu/img1.jpg",
                 "/image/yuzme-havuzu/img2.jpg",
@@ -125,7 +118,7 @@ function page() {
                     {/* Hero Bölümü */}
                     <div className="relative w-full rounded-xl bg-cover bg-center h-80 md:h-96" style={{ backgroundImage: "url('/image/img1.jpg')" }}>
                         <div className="absolute rounded-xl inset-0 bg-black/50 flex items-center justify-center">
-                            <h1 className="text-white text-3xl md:text-5xl font-bold text-center">Uygulama</h1>
+                            <h1 className="text-white text-3xl md:text-5xl font-bold text-center">{t(texts.home_page.services.content.application.title)}</h1>
                         </div>
                     </div>
 
@@ -135,21 +128,28 @@ function page() {
                             {/* Peyzaj Uygulama Hizmetleri Açıklaması */}
                             <div>
                                 <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
-                                    Profesyonel Peyzaj Uygulama Hizmetleri ile Mekanlarınıza Hayat Verin
+                                    {t(texts.home_page.services.content.application.title2)}
                                 </h2>
 
                                 <p className="text-gray-600 mt-4 leading-relaxed">
-                                    Alanlarınıza estetik ve fonksiyonellik kazandıran peyzaj uygulama hizmetlerimiz ile doğayla uyumlu, sürdürülebilir ve göz alıcı mekanlar oluşturuyoruz.
-                                    Uzman ekibimizle birlikte en iyi malzeme ve teknikleri kullanarak, projelerinizi eksiksiz bir şekilde hayata geçiriyoruz.
+                                    {
+                                        language === 'tr' ? `Alanlarınıza estetik ve fonksiyonellik kazandıran peyzaj uygulama hizmetlerimiz ile doğayla uyumlu, sürdürülebilir ve göz alıcı mekanlar oluşturuyoruz. Uzman ekibimizle birlikte en iyi malzeme ve teknikleri kullanarak, projelerinizi eksiksiz bir şekilde hayata geçiriyoruz.`
+                                            : `We create sustainable and eye-catching spaces in harmony with nature with our landscaping services that bring aesthetics and functionality to your areas. Together with our expert team, we realize your projects completely by using the best materials and techniques.`
+                                    }
                                 </p>
 
                                 <p className="text-gray-600 mt-4 leading-relaxed">
-                                    Yeşil alan düzenlemeleri, sert zemin uygulamaları, su öğeleri, aydınlatma sistemleri ve özel peyzaj tasarımları ile mekanlarınıza değer katıyoruz.
-                                    Doğru planlama ve profesyonel uygulama ile yaşam alanlarınıza <strong>doğallık, estetik ve konfor</strong> getiriyoruz.
+                                    {
+                                        language === 'tr' ? `Yeşil alan düzenlemeleri, sert zemin uygulamaları, su öğeleri, aydınlatma sistemleri ve özel peyzaj tasarımları ile mekanlarınıza değer katıyoruz. Doğru planlama ve profesyonel uygulama ile yaşam alanlarınıza doğallık, estetik ve konfor getiriyoruz.`
+                                            : `We add value to your spaces with green area arrangements, hard floor applications, water elements, lighting systems and special landscape designs. We bring naturalness, aesthetics and comfort to your living spaces with proper planning and professional implementation.`
+                                    }
                                 </p>
 
                                 <p className="text-gray-600 mt-4 leading-relaxed">
-                                    Projelerinizi başarılı bir şekilde tamamlamak için her aşamada titizlikle çalışıyor, yüksek kaliteli uygulamalar ile beklentilerinizi en üst seviyede karşılıyoruz.
+                                    {
+                                        language === 'tr' ? `Projelerinizi başarılı bir şekilde tamamlamak için her aşamada titizlikle çalışıyor, yüksek kaliteli uygulamalar ile beklentilerinizi en üst seviyede karşılıyoruz.`
+                                            : `We work meticulously at every stage to complete your projects successfully and meet your expectations at the highest level with high quality applications.`
+                                    }
                                 </p>
                             </div>
 
@@ -157,35 +157,37 @@ function page() {
                             <div>
                                 <ul className="mt-6 space-y-3 text-gray-700">
                                     <li className="flex items-start">
-                                        🌿 <span className="ml-2">İklim ve alan koşullarına uygun bitkilendirme</span>
+                                        🌿 <span className="ml-2">{language === 'tr' ? 'İklim ve alan koşullarına uygun bitkilendirme' : 'Planting suitable for climate and site conditions'}</span>
                                     </li>
                                     <li className="flex items-start">
-                                        🏡 <span className="ml-2">Özel tasarlanmış sert zemin, yürüyüş yolları ve oturma alanları</span>
+                                        🏡 <span className="ml-2">{language === 'tr' ? 'Özel tasarlanmış sert zemin, yürüyüş yolları ve oturma alanları' : 'Specially designed hard surfaces, walkways and seating areas'}</span>
                                     </li>
                                     <li className="flex items-start">
-                                        💧 <span className="ml-2">Şelale, havuz ve diğer su öğeleri ile doğal dokunuşlar</span>
+                                        💧 <span className="ml-2">{language === 'tr' ? 'Şelale, havuz ve diğer su öğeleri ile doğal dokunuşlar' : 'Natural touches with waterfalls, pools and other water elements'}</span>
                                     </li>
                                     <li className="flex items-start">
-                                        💡 <span className="ml-2">Modern aydınlatma sistemleri ile gece de estetik görünümler</span>
+                                        💡 <span className="ml-2">{language === 'tr' ? 'Modern aydınlatma sistemleri ile gece de estetik görünümler' : 'Aesthetic looks at night with modern lighting systems'}</span>
                                     </li>
                                     <li className="flex items-start">
-                                        🏗️ <span className="ml-2">Drenaj ve sulama sistemleri ile uzun ömürlü peyzaj çözümleri</span>
+                                        🏗️ <span className="ml-2">{language === 'tr' ? 'Drenaj ve sulama sistemleri ile uzun ömürlü peyzaj çözümleri' : 'Long-lasting landscape solutions with drainage and irrigation systems'}</span>
                                     </li>
                                     <li className="flex items-start">
-                                        🔨 <span className="ml-2">Anahtar teslim profesyonel uygulama hizmeti</span>
+                                        🔨 <span className="ml-2">{language === 'tr' ? 'Anahtar teslim profesyonel uygulama hizmeti' : 'Turnkey professional application service'}</span>
                                     </li>
                                 </ul>
 
                                 <p className="text-gray-600 mt-6 leading-relaxed">
-                                    Doğru peyzaj uygulamaları ile <strong>mekanlarınıza estetik, konfor ve doğallık</strong> katın.
-                                    Uzman ekibimizle birlikte hayallerinizdeki alanları gerçeğe dönüştürüyoruz.
+                                    {
+                                        language === 'tr' ? `Doğru peyzaj uygulamaları ile mekanlarınıza estetik, konfor ve doğallık katın. Uzman ekibimizle birlikte hayallerinizdeki alanları gerçeğe dönüştürüyoruz.`
+                                            : `Add aesthetics, comfort and naturalness to your spaces with the right landscape applications. Together with our expert team, we make the spaces of your dreams come true.`
+                                    }
                                 </p>
                             </div>
                         </div>
                     </div>
                     <div className="space-y-12 mt-6 grid grid-cols-1 gap-6">
                         {categories.map((category, index) => (
-                            <ImageGallery Images={category.images} key={index} title={category.title} />
+                            <ImageGallery Images={category.images} key={index} title={language === 'tr' ? category.title.tr : category.title.en} />
                         ))}
                     </div>
                 </div>
@@ -194,4 +196,4 @@ function page() {
     )
 }
 
-export default page
+export default Page

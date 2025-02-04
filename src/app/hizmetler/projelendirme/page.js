@@ -1,18 +1,16 @@
 'use client';
 
-import Image from 'next/image';
-import { PhotoProvider, PhotoView } from 'react-photo-view';
-import 'react-photo-view/dist/react-photo-view.css';
+import { useLanguage } from "../../../../src/context/LanguageContext";
+import ImageGallery2 from 'src/components/image-gallery2';
 
-function page() {
+function Page() {
+    const { texts, t, language } = useLanguage();
 
     const Images = [
-        "/image/img1.jpg",
-        "/image/img2.jpg",
-        "/image/img3.jpg",
-        "/image/img5.jpg",
-        "/image/img6.jpg",
-        "/image/img7.jpg",
+        "/image/3d-modelleme/img1.jpg",
+        "/image/3d-modelleme/img2.jpeg",
+        "/image/3d-modelleme/img3.jpg",
+        "/image/3d-modelleme/img4.webp",
     ]
 
     return (
@@ -23,7 +21,7 @@ function page() {
                     {/* Hero Bölümü */}
                     <div className="relative w-full rounded-xl bg-cover bg-center h-80 md:h-96" style={{ backgroundImage: "url('/image/img1.jpg')" }}>
                         <div className="absolute rounded-xl inset-0 bg-black/50 flex items-center justify-center">
-                            <h1 className="text-white text-3xl md:text-5xl font-bold text-center">Projelendirme & 3D Görselleştirme</h1>
+                            <h1 className="text-white text-3xl md:text-5xl font-bold text-center">{t(texts.home_page.services.content.project_design.title)}</h1>
                         </div>
                     </div>
 
@@ -34,22 +32,29 @@ function page() {
                             {/* Projelendirme & 3D Görselleştirme Açıklaması */}
                             <div>
                                 <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
-                                    Peyzaj Projelendirme ve 3D Görselleştirme ile Hayalinizdeki Mekanı Yaratın
+                                    {t(texts.home_page.services.content.project_design.title2)}
                                 </h2>
 
                                 <p className="text-gray-600 mt-4 leading-relaxed">
-                                    Profesyonel peyzaj projelendirme ve 3D görselleştirme hizmetlerimiz ile açık ve kapalı mekanlarınıza estetik ve fonksiyonellik kazandırıyoruz.
-                                    Alanınızı en iyi şekilde değerlendirmek için yenilikçi tasarımlar ve sürdürülebilir çözümler sunuyoruz.
+                                    {
+                                        language === 'tr' ? `Profesyonel peyzaj projelendirme ve 3D görselleştirme hizmetlerimiz ile açık ve kapalı mekanlarınıza estetik ve fonksiyonellik kazandırıyoruz. Alanınızı en iyi şekilde değerlendirmek için yenilikçi tasarımlar ve sürdürülebilir çözümler sunuyoruz.`
+                                            : `We bring aesthetics and functionality to your indoor and outdoor spaces with our professional landscape project design and 3D visualization services. We offer innovative designs and sustainable solutions to make the most of your space.`
+                                    }
+
                                 </p>
 
                                 <p className="text-gray-600 mt-4 leading-relaxed">
-                                    3D görselleştirme sayesinde, projelerinizi hayata geçirmeden önce dijital ortamda detaylı bir önizleme sunuyoruz.
-                                    Böylece, her detayı önceden planlayabilir, değişiklikleri projelendirme aşamasında yaparak zaman ve maliyetten tasarruf edebilirsiniz.
+                                    {
+                                        language === 'tr' ? `3D görselleştirme sayesinde, projelerinizi hayata geçirmeden önce dijital ortamda detaylı bir önizleme sunuyoruz. Böylece, her detayı önceden planlayabilir, değişiklikleri projelendirme aşamasında yaparak zaman ve maliyetten tasarruf edebilirsiniz.`
+                                            : `Thanks to 3D visualization, we offer a detailed preview of your projects in a digital environment before they are implemented. Thus, you can plan every detail in advance and save time and cost by making changes at the project design stage.`
+                                    }
                                 </p>
 
                                 <p className="text-gray-600 mt-4 leading-relaxed">
-                                    Modern peyzaj tasarımı, bitki seçimi, yürüyüş yolları, su öğeleri, oturma alanları ve ışıklandırma gibi tüm detayları planlayarak,
-                                    doğal ve konforlu mekanlar oluşturuyoruz.
+                                    {
+                                        language === 'tr' ? `Modern peyzaj tasarımı, bitki seçimi, yürüyüş yolları, su öğeleri, oturma alanları ve ışıklandırma gibi tüm detayları planlayarak, doğal ve konforlu mekanlar oluşturuyoruz.`
+                                            : `We create natural and comfortable spaces by planning all details such as modern landscape design, plant selection, walkways, water elements, seating areas and lighting.`
+                                    }
                                 </p>
                             </div>
 
@@ -57,28 +62,30 @@ function page() {
                             <div>
                                 <ul className="mt-6 space-y-3 text-gray-700">
                                     <li className="flex items-start">
-                                        🎨 <span className="ml-2">Gerçekçi 3D modelleme ile projenizi önceden deneyimleyin</span>
+                                        🎨 <span className="ml-2">{language === 'tr' ? 'Gerçekçi 3D modelleme ile projenizi önceden deneyimleyin' : 'Experience your project in advance with realistic 3D modeling'}</span>
                                     </li>
                                     <li className="flex items-start">
-                                        🏡 <span className="ml-2">Açık ve kapalı mekanlara özel peyzaj çözümleri</span>
+                                        🏡 <span className="ml-2">{language === 'tr' ? 'Açık ve kapalı mekanlara özel peyzaj çözümleri' : 'Special landscape solutions for indoor and outdoor spaces'}</span>
                                     </li>
                                     <li className="flex items-start">
-                                        🌿 <span className="ml-2">İklime ve mekan özelliklerine uygun bitki ve malzeme seçimi</span>
+                                        🌿 <span className="ml-2">{language === 'tr' ? 'İklime ve mekan özelliklerine uygun bitki ve malzeme seçimi' : 'Selection of plants and materials suitable for climate and space characteristics'}</span>
                                     </li>
                                     <li className="flex items-start">
-                                        💡 <span className="ml-2">Aydınlatma, su öğeleri ve dekoratif tasarımlarla estetik dokunuşlar</span>
+                                        💡 <span className="ml-2">{language === 'tr' ? 'Aydınlatma, su öğeleri ve dekoratif tasarımlarla estetik dokunuşlar' : 'Aesthetic touches with lighting, water elements and decorative designs'}</span>
                                     </li>
                                     <li className="flex items-start">
-                                        ⏳ <span className="ml-2">Zaman ve maliyet açısından en verimli çözümler</span>
+                                        ⏳ <span className="ml-2">{language === 'tr' ? 'Zaman ve maliyet açısından en verimli çözümler' : 'The most time and cost efficient solutions'}</span>
                                     </li>
                                     <li className="flex items-start">
-                                        🛠️ <span className="ml-2">Uygulama aşamasında profesyonel destek ve proje takibi</span>
+                                        🛠️ <span className="ml-2">{language === 'tr' ? 'Uygulama aşamasında profesyonel destek ve proje takibi' : 'Professional support and project follow-up during the implementation phase'}</span>
                                     </li>
                                 </ul>
 
                                 <p className="text-gray-600 mt-6 leading-relaxed">
-                                    Hayal ettiğiniz peyzaj tasarımını gerçeğe dönüştürmek için <strong>projelendirme ve 3D görselleştirme</strong> hizmetlerimizden yararlanın.
-                                    Doğru planlama ile <strong>estetik, işlevsellik ve doğallığı</strong> bir araya getiriyoruz.
+                                    {
+                                        language === 'tr' ? `Hayal ettiğiniz peyzaj tasarımını gerçeğe dönüştürmek için  projelendirme ve 3D görselleştirme hizmetlerimizden yararlanın. Doğru planlama ile  estetik, işlevsellik ve doğallığı bir araya getiriyoruz.`
+                                            : `Take advantage of our project design and 3D visualization services to turn your dream landscape design into reality. We bring aesthetics, functionality and naturalness together with the right planning.`
+                                    }
                                 </p>
                             </div>
                         </div>
@@ -86,25 +93,13 @@ function page() {
                     </div>
 
                     {/**Image gallery */}
-                    <PhotoProvider>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-6">
-                            {Images.map((image, index) => (
-                                <PhotoView key={index} src={image}>
-                                    <Image
-                                        src={image}
-                                        width={640}
-                                        height={480}
-                                        alt={`Project Image ${index + 1}`}
-                                        className="w-full h-48 object-cover rounded-lg cursor-pointer hover:scale-105 transition-transform"
-                                    />
-                                </PhotoView>
-                            ))}
-                        </div>
-                    </PhotoProvider>
+                    <div className='space-y-12 mt-6 md:mt-12'>
+                        <ImageGallery2 Images={Images} />
+                    </div>
                 </div>
             </section>
         </div>
     )
 }
 
-export default page
+export default Page

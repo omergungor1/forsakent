@@ -59,15 +59,23 @@ export function LanguageProvider({ children }) {
                             tr: "Danışmanlık",
                             en: "Consulting"
                         },
+                        title2: {
+                            tr: "Peyzaj Danışmanlık Hizmetleri",
+                            en: "Landscape Consulting Services"
+                        },
                         content: {
                             tr: "Peyzaj alanlarında en iyi çözümleri sunmak için profesyonel danışmanlık hizmeti veriyoruz. İhtiyaçlarınızı analiz ederek, alanınıza özel yenilikçi ve sürdürülebilir fikirler sunuyoruz.",
                             en: "We provide professional consultancy services to offer the best solutions in landscaping areas. By analyzing your needs, we offer innovative and sustainable ideas specific to your area.",
-                        }
+                        },
                     },
                     project_design: {
                         title: {
                             tr: "Projelendirme 3D Görselleştirme",
                             en: "Project Design 3D Visualization"
+                        },
+                        title2: {
+                            tr: "Peyzaj Projelendirme ve 3D Görselleştirme ile Hayalinizdeki Mekanı Yaratın",
+                            en: "Create the Space of Your Dreams with Landscape Design and 3D Visualization"
                         },
                         content: {
                             tr: "Doğanın estetiğini modern tasarımlarla buluşturarak, peyzaj projelerinizi hayata geçiriyoruz. İşlevsellik, estetik ve çevre dostu yaklaşımları bir arada sunuyoruz.",
@@ -79,6 +87,10 @@ export function LanguageProvider({ children }) {
                             tr: "Uygulama",
                             en: "Application"
                         },
+                        title2: {
+                            tr: "Profesyonel Peyzaj Uygulama Hizmetleri ile Mekanlarınıza Hayat Verin",
+                            en: "Give Life to Your Spaces with Professional Landscaping Application Services"
+                        },
                         content: {
                             tr: "Tasarladığımız projeleri, uzman ekibimizle en yüksek kalite standartlarında uyguluyoruz. Bitkilerin dikiminden sert zemin uygulamalarına kadar tüm süreçlerde yanınızdayız.",
                             en: "We implement the projects we design with the highest quality standards with our expert team. We are at your side in all processes from planting plants to hard ground applications."
@@ -89,6 +101,10 @@ export function LanguageProvider({ children }) {
                             tr: "Bakım",
                             en: "Care"
                         },
+                        title2: {
+                            tr: "Yeşil Alanlarınıza Profesyonel Bakım Hizmeti",
+                            en: "Professional Maintenance Service for Your Green Areas"
+                        },
                         content: {
                             tr: "Yeşil alanlarınızın uzun ömürlü ve sağlıklı kalması için düzenli bakım hizmeti sağlıyoruz. Bitki bakımından çim kesimine kadar her detayı profesyonellikle yönetiyoruz.",
                             en: "We provide regular maintenance services to keep your green areas long-lasting and healthy. We manage every detail from plant care to grass cutting with professionalism."
@@ -98,6 +114,10 @@ export function LanguageProvider({ children }) {
                         title: {
                             tr: "İç Mekan Bitkilendirme",
                             en: "Indoor Planting"
+                        },
+                        title2: {
+                            tr: "İç Mekan Bitkilendirme ile Doğayı Evinize Taşıyın",
+                            en: "Bring Nature to Your Home with Indoor Planting"
                         },
                         content: {
                             tr: "Yaşam ve çalışma alanlarınızı yeşillendirmek için dekoratif bitkiler, saksılar, bakım ürünleri ve aksesuarlara kadar geniş ürün yelpazemizle hizmetinizdeyiz.",
@@ -236,7 +256,7 @@ export function LanguageProvider({ children }) {
             desc: {
                 tr: "Estetik, fonksiyonellik ve çevre dostu yaklaşımları bir araya getirerek, peyzaj alanında uçtan uca çözümler sunuyoruz. Tasarımdan uygulamaya, düzenli bakım hizmetlerinden danışmanlığa kadar her aşamada yanınızdayız.",
                 en: "We offer end-to-end solutions in the field of landscaping by combining aesthetics, functionality and environmentally friendly approaches. From design to implementation, from regular maintenance services to consultancy, we are with you at every stage."
-            }
+            },
         },
         references: {
             title: {
@@ -247,7 +267,33 @@ export function LanguageProvider({ children }) {
                 tr: "Farklı sektörlerden değerli iş ortaklarımızla gerçekleştirdiğimiz projelerle gurur duyuyoruz. Kaliteli hizmet anlayışımız ve çözüm odaklı yaklaşımımızla, iş dünyasında güvenilir bir partner olmayı başardık. Referanslarımız, birlikte büyüdüğümüz ve başarı hikayeleri yazdığımız müşterilerimizi temsil ediyor.",
                 en: "We are proud of the projects we have realized with our valuable business partners from different sectors. With our understanding of quality service and solution-oriented approach, we have succeeded in becoming a reliable partner in the business world. Our references represent our customers, with whom we have grown and written success stories."
             }
-        }
+        },
+        contact_page: {
+            title: {
+                tr: "İletişim Bilgileri",
+                en: "Contact Information"
+            },
+            desc: {
+                tr: "Herhangi bir sorunuz veya isteğiniz varsa, bize ulaşabilirsiniz.",
+                en: "If you have any questions or requests, you can contact us."
+            },
+            phone: {
+                tr: "Telefon",
+                en: "Phone"
+            },
+            email: {
+                tr: "E-Posta",
+                en: "E-Mail"
+            },
+            address: {
+                tr: "Adres",
+                en: "Address"
+            },
+            address_content: {
+                tr: "Akşemsettin Mah. Petrol Yolu Cad. No:482 A/1 SULTANBEYLİ/İSTANBUL",
+                en: "Akşemsettin Mah. Petrol Yolu Cad. No:482 A/1 SULTANBEYLİ/İSTANBUL"
+            },
+        },
     }
 
     );

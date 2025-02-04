@@ -1,6 +1,10 @@
-import React from 'react'
+"use client"
 
-function iletisim() {
+import { useLanguage } from "../../../src/context/LanguageContext";
+
+function Iletisim() {
+    const { texts, t } = useLanguage();
+
     return (
         <div>
             <div className='mt-24 '>
@@ -11,22 +15,22 @@ function iletisim() {
 
                         {/* Contact Info */}
                         <div className="bg-white shadow-lg rounded-lg p-6">
-                            <h2 className="text-2xl font-bold text-gray-800">İletişim Bilgileri</h2>
+                            <h2 className="text-2xl font-bold text-gray-800">{t(texts.contact_page.title)}</h2>
                             <p className="text-gray-600 mt-4">
-                                Herhangi bir sorunuz veya isteğiniz varsa, bize ulaşabilirsiniz.
+                                {t(texts.contact_page.desc)}
                             </p>
                             <div className="mt-6 space-y-4">
                                 <div className="flex items-center gap-4">
                                     <i className="fa-solid fa-phone text-blue-500 text-xl"></i>
-                                    <p className="text-gray-700">Telefon: <a href="tel:+905051333322" className="text-blue-500">+90 505 133 33 22</a></p>
+                                    <p className="text-gray-700">{t(texts.contact_page.phone)}: <a href="tel:+905051333322" className="text-blue-500">+90 505 133 33 22</a></p>
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <i className="fa-solid fa-envelope text-blue-500 text-xl"></i>
-                                    <p className="text-gray-700">E-Posta: <a href="mailto:info@forsakent.com" className="text-blue-500">info@forsakent.com</a></p>
+                                    <p className="text-gray-700">{t(texts.contact_page.email)}: <a href="mailto:info@forsakent.com" className="text-blue-500">info@forsakent.com</a></p>
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <i className="fa-solid fa-location-dot text-blue-500 text-xl"></i>
-                                    <p className="text-gray-700">Adres: Akşemsettin Mah. Petrol Yolu Cad. No:482 A/1 SULTANBEYLİ/İSTANBUL</p>
+                                    <p className="text-gray-700">{t(texts.contact_page.address)}: {t(texts.contact_page.address_content)}</p>
                                 </div>
                             </div>
                         </div>
@@ -50,4 +54,4 @@ function iletisim() {
     )
 }
 
-export default iletisim
+export default Iletisim
