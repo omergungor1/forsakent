@@ -109,6 +109,10 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
+  if (pathname == '/admin' || pathname == '/admin/login') {
+    return null;
+  }
+
   return (
     <MTNavbar
       shadow={false}

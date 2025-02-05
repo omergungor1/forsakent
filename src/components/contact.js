@@ -1,8 +1,16 @@
+"use client"
+
 import Image from 'next/image';
+import { usePathname } from "next/navigation";
 
 function Contact() {
     const phoneNumber = "+905051333322";
     const whatsappMessage = "Merhaba, size web siteniz üzerinden ulaşıyorum. Sizden bilgi almak istiyorum.";
+    const pathname = usePathname();
+
+    if (pathname == '/admin' || pathname == '/admin/login') {
+        return null;
+    }
 
     return (
         <div className="flex flex-col justify-center">

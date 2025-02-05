@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Typography, Button, IconButton } from "@material-tailwind/react";
+import { usePathname } from "next/navigation";
 import { useLanguage } from "../../src/context/LanguageContext";
 
 
@@ -13,6 +14,11 @@ const whatsappMessage = "Merhaba, size web siteniz üzerinden ulaşıyorum. Sizd
 
 export function Footer() {
   const { language } = useLanguage();
+  const pathname = usePathname();
+
+  if (pathname == '/admin' || pathname == '/admin/login') {
+    return null;
+  }
 
   const LINKS = [
     {
