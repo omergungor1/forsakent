@@ -89,25 +89,17 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    if (window.scrollY > 0 || pathname != '/') {
-      setIsScrolling(true);
-    } else {
-      setIsScrolling(false);
-    }
+    const handleScroll = () => {
+        if (window.scrollY > 0) {
+            setIsScrolling(true);
+        } else {
+            setIsScrolling(false);
+        }
+    };
 
-    function handleScroll() {
-      if (window.scrollY > 0 || pathname != '/') {
-        setIsScrolling(true);
-      } else {
-        setIsScrolling(false);
-      }
-      console.log(isScrolling, pathname)
-    }
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [pathname]);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   if (pathname == '/admin' || pathname == '/admin/login') {
     return null;

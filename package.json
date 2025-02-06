@@ -12,14 +12,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^44.1.0",
+    "@ckeditor/ckeditor5-react": "^9.4.0",
+    "@headlessui/react": "^2.2.0",
     "@heroicons/react": "2.0.18",
-    "@material-tailwind/react": "2.1.2",
+    "@material-tailwind/react": "^2.1.10",
     "@supabase/supabase-js": "^2.48.1",
     "next": "^15.1.6",
     "react": "18",
     "react-dom": "18",
+    "react-hot-toast": "^2.5.1",
     "react-modal": "^3.16.3",
-    "react-photo-view": "^1.2.7"
+    "react-photo-view": "^1.2.7",
+    "react-quill": "^2.0.0"
   },
   "devDependencies": {
     "autoprefixer": "10",

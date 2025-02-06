@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
-
+import { useRouter } from "next/navigation";
 
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -10,15 +10,26 @@ const supabase = createClient(
 );
 
 export default function Login() {
+    const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
     const [isBrowser, setIsBrowser] = useState(false);
-
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         setIsBrowser(true);
-    }, []);
+        const checkUser = async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                router.replace('/admin');
+            } else {
+                setIsLoading(false);
+            }
+        };
+        
+        checkUser();
+    }, [router]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -32,7 +43,7 @@ export default function Login() {
         }
     };
 
-    if (!isBrowser) return null;
+    if (!isBrowser || isLoading) return null;
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
