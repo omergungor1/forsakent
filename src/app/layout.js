@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Roboto } from "next/font/google";
+import { LanguageProvider } from '../context/LanguageContext';
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -22,7 +23,9 @@ export default function RootLayout({ children }) {
         <link rel="shortcut icon" href="/logos/favicon.png" type="image/png" />
       </head>
       <body className={roboto.className}>
-        <ClientLayout>{children}</ClientLayout>
+        <LanguageProvider>
+          <ClientLayout>{children}</ClientLayout>
+        </LanguageProvider>
       </body>
     </html>
   );

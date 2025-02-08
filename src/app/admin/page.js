@@ -261,8 +261,8 @@ const ServicesContent = ({
     const handleCreateAlbum = async () => {
         if (!newAlbumName.trim()) {
             toast.error('Albüm adı boş olamaz!');
-            return;
-        }
+                return;
+            }
 
         const newAlbum = {
             id: crypto.randomUUID(),
@@ -300,11 +300,11 @@ const ServicesContent = ({
         const newImages = [];
 
         try {
-            for (const file of files) {
+        for (const file of files) {
                 if (!file.type.startsWith('image/')) {
                     toast.error('Lütfen sadece resim dosyası yükleyin!');
-                    continue;
-                }
+                continue;
+            }
 
                 const fileSize = file.size / 1024 / 1024;
                 if (fileSize > 5) {
@@ -449,7 +449,7 @@ const ServicesContent = ({
                         {subItem.label}
                     </button>
                 ))}
-            </div>
+                    </div>
 
             {activeSubSection && (
                 <div className="space-y-6">
@@ -478,7 +478,7 @@ const ServicesContent = ({
                                         >
                                             Albüm Oluştur
                                         </Button>
-                                    </div>
+                </div>
                                     <p className="mt-2 text-sm text-gray-500">
                                         Albüm oluşturduktan sonra içine resim ekleyebilirsiniz.
                                     </p>
@@ -587,7 +587,7 @@ const ServicesContent = ({
                                                             </button>
                                                         </div>
                                                     ))}
-                                                </div>
+            </div>
                                             )}
                                         </CardBody>
                                     </Card>
@@ -625,7 +625,7 @@ const ServicesContent = ({
                             />
                         </svg>
                         Albümü Sil
-                    </div>
+                                </div>
                 </DialogHeader>
                 <DialogBody className="px-6 py-4">
                     <div className="space-y-3">
@@ -1059,7 +1059,7 @@ const ProjectsContent = ({
                                             </option>
                                         ))}
                                     </select>
-                                </div>
+                        </div>
                             )}
                         </div>
                         <div className="grid grid-cols-4 gap-4 mb-4">
@@ -1414,10 +1414,10 @@ const ReferencesContent = ({
                                         </Button>
                                     </div>
                                 </div>
-                            </CardBody>
-                        </Card>
+                    </CardBody>
+                </Card>
                     ))}
-                </div>
+            </div>
             ) : (
                 <div className="space-y-6 max-w-md mx-auto">
                     <div>
@@ -1644,6 +1644,10 @@ const ContactContent = () => {
 
                 <div>
                     <h3 className="font-semibold mb-4">Sosyal Medya Hesapları</h3>
+                    <p className="text-sm text-gray-500 mb-4">
+                        Not: Lütfen sosyal medya linklerini "https://" ile başlayacak şekilde tam URL olarak girin.
+                        Örn: https://www.facebook.com/forsapeyzaj
+                    </p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {Object.entries(contactData.social_media || {}).map(([platform, url]) => (
                             <div key={platform}>

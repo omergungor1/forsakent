@@ -1,9 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Typography, Button, IconButton } from "@material-tailwind/react";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "../../src/context/LanguageContext";
-
+import { useState, useEffect } from "react";
+import { supabase } from '../lib/supabaseClient';
 
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -15,6 +18,27 @@ const whatsappMessage = "Merhaba, size web siteniz üzerinden ulaşıyorum. Sizd
 export function Footer() {
   const { language } = useLanguage();
   const pathname = usePathname();
+  const [socialMedia, setSocialMedia] = useState({});
+
+  useEffect(() => {
+    const fetchSocialMedia = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('contact')
+          .select('social_media')
+          .single();
+
+        if (error) throw error;
+        if (data?.social_media) {
+          setSocialMedia(data.social_media);
+        }
+      } catch (error) {
+        console.error('Sosyal medya bilgileri çekilirken hata:', error);
+      }
+    };
+
+    fetchSocialMedia();
+  }, []);
 
   if (pathname == '/admin' || pathname == '/admin/login') {
     return null;
@@ -84,7 +108,8 @@ export function Footer() {
             height={125}
             src={'/logos/logo.png'}
             alt={"Forsa Kent Logo"}
-            className="w-40 "
+            className="w-40"
+            priority
           />
           <ul className="flex flex-wrap justify-center my-4 md:my-0 w-full mx-auto items-center gap-4">
             {
@@ -103,22 +128,63 @@ export function Footer() {
             }
           </ul>
           <div className="flex w-fit justify-center gap-2">
-            <IconButton size="sm" color="gray" variant="text">
-              <i className="fa-brands fa-youtube text-lg" />
-            </IconButton>
-            <IconButton size="sm" color="gray" variant="text">
-              <i className="fa-brands fa-facebook text-lg" />
-            </IconButton>
-            <IconButton size="sm" color="gray" variant="text">
-              <i className="fa-brands fa-instagram text-lg" />
-            </IconButton>
+            {socialMedia?.youtube?.trim() && (
+              <IconButton 
+                size="sm" 
+                color="gray" 
+                variant="text"
+                onClick={() => window.open(socialMedia.youtube, '_blank')}
+              >
+                <i className="fa-brands fa-youtube text-lg" />
+              </IconButton>
+            )}
+            {socialMedia?.facebook?.trim() && (
+              <IconButton 
+                size="sm" 
+                color="gray" 
+                variant="text"
+                onClick={() => window.open(socialMedia.facebook, '_blank')}
+              >
+                <i className="fa-brands fa-facebook text-lg" />
+              </IconButton>
+            )}
+            {socialMedia?.instagram?.trim() && (
+              <IconButton 
+                size="sm" 
+                color="gray" 
+                variant="text"
+                onClick={() => window.open(socialMedia.instagram, '_blank')}
+              >
+                <i className="fa-brands fa-instagram text-lg" />
+              </IconButton>
+            )}
+            {socialMedia?.twitter?.trim() && (
+              <IconButton 
+                size="sm" 
+                color="gray" 
+                variant="text"
+                onClick={() => window.open(socialMedia.twitter, '_blank')}
+              >
+                <i className="fa-brands fa-twitter text-lg" />
+              </IconButton>
+            )}
+            {socialMedia?.linkedin?.trim() && (
+              <IconButton 
+                size="sm" 
+                color="gray" 
+                variant="text"
+                onClick={() => window.open(socialMedia.linkedin, '_blank')}
+              >
+                <i className="fa-brands fa-linkedin text-lg" />
+              </IconButton>
+            )}
           </div>
         </div>
         <Typography
           color="blue-gray"
           className="text-center mt-12 font-normal !text-gray-700"
         >
-          &copy; {CURRENT_YEAR} {language == 'tr' ? "Tüm hakları Forsa Peyzaj’a aittir." : "All rights reserved by Forsa Peyzaj."}{" "}
+          &copy; {CURRENT_YEAR} {language == 'tr' ? "Tüm hakları Forsa Peyzaj'a aittir." : "All rights reserved by Forsa Peyzaj."}{" "}
         </Typography>
       </div>
     </footer>
