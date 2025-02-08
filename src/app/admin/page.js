@@ -67,15 +67,158 @@ const socialMediaPlatforms = [
 ];
 
 const DashboardContent = () => (
-    <div className="space-y-6">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6">Admin Panel'e Hoş Geldiniz</h1>
-        <div className="prose max-w-none">
-            <h2>Panel Kullanım Kılavuzu</h2>
-            <ul>
-                <li><strong>Hizmetlerimiz:</strong> Her hizmet için Türkçe ve İngilizce içerik düzenleyebilir, resim ekleyebilirsiniz.</li>
-                <li><strong>Projeler:</strong> Tüm projelerinizi yönetebilir, düzenleyebilir ve silebilirsiniz.</li>
-                <li><strong>Referanslar:</strong> Referans listesini güncelleyebilir, yeni referanslar ekleyebilirsiniz.</li>
-                <li><strong>İletişim:</strong> İletişim bilgilerini ve sosyal medya hesaplarını yönetebilirsiniz.</li>
+    <div className="space-y-8">
+        <div className="border-b pb-6">
+            <div className="flex justify-between items-center">
+                <div>
+                    <h1 className="text-2xl font-bold text-gray-800 mb-2">Admin Panel'e Hoş Geldiniz</h1>
+                    <p className="text-gray-600">Bu panel üzerinden web sitenizin tüm içeriğini yönetebilirsiniz.</p>
+                </div>
+                <a 
+                    href="https://mail.hostinger.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="inline-flex items-center px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg hover:bg-indigo-100 transition-colors duration-200"
+                >
+                    <svg 
+                        className="w-5 h-5 mr-2" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                    >
+                        <path 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            strokeWidth="2" 
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" 
+                        />
+                    </svg>
+                    Mail Paneli
+                </a>
+            </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-blue-50 p-6 rounded-xl">
+                <h2 className="text-lg font-semibold text-blue-800 mb-4">Özellikler</h2>
+                <ul className="space-y-3">
+                    <li className="flex items-start gap-3">
+                        <svg className="w-5 h-5 text-blue-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>Çoklu dil desteği (Türkçe/İngilizce)</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <svg className="w-5 h-5 text-blue-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>Sürükle-bırak ile resim yükleme</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <svg className="w-5 h-5 text-blue-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>Albüm bazlı resim yönetimi</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div className="bg-green-50 p-6 rounded-xl">
+                <h2 className="text-lg font-semibold text-green-800 mb-4">Güvenlik Özellikleri</h2>
+                <ul className="space-y-3">
+                    <li className="flex items-start gap-3">
+                        <svg className="w-5 h-5 text-green-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        <span>Güvenli oturum yönetimi</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <svg className="w-5 h-5 text-green-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        <span>Otomatik oturum sonlandırma</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <svg className="w-5 h-5 text-green-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        <span>Güvenli dosya yükleme kontrolleri</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div className="bg-gray-50 p-6 rounded-xl">
+            <h2 className="text-lg font-semibold text-gray-800 mb-4">Kullanım Kılavuzu</h2>
+            
+            <div className="space-y-6">
+                <div>
+                    <h3 className="font-medium text-gray-700 mb-2">📸 Hizmetlerimiz</h3>
+                    <ul className="list-disc list-inside space-y-2 text-gray-600 ml-4">
+                        <li>Her hizmet türü için ayrı albümler oluşturabilirsiniz</li>
+                        <li>Albümlere istediğiniz kadar resim ekleyebilirsiniz</li>
+                        <li>Resimler 5MB'dan küçük olmalıdır</li>
+                        <li>Desteklenen formatlar: JPG, PNG, GIF</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 className="font-medium text-gray-700 mb-2">🏗️ Projeler</h3>
+                    <ul className="list-disc list-inside space-y-2 text-gray-600 ml-4">
+                        <li>Yeni proje ekleyebilir, mevcut projeleri düzenleyebilirsiniz</li>
+                        <li>Her projeye birden fazla resim ekleyebilirsiniz</li>
+                        <li>Kapak fotoğrafını seçebilirsiniz</li>
+                        <li>Projeleri sıralayabilir ve silebilirsiniz</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 className="font-medium text-gray-700 mb-2">🤝 Referanslar</h3>
+                    <ul className="list-disc list-inside space-y-2 text-gray-600 ml-4">
+                        <li>Referans firmaların logolarını ekleyebilirsiniz</li>
+                        <li>Referansları düzenleyebilir ve silebilirsiniz</li>
+                        <li>Logo boyutları otomatik olarak optimize edilir</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 className="font-medium text-gray-700 mb-2">📞 İletişim</h3>
+                    <ul className="list-disc list-inside space-y-2 text-gray-600 ml-4">
+                        <li>İletişim bilgilerini güncelleyebilirsiniz</li>
+                        <li>Sosyal medya hesaplarını yönetebilirsiniz</li>
+                        <li>WhatsApp ve telefon numaralarını düzenleyebilirsiniz</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div className="bg-yellow-50 p-6 rounded-xl">
+            <h2 className="text-lg font-semibold text-yellow-800 mb-4">Önemli Notlar</h2>
+            <ul className="space-y-3">
+                <li className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-yellow-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <span>Değişiklikleri yaparken "Kaydet" butonuna basmayı unutmayın</span>
+                </li>
+                <li className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-yellow-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <span>Büyük resimler yüklemeden önce optimize edilmelidir</span>
+                </li>
+                <li className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-yellow-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <span>Silme işlemleri geri alınamaz, dikkatli olun!</span>
+                </li>
+                <li className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-yellow-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <span>İşiniz bitince güvenli çıkış yapmak için "Çıkış Yap" butonuna basın</span>
+                </li>
             </ul>
         </div>
     </div>
@@ -1699,7 +1842,7 @@ const AdminPanelContent = () => {
                             className="flex items-center w-full px-4 py-3 text-gray-700 rounded-lg hover:bg-red-50 hover:text-red-700 transition-all duration-200 group"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3 group-hover:text-red-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                             </svg>
                             Çıkış Yap
                         </button>
