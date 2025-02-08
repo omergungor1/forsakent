@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
@@ -1536,11 +1536,11 @@ const ContactContent = () => {
     );
 };
 
-export default function AdminPanel() {
+// AdminPanel içeriğini ayrı bir komponente taşıyalım
+const AdminPanelContent = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     
-    // URL'den section ve subsection bilgilerini al
     const [activeSection, setActiveSection] = useState(searchParams.get('section') || 'dashboard');
     const [activeSubSection, setActiveSubSection] = useState(searchParams.get('subsection') || '');
     const [user, setUser] = useState();
@@ -1714,5 +1714,21 @@ export default function AdminPanel() {
                 </div>
             </div>
         </div>
+    );
+};
+
+// Ana komponenti Suspense ile saralım
+export default function AdminPanel() {
+    return (
+        <Suspense fallback={
+            <div className="flex h-screen items-center justify-center">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+                    <p className="mt-4 text-gray-600">Yükleniyor...</p>
+                </div>
+            </div>
+        }>
+            <AdminPanelContent />
+        </Suspense>
     );
 }
