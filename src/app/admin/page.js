@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
 import { Dialog } from '@headlessui/react';
 import { Transition } from '@headlessui/react';
@@ -83,105 +83,442 @@ const DashboardContent = () => (
 
 const ServicesContent = ({ 
     activeSubSection, 
-    setActiveSubSection, 
-    contentTR, 
-    setContentTR, 
-    contentEN, 
-    setContentEN,
-    images,
-    handleDeleteImage,
-    handleFileUpload,
-    handleSave 
-}) => (
-    <div className="space-y-6">
-        <div className="flex space-x-4 mb-6">
-            {menuItems.find(item => item.id === 'services').subItems.map(subItem => (
-                <button
-                    key={subItem.id}
-                    onClick={() => setActiveSubSection(subItem.id)}
-                    className={`px-4 py-2 rounded-lg transition-all duration-200
-                        ${activeSubSection === subItem.id 
-                            ? 'bg-blue-500 text-white' 
-                            : 'bg-gray-100 hover:bg-gray-200'}`}
-                >
-                    {subItem.label}
-                </button>
-            ))}
-        </div>
-        
-        {activeSubSection && (
-            <div className="space-y-6">
-                <div className="grid grid-cols-2 gap-6">
-                    <div>
-                        <h3 className="font-semibold mb-2">Türkçe İçerik</h3>
-                        <Textarea
-                            value={contentTR}
-                            onChange={(e) => setContentTR(e.target.value)}
-                            className="w-full min-h-[400px] p-3 border rounded-lg resize-none"
-                            placeholder="Türkçe içeriği buraya girin..."
-                        />
-                    </div>
-                    <div>
-                        <h3 className="font-semibold mb-2">İngilizce İçerik</h3>
-                        <Textarea
-                            value={contentEN}
-                            onChange={(e) => setContentEN(e.target.value)}
-                            className="w-full min-h-[400px] p-3 border rounded-lg resize-none"
-                            placeholder="Enter English content here..."
-                        />
-                    </div>
-                </div>
+    setActiveSubSection
+}) => {
+    const [albums, setAlbums] = useState([]);
+    const [selectedAlbum, setSelectedAlbum] = useState(null);
+    const [newAlbumName, setNewAlbumName] = useState('');
+    const [isUploading, setIsUploading] = useState(false);
+    const [albumToDelete, setAlbumToDelete] = useState(null);
 
-                <div className="border-t pt-6">
-                    <h3 className="font-semibold mb-4">Resimler</h3>
-                    <div className="grid grid-cols-4 gap-4 mb-4">
-                        {images.map((image, index) => (
-                            <div key={index} className="relative group">
-                                <Image 
-                                    src={image.url} 
-                                    alt=""
-                                    width={128}
-                                    height={128}
-                                    className="w-full h-32 object-cover rounded-lg"
-                                />
-                                <button
-                                    onClick={() => handleDeleteImage(image.id)}
-                                    className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                                >
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
-                            </div>
-                        ))}
-                    </div>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        onChange={handleFileUpload}
-                        className="hidden"
-                        id="image-upload"
-                    />
-                    <label
-                        htmlFor="image-upload"
-                        className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 cursor-pointer"
+    // Albümleri çek
+    useEffect(() => {
+        const fetchAlbums = async () => {
+            if (!activeSubSection) return;
+
+            try {
+                const { data, error } = await supabase
+                    .from('services')
+                    .select('albums')
+                    .eq('service_type', activeSubSection)
+                    .single();
+
+                if (error) throw error;
+                setAlbums(data.albums || []);
+            } catch (error) {
+                console.error('Albümler yüklenirken hata:', error);
+                toast.error('Albümler yüklenirken bir hata oluştu!');
+            }
+        };
+
+        fetchAlbums();
+    }, [activeSubSection]);
+
+    // Yeni albüm oluştur
+    const handleCreateAlbum = async () => {
+        if (!newAlbumName.trim()) {
+            toast.error('Albüm adı boş olamaz!');
+            return;
+        }
+
+        const newAlbum = {
+            id: crypto.randomUUID(),
+            name: newAlbumName.trim(),
+            images: []
+        };
+
+        try {
+            const updatedAlbums = [...albums, newAlbum];
+            const { error } = await supabase
+                .from('services')
+                .update({ 
+                    albums: updatedAlbums,
+                    updated_at: new Date().toISOString()
+                })
+                .eq('service_type', activeSubSection);
+
+            if (error) throw error;
+
+            setAlbums(updatedAlbums);
+            setNewAlbumName('');
+            toast.success('Yeni albüm oluşturuldu!');
+        } catch (error) {
+            console.error('Albüm oluşturma hatası:', error);
+            toast.error('Albüm oluşturulurken bir hata oluştu!');
+        }
+    };
+
+    // Albüme resim yükle
+    const handleUploadImages = async (event, albumId) => {
+        const files = event.target.files;
+        if (!files.length) return;
+
+        setIsUploading(true);
+        const newImages = [];
+
+        try {
+            for (const file of files) {
+                if (!file.type.startsWith('image/')) {
+                    toast.error('Lütfen sadece resim dosyası yükleyin!');
+                    continue;
+                }
+
+                const fileSize = file.size / 1024 / 1024;
+                if (fileSize > 5) {
+                    toast.error("Dosya boyutu 5MB'dan küçük olmalıdır!");
+                    continue;
+                }
+
+                const fileName = `services/${activeSubSection}/${albumId}/${Date.now()}-${file.name}`;
+                const { data, error } = await supabase.storage
+                    .from('images')
+                    .upload(fileName, file);
+
+                if (error) throw error;
+
+                const { data: urlData } = supabase.storage
+                    .from('images')
+                    .getPublicUrl(data.path);
+
+                newImages.push({
+                    id: data.path,
+                    url: urlData.publicUrl
+                });
+
+                toast.success(`${file.name} başarıyla yüklendi!`);
+            }
+
+            // Albümü güncelle
+            const updatedAlbums = albums.map(album => {
+                if (album.id === albumId) {
+                    return {
+                        ...album,
+                        images: [...album.images, ...newImages]
+                    };
+                }
+                return album;
+            });
+
+            const { error } = await supabase
+                .from('services')
+                .update({ 
+                    albums: updatedAlbums,
+                    updated_at: new Date().toISOString()
+                })
+                .eq('service_type', activeSubSection);
+
+            if (error) throw error;
+
+            setAlbums(updatedAlbums);
+        } catch (error) {
+            console.error('Resim yükleme hatası:', error);
+            toast.error('Resimler yüklenirken bir hata oluştu!');
+        } finally {
+            setIsUploading(false);
+        }
+    };
+
+    // Albümü sil
+    const handleDeleteAlbum = async (albumId) => {
+        try {
+            // Önce albümdeki tüm resimleri storage'dan sil
+            const album = albums.find(a => a.id === albumId);
+            if (album?.images?.length) {
+                const { error: storageError } = await supabase.storage
+                    .from('images')
+                    .remove(album.images.map(img => img.id));
+
+                if (storageError) throw storageError;
+            }
+
+            // Sonra albümü listeden çıkar
+            const updatedAlbums = albums.filter(a => a.id !== albumId);
+            const { error } = await supabase
+                .from('services')
+                .update({ 
+                    albums: updatedAlbums,
+                    updated_at: new Date().toISOString()
+                })
+                .eq('service_type', activeSubSection);
+
+            if (error) throw error;
+
+            setAlbums(updatedAlbums);
+            toast.success('Albüm başarıyla silindi!');
+        } catch (error) {
+            console.error('Albüm silme hatası:', error);
+            toast.error('Albüm silinirken bir hata oluştu!');
+        }
+    };
+
+    // Albümden resim sil
+    const handleDeleteImage = async (albumId, imageId) => {
+        try {
+            // Storage'dan resmi sil
+            const { error: storageError } = await supabase.storage
+                .from('images')
+                .remove([imageId]);
+
+            if (storageError) throw storageError;
+
+            // Albümden resmi çıkar
+            const updatedAlbums = albums.map(album => {
+                if (album.id === albumId) {
+                    return {
+                        ...album,
+                        images: album.images.filter(img => img.id !== imageId)
+                    };
+                }
+                return album;
+            });
+
+            const { error } = await supabase
+                .from('services')
+                .update({ 
+                    albums: updatedAlbums,
+                    updated_at: new Date().toISOString()
+                })
+                .eq('service_type', activeSubSection);
+
+            if (error) throw error;
+
+            setAlbums(updatedAlbums);
+            toast.success('Resim başarıyla silindi!');
+        } catch (error) {
+            console.error('Resim silme hatası:', error);
+            toast.error('Resim silinirken bir hata oluştu!');
+        }
+    };
+
+    return (
+        <div className="space-y-6">
+            {/* Tab Menüsü */}
+            <div className="flex space-x-4 mb-6">
+                {menuItems.find(item => item.id === 'services').subItems.map(subItem => (
+                    <button
+                        key={subItem.id}
+                        onClick={() => setActiveSubSection(subItem.id)}
+                        className={`px-4 py-2 rounded-lg transition-all duration-200
+                            ${activeSubSection === subItem.id 
+                                ? 'bg-blue-500 text-white' 
+                                : 'bg-gray-100 hover:bg-gray-200'}`}
                     >
-                        Resim Yükle
-                    </label>
-                </div>
-
-                <Button 
-                    onClick={handleSave}
-                    color="blue"
-                    className="mt-6"
-                >
-                    Kaydet
-                </Button>
+                        {subItem.label}
+                    </button>
+                ))}
             </div>
-        )}
-    </div>
-);
+
+            {activeSubSection && (
+                <div className="space-y-6">
+                    {/* Yeni Albüm Oluşturma */}
+                    <Card className="bg-white">
+                        <CardBody className="p-6">
+                            <h3 className="text-xl font-semibold mb-4">Yeni Albüm Oluştur</h3>
+                            <div className="bg-gray-50 p-6 rounded-xl space-y-4">
+                                <div className="max-w-2xl">
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Albüm Adı
+                                    </label>
+                                    <div className="flex gap-4">
+                                        <Input
+                                            value={newAlbumName}
+                                            onChange={(e) => setNewAlbumName(e.target.value)}
+                                            placeholder="Örn: 2023 Projeleri"
+                                            className="flex-1"
+                                            size="lg"
+                                        />
+                                        <Button
+                                            color="blue"
+                                            size="lg"
+                                            onClick={handleCreateAlbum}
+                                            className="px-6"
+                                        >
+                                            Albüm Oluştur
+                                        </Button>
+                                    </div>
+                                    <p className="mt-2 text-sm text-gray-500">
+                                        Albüm oluşturduktan sonra içine resim ekleyebilirsiniz.
+                                    </p>
+                                </div>
+                            </div>
+                        </CardBody>
+                    </Card>
+
+                    {/* Mevcut Albümler */}
+                    <div className="space-y-6">
+                        <h3 className="text-xl font-semibold">Mevcut Albümler ({albums.length})</h3>
+                        {albums.length === 0 ? (
+                            <div className="text-center py-12 bg-gray-50 rounded-xl">
+                                <p className="text-gray-500">Henüz albüm oluşturulmamış.</p>
+                                <p className="text-sm text-gray-400 mt-1">Yukarıdaki formu kullanarak yeni bir albüm oluşturabilirsiniz.</p>
+                            </div>
+                        ) : (
+                            <div className="space-y-6">
+                                {albums.map((album) => (
+                                    <Card key={album.id} className="overflow-hidden">
+                                        <CardHeader className="flex justify-between items-center p-6 border-b">
+                                            <h3 className="text-xl font-semibold text-gray-800">{album.name}</h3>
+                                            <div className="flex gap-3">
+                                                <input
+                                                    type="file"
+                                                    accept="image/jpeg,image/png,image/gif"
+                                                    multiple
+                                                    onChange={(e) => handleUploadImages(e, album.id)}
+                                                    className="hidden"
+                                                    id={`album-image-upload-${album.id}`}
+                                                    disabled={isUploading}
+                                                />
+                                                <label
+                                                    htmlFor={`album-image-upload-${album.id}`}
+                                                    className={`inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium
+                                                        ${isUploading 
+                                                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                                                            : 'bg-blue-50 text-blue-700 hover:bg-blue-100 cursor-pointer'}`}
+                                                >
+                                                    <svg 
+                                                        className="w-5 h-5 mr-2" 
+                                                        fill="none" 
+                                                        stroke="currentColor" 
+                                                        viewBox="0 0 24 24"
+                                                    >
+                                                        <path 
+                                                            strokeLinecap="round" 
+                                                            strokeLinejoin="round" 
+                                                            strokeWidth="2" 
+                                                            d="M12 4v16m8-8H4" 
+                                                        />
+                                                    </svg>
+                                                    {isUploading ? 'Yükleniyor...' : 'Resim Ekle'}
+                                                </label>
+                                                <Button
+                                                    color="red"
+                                                    variant="text"
+                                                    size="sm"
+                                                    onClick={() => setAlbumToDelete(album)}
+                                                    className="flex items-center gap-2"
+                                                >
+                                                    <svg 
+                                                        className="w-5 h-5" 
+                                                        fill="none" 
+                                                        stroke="currentColor" 
+                                                        viewBox="0 0 24 24"
+                                                    >
+                                                        <path 
+                                                            strokeLinecap="round" 
+                                                            strokeLinejoin="round" 
+                                                            strokeWidth="2" 
+                                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" 
+                                                    />
+                                                    </svg>
+                                                    Albümü Sil
+                                                </Button>
+                                            </div>
+                                        </CardHeader>
+                                        <CardBody className="p-6">
+                                            {album.images.length === 0 ? (
+                                                <div className="text-center py-8 text-gray-500">
+                                                    <p>Bu albümde henüz resim yok.</p>
+                                                    <p className="text-sm text-gray-400 mt-1">Yukarıdaki "Resim Ekle" butonunu kullanarak resim ekleyebilirsiniz.</p>
+                                                </div>
+                                            ) : (
+                                                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                                                    {album.images.map((image) => (
+                                                        <div key={image.id} className="relative group">
+                                                            <div className="aspect-square rounded-lg overflow-hidden bg-gray-50">
+                                                                <Image
+                                                                    src={image.url}
+                                                                    alt=""
+                                                                    width={200}
+                                                                    height={200}
+                                                                    className="w-full h-full object-cover"
+                                                                />
+                                                            </div>
+                                                            <button
+                                                                onClick={() => handleDeleteImage(album.id, image.id)}
+                                                                className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                                                                title="Resmi sil"
+                                                            >
+                                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </CardBody>
+                                    </Card>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
+
+            {/* Albüm Silme Onay Modalı */}
+            <MaterialDialog
+                open={albumToDelete !== null}
+                handler={() => setAlbumToDelete(null)}
+                size="sm"
+                className="bg-white shadow-2xl rounded-xl"
+                animate={{
+                    mount: { scale: 1, y: 0 },
+                    unmount: { scale: 0.9, y: -100 },
+                }}
+            >
+                <DialogHeader className="border-b border-gray-100 text-xl font-medium text-gray-700 px-6 py-4">
+                    <div className="flex items-center gap-2">
+                        <svg 
+                            className="w-6 h-6 text-red-500" 
+                            fill="none" 
+                            stroke="currentColor" 
+                            viewBox="0 0 24 24"
+                        >
+                            <path 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round" 
+                                strokeWidth="2" 
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" 
+                            />
+                        </svg>
+                        Albümü Sil
+                    </div>
+                </DialogHeader>
+                <DialogBody className="px-6 py-4">
+                    <div className="space-y-3">
+                        <p className="text-gray-600">
+                            <span className="font-medium text-gray-900">{albumToDelete?.name}</span> albümünü silmek istediğinizden emin misiniz?
+                        </p>
+                        <p className="text-sm text-gray-500 bg-gray-50 p-3 rounded-lg border border-gray-100">
+                            ⚠️ Bu işlem geri alınamaz ve albümdeki tüm resimler kalıcı olarak silinecektir.
+                        </p>
+                    </div>
+                </DialogBody>
+                <DialogFooter className="border-t border-gray-100 px-6 py-4 flex justify-end gap-3">
+                    <Button
+                        variant="text"
+                        color="gray"
+                        onClick={() => setAlbumToDelete(null)}
+                        className="font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 focus:ring-2 focus:ring-gray-100"
+                    >
+                        Vazgeç
+                    </Button>
+                    <Button
+                        variant="filled"
+                        color="red"
+                        onClick={() => {
+                            handleDeleteAlbum(albumToDelete.id);
+                            setAlbumToDelete(null);
+                        }}
+                        className="bg-red-500 hover:bg-red-600 focus:ring-2 focus:ring-red-200 px-6"
+                    >
+                        Sil
+                    </Button>
+                </DialogFooter>
+            </MaterialDialog>
+        </div>
+    );
+};
 
 const ProjectsContent = ({
     projects,
@@ -191,6 +528,7 @@ const ProjectsContent = ({
 }) => {
     const [selectedProject, setSelectedProject] = useState(null);
     const [projectToDelete, setProjectToDelete] = useState(null);
+    const [isUploading, setIsUploading] = useState(false);
 
     // Projeleri çekmek için useEffect
     useEffect(() => {
@@ -214,51 +552,57 @@ const ProjectsContent = ({
 
     // Proje için özel resim yükleme fonksiyonu
     const handleProjectImageUpload = async (event) => {
+        setIsUploading(true);
         const files = event.target.files;
         const newImages = [];
 
-        for (const file of files) {
-            if (!file.type.startsWith('image/')) {
-                toast.error('Lütfen sadece resim dosyası yükleyin!');
-                continue;
+        try {
+            for (const file of files) {
+                if (!file.type.startsWith('image/')) {
+                    toast.error('Lütfen sadece resim dosyası yükleyin!');
+                    continue;
+                }
+
+                const fileSize = file.size / 1024 / 1024;
+                if (fileSize > 5) {
+                    toast.error("Dosya boyutu 5MB'dan küçük olmalıdır!");
+                    continue;
+                }
+
+                try {
+                    const fileName = `projects/${Date.now()}-${file.name}`;
+                    const { data, error } = await supabase.storage
+                        .from('images')
+                        .upload(fileName, file);
+
+                    if (error) throw error;
+
+                    const { data: urlData } = supabase.storage
+                        .from('images')
+                        .getPublicUrl(data.path);
+
+                    newImages.push({
+                        id: data.path,
+                        url: urlData.publicUrl
+                    });
+
+                    toast.success(`${file.name} başarıyla yüklendi!`);
+                } catch (error) {
+                    console.error('Resim yükleme hatası:', error);
+                    toast.error(`${file.name} yüklenirken hata oluştu!`);
+                }
             }
 
-            const fileSize = file.size / 1024 / 1024;
-            if (fileSize > 5) {
-                toast.error("Dosya boyutu 5MB'dan küçük olmalıdır!");
-                continue;
-            }
-
-            try {
-                const fileName = `projects/${Date.now()}-${file.name}`;
-                const { data, error } = await supabase.storage
-                    .from('images')
-                    .upload(fileName, file);
-
-                if (error) throw error;
-
-                const { data: urlData } = supabase.storage
-                    .from('images')
-                    .getPublicUrl(data.path);
-
-                newImages.push({
-                    id: data.path,
-                    url: urlData.publicUrl
+            if (newImages.length > 0) {
+                const updatedImages = [...(selectedProject.images || []), ...newImages];
+                setSelectedProject({
+                    ...selectedProject,
+                    images: updatedImages,
+                    cover_image: selectedProject.cover_image || newImages[0].id
                 });
-            } catch (error) {
-                console.error('Resim yükleme hatası:', error);
-                toast.error('Resim yüklenirken bir hata oluştu!');
             }
-        }
-
-        if (newImages.length > 0) {
-            const updatedImages = [...(selectedProject.images || []), ...newImages];
-            setSelectedProject({
-                ...selectedProject,
-                images: updatedImages,
-                // Eğer kapak fotosu yoksa, ilk yüklenen resmi kapak yap
-                cover_image: selectedProject.cover_image || newImages[0].id
-            });
+        } finally {
+            setIsUploading(false);
         }
     };
 
@@ -355,12 +699,15 @@ const ProjectsContent = ({
             if (storageError) throw storageError;
 
             // Sonra projeden sil
+            const remainingImages = selectedProject.images.filter((_, i) => i !== imageIndex);
+            const newCoverImage = selectedProject.cover_image === imageId 
+                ? (remainingImages[0]?.id || null)
+                : selectedProject.cover_image;
+
             const updatedProject = {
                 ...selectedProject,
-                images: selectedProject.images.filter((_, i) => i !== imageIndex),
-                cover_image: selectedProject.cover_image === imageId 
-                    ? (selectedProject.images.filter((_, i) => i !== imageIndex)[0]?.id || null)
-                    : selectedProject.cover_image
+                images: remainingImages,
+                cover_image: newCoverImage
             };
 
             // Projeyi güncelle
@@ -399,10 +746,6 @@ const ProjectsContent = ({
                 handler={() => setProjectToDelete(null)}
                 size="sm"
                 className="bg-white shadow-2xl rounded-xl"
-                animate={{
-                    mount: { scale: 1, y: 0 },
-                    unmount: { scale: 0.9, y: -100 },
-                }}
             >
                 <DialogHeader className="border-b border-gray-100 text-xl font-medium text-gray-700 px-6 py-4">
                     <div className="flex items-center gap-2">
@@ -614,20 +957,46 @@ const ProjectsContent = ({
                                 </div>
                             ))}
                         </div>
-                        <input
-                            type="file"
-                            accept="image/*"
-                            multiple
-                            onChange={handleProjectImageUpload}
-                            className="hidden"
-                            id="project-image-upload"
-                        />
-                        <label
-                            htmlFor="project-image-upload"
-                            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 cursor-pointer"
-                        >
-                            Resim Yükle
-                        </label>
+                        <div className="space-y-4">
+                            <div className="bg-gray-50 p-4 rounded-lg text-sm text-gray-600">
+                                <p className="font-medium mb-2">Resim Yükleme Gereksinimleri:</p>
+                                <ul className="list-disc list-inside space-y-1">
+                                    <li>Maksimum dosya boyutu: 5MB</li>
+                                    <li>İzin verilen formatlar: .jpg, .jpeg, .png, .gif</li>
+                                    <li>Önerilen boyut oranı: 16:9 veya 4:3</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <input
+                                    type="file"
+                                    accept="image/jpeg,image/png,image/gif"
+                                    multiple
+                                    onChange={handleProjectImageUpload}
+                                    className="hidden"
+                                    id="project-image-upload"
+                                    disabled={isUploading}
+                                />
+                                <label
+                                    htmlFor="project-image-upload"
+                                    className={`inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium 
+                                        ${isUploading 
+                                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                                            : 'text-gray-700 bg-white hover:bg-gray-50 cursor-pointer'}`}
+                                >
+                                    {isUploading ? (
+                                        <>
+                                            <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24">
+                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                            </svg>
+                                            Yükleniyor...
+                                        </>
+                                    ) : (
+                                        'Resim Yükle'
+                                    )}
+                                </label>
+                            </div>
+                        </div>
                     </div>
 
                     <div className="flex space-x-4">
@@ -746,26 +1115,23 @@ const ReferencesContent = ({
                 .single();
 
             if (error) {
-                console.error('Supabase error:', error);
+                console.error('Update error:', error);
                 throw error;
             }
 
-            if (!data) {
-                throw new Error('No data returned from Supabase');
+            // Yeni referans eklendiyse
+            if (!reference.id) {
+                setReferences([data, ...references]); // Yeni referansı listenin başına ekle
+            } else {
+                // Mevcut referans güncellendiyse
+                setReferences(references.map(r => r.id === data.id ? data : r));
             }
 
-            // State'i güncelle
-            if (reference.id) {
-                setReferences(references.map(r => r.id === data.id ? data : r));
-            } else {
-                setReferences([data, ...references]);
-            }
-            
-            setSelectedReference(null);
-            toast.success('Referans başarıyla kaydedildi!');
+            setSelectedReference(null); // Form'u kapat
+            toast.success(reference.id ? 'Referans güncellendi!' : 'Yeni referans eklendi!');
         } catch (error) {
-            console.error('Referans kaydetme hatası:', error);
-            toast.error('Referans kaydedilirken bir hata oluştu!');
+            console.error('Kaydetme hatası:', error);
+            toast.error(`Referans kaydedilirken bir hata oluştu: ${error.message}`);
         }
     };
 
@@ -819,23 +1185,38 @@ const ReferencesContent = ({
             >
                 <DialogHeader className="border-b border-gray-100 text-xl font-medium text-gray-700 px-6 py-4">
                     <div className="flex items-center gap-2">
-                        <svg className="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        <svg 
+                            className="w-6 h-6 text-red-500" 
+                            fill="none" 
+                            stroke="currentColor" 
+                            viewBox="0 0 24 24"
+                        >
+                            <path 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round" 
+                                strokeWidth="2" 
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" 
+                            />
                         </svg>
                         Referansı Sil
                     </div>
                 </DialogHeader>
                 <DialogBody className="px-6 py-4">
-                    <p className="text-gray-600">
-                        <span className="font-medium text-gray-900">{referenceToDelete?.name}</span> referansını silmek istediğinizden emin misiniz?
-                    </p>
+                    <div className="space-y-3">
+                        <p className="text-gray-600">
+                            <span className="font-medium text-gray-900">{referenceToDelete?.name}</span> referansını silmek istediğinizden emin misiniz?
+                        </p>
+                        <p className="text-sm text-gray-500 bg-gray-50 p-3 rounded-lg border border-gray-100">
+                            ⚠️ Bu işlem geri alınamaz ve referansa ait tüm resimler de silinecektir.
+                        </p>
+                    </div>
                 </DialogBody>
                 <DialogFooter className="border-t border-gray-100 px-6 py-4 flex justify-end gap-3">
                     <Button
                         variant="text"
                         color="gray"
                         onClick={() => setReferenceToDelete(null)}
-                        className="font-medium text-gray-600 hover:text-gray-800"
+                        className="font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 focus:ring-2 focus:ring-gray-100"
                     >
                         Vazgeç
                     </Button>
@@ -843,7 +1224,7 @@ const ReferencesContent = ({
                         variant="filled"
                         color="red"
                         onClick={() => handleDeleteReference(referenceToDelete)}
-                        className="bg-red-500 hover:bg-red-600"
+                        className="bg-red-500 hover:bg-red-600 focus:ring-2 focus:ring-red-200 px-6"
                     >
                         Sil
                     </Button>
@@ -851,55 +1232,50 @@ const ReferencesContent = ({
             </MaterialDialog>
 
             {/* Referans Listesi */}
-            {!selectedReference && (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                    {references.length === 0 ? (
-                        <div className="col-span-full text-center py-8 text-gray-500">
-                            Henüz referans eklenmemiş.
-                        </div>
-                    ) : (
-                        references.map((reference) => (
-                            <Card key={reference.id} className="p-4">
-                                <div className="space-y-4">
-                                    <div className="aspect-square rounded-lg overflow-hidden bg-gray-50 flex items-center justify-center">
-                                        <Image 
-                                            src={reference.image?.url} 
-                                            alt={reference.name}
-                                            width={200}
-                                            height={200}
-                                            className="w-full h-full object-contain p-2"
-                                        />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-medium text-gray-900">{reference.name}</h3>
-                                        <div className="mt-2 flex gap-2">
-                                            <Button
-                                                color="blue"
-                                                size="sm"
-                                                onClick={() => setSelectedReference(reference)}
-                                                className="flex-1"
-                                            >
-                                                Düzenle
-                                            </Button>
-                                            <Button
-                                                color="red"
-                                                size="sm"
-                                                onClick={() => setReferenceToDelete(reference)}
-                                                className="flex-1"
-                                            >
-                                                Sil
-                                            </Button>
-                                        </div>
+            {!selectedReference ? (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    {references.map((reference) => (
+                        <Card key={reference.id} className="hover:shadow-lg transition-shadow">
+                            <CardBody className="p-4">
+                                <div className="aspect-square w-full h-32 rounded-lg overflow-hidden bg-gray-50 flex items-center justify-center mb-3">
+                                    <Image 
+                                        src={reference.image?.url} 
+                                        alt={reference.name}
+                                        width={100}
+                                        height={100}
+                                        className="w-full h-full object-contain p-2"
+                                    />
+                                </div>
+                                <div className="text-center">
+                                    <h3 className="font-medium text-gray-900 truncate">
+                                        {reference.name}
+                                    </h3>
+                                    <div className="mt-2 flex gap-2 justify-center">
+                                        <Button
+                                            size="sm"
+                                            color="blue"
+                                            variant="text"
+                                            className="flex-1"
+                                            onClick={() => setSelectedReference(reference)}
+                                        >
+                                            Düzenle
+                                        </Button>
+                                        <Button
+                                            size="sm"
+                                            color="red"
+                                            variant="text"
+                                            className="flex-1"
+                                            onClick={() => setReferenceToDelete(reference)}
+                                        >
+                                            Sil
+                                        </Button>
                                     </div>
                                 </div>
-                            </Card>
-                        ))
-                    )}
+                            </CardBody>
+                        </Card>
+                    ))}
                 </div>
-            )}
-
-            {/* Referans Ekleme/Düzenleme Formu */}
-            {selectedReference && (
+            ) : (
                 <div className="space-y-6 max-w-md mx-auto">
                     <div>
                         <h3 className="font-semibold mb-2">Referans Adı</h3>
@@ -985,37 +1361,223 @@ const ReferencesContent = ({
     );
 };
 
-export default function AdminPanel() {
-    const [activeSection, setActiveSection] = useState('dashboard');
-    const [activeSubSection, setActiveSubSection] = useState('');
-    const [user, setUser] = useState();
-    const router = useRouter();
-
-    // Form states
-    const [contentTR, setContentTR] = useState('');
-    const [contentEN, setContentEN] = useState('');
-    const [images, setImages] = useState([
-        {
-            id: '1',
-            url: '/image/img1.jpg'
-        },
-        {
-            id: '2',
-            url: '/image/img2.jpg'
-        },
-        {
-            id: '3',
-            url: '/image/img3.jpg'
+const ContactContent = () => {
+    const [contactData, setContactData] = useState({
+        email: '',
+        tel_phone: '',
+        wp_phone: '',
+        address: '',
+        social_media: {
+            facebook: '',
+            instagram: '',
+            twitter: '',
+            linkedin: '',
+            youtube: ''
         }
-    ]);
+    });
+    const [isLoading, setIsLoading] = useState(true);
+
+    // İletişim bilgilerini çek
+    useEffect(() => {
+        const fetchContact = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from('contact')
+                    .select('*')
+                    .single();
+
+                if (error) throw error;
+
+                if (data) {
+                    setContactData(data);
+                }
+            } catch (error) {
+                console.error('İletişim bilgileri çekilirken hata:', error);
+                toast.error('İletişim bilgileri yüklenirken bir hata oluştu!');
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchContact();
+    }, []);
+
+    // İletişim bilgilerini kaydet
+    const handleSave = async () => {
+        try {
+            // Önce mevcut kaydı kontrol et
+            const { data: existingData, error: fetchError } = await supabase
+                .from('contact')
+                .select('*')
+                .single();
+
+            if (fetchError) {
+                console.error('Fetch error:', fetchError);
+                throw fetchError;
+            }
+
+            const dataToUpdate = {
+                email: contactData.email || '',
+                tel_phone: contactData.tel_phone || '',
+                wp_phone: contactData.wp_phone || '',
+                address: contactData.address || '',
+                social_media: contactData.social_media || {
+                    facebook: '',
+                    instagram: '',
+                    twitter: '',
+                    linkedin: '',
+                    youtube: ''
+                },
+                updated_at: new Date().toISOString()
+            };
+
+            if (existingData?.id) {
+                dataToUpdate.id = existingData.id;
+            }
+
+            const { data, error } = await supabase
+                .from('contact')
+                .upsert(dataToUpdate)
+                .select()
+                .single();
+
+            if (error) {
+                console.error('Update error:', error);
+                throw error;
+            }
+
+            setContactData(data);
+            toast.success('İletişim bilgileri başarıyla güncellendi!');
+        } catch (error) {
+            console.error('Kaydetme hatası:', error);
+            toast.error(`İletişim bilgileri kaydedilirken bir hata oluştu: ${error.message}`);
+        }
+    };
+
+    if (isLoading) {
+        return <div>Yükleniyor...</div>;
+    }
+
+    return (
+        <div className="space-y-6 max-w-2xl mx-auto">
+            <h2 className="text-xl font-bold">İletişim Bilgileri</h2>
+            
+            <div className="space-y-4">
+                <div>
+                    <h3 className="font-semibold mb-2">E-posta Adresi</h3>
+                    <Input
+                        value={contactData.email || ''}
+                        onChange={(e) => setContactData({ ...contactData, email: e.target.value })}
+                        placeholder="E-posta adresini girin"
+                    />
+                </div>
+
+                <div>
+                    <h3 className="font-semibold mb-2">Telefon Numarası</h3>
+                    <Input
+                        value={contactData.tel_phone || ''}
+                        onChange={(e) => setContactData({ ...contactData, tel_phone: e.target.value })}
+                        placeholder="Telefon numarasını girin"
+                    />
+                </div>
+
+                <div>
+                    <h3 className="font-semibold mb-2">WhatsApp Numarası</h3>
+                    <Input
+                        value={contactData.wp_phone || ''}
+                        onChange={(e) => setContactData({ ...contactData, wp_phone: e.target.value })}
+                        placeholder="WhatsApp numarasını girin"
+                    />
+                </div>
+
+                <div>
+                    <h3 className="font-semibold mb-2">Adres</h3>
+                    <Textarea
+                        value={contactData.address || ''}
+                        onChange={(e) => setContactData({ ...contactData, address: e.target.value })}
+                        placeholder="Adresi girin"
+                    />
+                </div>
+
+                <div>
+                    <h3 className="font-semibold mb-4">Sosyal Medya Hesapları</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {Object.entries(contactData.social_media || {}).map(([platform, url]) => (
+                            <div key={platform}>
+                                <label className="block text-sm font-medium text-gray-700 capitalize mb-1">
+                                    {platform}
+                                </label>
+                                <Input
+                                    value={url}
+                                    onChange={(e) => setContactData({
+                                        ...contactData,
+                                        social_media: {
+                                            ...contactData.social_media,
+                                            [platform]: e.target.value
+                                        }
+                                    })}
+                                    placeholder={`${platform} URL`}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex justify-end">
+                <Button
+                    color="blue"
+                    onClick={handleSave}
+                >
+                    Kaydet
+                </Button>
+            </div>
+        </div>
+    );
+};
+
+export default function AdminPanel() {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    
+    // URL'den section ve subsection bilgilerini al
+    const [activeSection, setActiveSection] = useState(searchParams.get('section') || 'dashboard');
+    const [activeSubSection, setActiveSubSection] = useState(searchParams.get('subsection') || '');
+    const [user, setUser] = useState();
+
+    // Eksik state'leri ekleyelim
     const [projects, setProjects] = useState([]);
     const [references, setReferences] = useState([]);
-    const [contact, setContact] = useState({
-        phone: '',
-        address: '',
-        email: '',
-        socialMedia: []
-    });
+
+    // Section değiştiğinde URL'i güncelle
+    const handleSectionChange = (section) => {
+        const newParams = new URLSearchParams();
+        newParams.set('section', section);
+        
+        // Eğer services seçildiyse default subsection'ı da ekle
+        if (section === 'services') {
+            newParams.set('subsection', 'consulting');
+        } else {
+            newParams.delete('subsection');
+        }
+        
+        router.push(`/admin?${newParams.toString()}`);
+        setActiveSection(section);
+        
+        if (section === 'services') {
+            setActiveSubSection('consulting');
+        } else {
+            setActiveSubSection('');
+        }
+    };
+
+    // SubSection değiştiğinde URL'i güncelle
+    const handleSubSectionChange = (subsection) => {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set('subsection', subsection);
+        router.push(`/admin?${newParams.toString()}`);
+        setActiveSubSection(subsection);
+    };
 
     useEffect(() => {
         const checkUser = async () => {
@@ -1034,82 +1596,6 @@ export default function AdminPanel() {
         router.push('/admin/login');
     };
 
-    const handleFileUpload = async (event) => {
-        const files = event.target.files;
-        const newImages = [];
-
-        for (const file of files) {
-            if (!file.type.startsWith('image/')) {
-                alert('Lütfen sadece resim dosyası yükleyin!');
-                continue;
-            }
-
-            const fileSize = file.size / 1024 / 1024; // MB cinsinden
-            if (fileSize > 5) {
-                alert('Dosya boyutu 5MB\'dan küçük olmalıdır!');
-                continue;
-            }
-
-            try {
-                const fileName = `${Date.now()}-${file.name}`;
-                const { data, error } = await supabase.storage
-                    .from('images')
-                    .upload(fileName, file);
-
-                if (error) throw error;
-
-                const { data: urlData } = supabase.storage
-                    .from('images')
-                    .getPublicUrl(data.path);
-
-                newImages.push({
-                    id: data.path,
-                    url: urlData.publicUrl
-                });
-            } catch (error) {
-                console.error('Resim yükleme hatası:', error);
-                alert('Resim yüklenirken bir hata oluştu!');
-            }
-        }
-
-        setImages([...images, ...newImages]);
-    };
-
-    const handleDeleteImage = async (imageId) => {
-        try {
-            const { error } = await supabase.storage
-                .from('images')
-                .remove([imageId]);
-
-            if (error) throw error;
-
-            setImages(images.filter(img => img.id !== imageId));
-        } catch (error) {
-            console.error('Resim silme hatası:', error);
-            alert('Resim silinirken bir hata oluştu!');
-        }
-    };
-
-    const handleSave = async () => {
-        try {
-            const { error } = await supabase
-                .from(activeSection)
-                .upsert({
-                    id: activeSubSection,
-                    content_tr: contentTR,
-                    content_en: contentEN,
-                    images: images,
-                    updated_at: new Date().toISOString()
-                });
-
-            if (error) throw error;
-            alert('Değişiklikler başarıyla kaydedildi!');
-        } catch (error) {
-            console.error('Kaydetme hatası:', error);
-            alert('Kaydetme sırasında bir hata oluştu!');
-        }
-    };
-
     const renderContent = () => {
         switch (activeSection) {
             case 'dashboard':
@@ -1117,31 +1603,22 @@ export default function AdminPanel() {
             case 'services':
                 return <ServicesContent 
                     activeSubSection={activeSubSection}
-                    setActiveSubSection={setActiveSubSection}
-                    contentTR={contentTR}
-                    setContentTR={setContentTR}
-                    contentEN={contentEN}
-                    setContentEN={setContentEN}
-                    images={images}
-                    handleDeleteImage={handleDeleteImage}
-                    handleFileUpload={handleFileUpload}
-                    handleSave={handleSave}
+                    setActiveSubSection={handleSubSectionChange}
                 />;
             case 'projects':
                 return <ProjectsContent 
                     projects={projects}
                     setProjects={setProjects}
-                    handleFileUpload={handleFileUpload}
-                    handleDeleteImage={handleDeleteImage}
                 />;
             case 'references':
                 return <ReferencesContent 
                     references={references}
                     setReferences={setReferences}
-                    handleFileUpload={handleFileUpload}
-                    handleDeleteImage={handleDeleteImage}
                 />;
-            // Diğer case'ler için de benzer şekilde component'ler eklenecek
+            case 'contact':
+                return <ContactContent />;
+            default:
+                return <DashboardContent />;
         }
     };
 
@@ -1189,7 +1666,7 @@ export default function AdminPanel() {
                             {menuItems.map((item) => (
                                 <button
                                     key={item.id}
-                                    onClick={() => setActiveSection(item.id)}
+                                    onClick={() => handleSectionChange(item.id)}
                                     className={`flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200 group
                                         ${activeSection === item.id 
                                             ? 'bg-blue-50 text-blue-700' 

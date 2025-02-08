@@ -16,7 +16,7 @@ function Contact() {
         <div className="flex flex-col justify-center">
             {/* Phone*/}
             {
-                <a href="tel:05051333322" target="_blank">
+                <a href={`tel:${phoneNumber}`} target="_blank">
                     <Image src={'/image/call.png'} alt="tel" height={36} width={36} className="rounded-full animate-bounce !fixed bottom-16 left-4 flex items-center" />
                 </a>
             }
