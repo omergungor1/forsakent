@@ -1,14 +1,45 @@
 "use client"
 
+import { useState, useEffect } from 'react';
 import { useLanguage } from "../../../../src/context/LanguageContext";
+import ImageGallery from '../../../components/image-gallery';
+import { supabase } from '../../../../src/lib/supabaseClient';
+import { toast } from 'react-hot-toast';
 
 function Page() {
     const { texts, t, language } = useLanguage();
+    const [isLoading, setIsLoading] = useState(true);
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from('services')
+                    .select('albums')
+                    .eq('service_type', 'consulting')
+                    .single();
+
+                if (error) throw error;
+
+                if (data) {
+                    setData(data);
+                }
+            } catch (error) {
+                console.error('Resimler yüklenirken hata:', error);
+                toast.error('Resimler yüklenirken bir hata oluştu!');
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchImages();
+    }, []);
+
     return (
-        <div className='mt-4 '>
+        <div className='mt-4'>
             {/* Main Content */}
             <section className="container mx-auto px-8 py-10 lg:py-14">
-                {/* Main Content */}
                 <div className="relative min-h-screen pt-12">
                     {/* Hero Bölümü */}
                     <div className="relative w-full rounded-xl bg-cover bg-center h-80 md:h-96" style={{ backgroundImage: "url('/image/img1.jpg')" }}>
@@ -70,11 +101,31 @@ function Page() {
                                 </p>
                             </div>
                         </div>
+
+                        {/* Image Gallery - Sadece resim varsa göster */}
+                        {!isLoading && data?.albums?.map(album => 
+                            album.images?.length > 0 && (
+                                <div key={album.id} className="space-y-12 mt-6 md:mt-12">
+                                    <ImageGallery 
+                                        Images={album.images.map(img => img.url)}
+                                        priority={true}
+                                        title={album.name}
+                                    />
+                                </div>
+                            )
+                        )}
+
+                        {/* Yükleme durumu */}
+                        {isLoading && (
+                            <div className="flex justify-center mt-12">
+                                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>
         </div>
-    )
+    );
 }
 
-export default Page
+export default Page;

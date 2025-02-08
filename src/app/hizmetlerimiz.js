@@ -33,7 +33,7 @@ function Hizmetlerimiz({ isSection = false }) {
 
             {/**Danışmanlık */}
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-                <div className="flex-col bg-clip-border rounded-xl bg-gray-900 text-white shadow-gray-900/20 shadow-md relative grid h-full w-full place-items-center overflow-hidden text-center">
+                <div className="flex-col bg-clip-border rounded-xl bg-gray-900 text-white shadow-gray-900/20 shadow-md relative grid h-[500px] w-full place-items-center overflow-hidden text-center">
                     <Image
                         alt="Fiction Books"
                         loading="lazy"
@@ -63,7 +63,7 @@ function Hizmetlerimiz({ isSection = false }) {
 
                 {/**Projelendirme */}
                 <div className="col-span-1 flex flex-col gap-6">
-                    <div className="flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md relative grid min-h-[12rem] w-full overflow-hidden">
+                    <div className="flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md relative grid h-[240px] w-full overflow-hidden">
                         <Image
                             alt="Fiction Books"
                             loading="lazy"
@@ -92,7 +92,7 @@ function Hizmetlerimiz({ isSection = false }) {
                     </div>
 
                     {/**Bakım */}
-                    <div className="flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md relative grid min-h-[12rem] w-full overflow-hidden">
+                    <div className="flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md relative grid h-[240px] w-full overflow-hidden">
                         <Image
                             alt="Fiction Books"
                             loading="lazy"
@@ -123,7 +123,7 @@ function Hizmetlerimiz({ isSection = false }) {
                 </div>
                 <div className="col-span-1 flex flex-col gap-6">
                     {/**Uygulama */}
-                    <div className="flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md relative grid min-h-[12rem] w-full overflow-hidden">
+                    <div className="flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md relative grid h-[240px] w-full overflow-hidden">
                         <Image
                             alt="School Books"
                             loading="lazy"
@@ -152,7 +152,7 @@ function Hizmetlerimiz({ isSection = false }) {
                     </div>
 
                     {/**İç Mekan Bitkilendirme */}
-                    <div className="flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md relative grid min-h-[12rem] w-full overflow-hidden">
+                    <div className="flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md relative grid h-[240px] w-full overflow-hidden">
                         <Image
                             alt="School Books"
                             loading="lazy"

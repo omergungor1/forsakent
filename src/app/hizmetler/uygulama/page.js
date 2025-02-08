@@ -1,10 +1,40 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import ImageGallery from '../../../components/image-gallery';
 import { useLanguage } from "../../../../src/context/LanguageContext";
+import { supabase } from '../../../../src/lib/supabaseClient';
+import { toast } from 'react-hot-toast';
 
 function Page() {
     const { texts, t, language } = useLanguage();
+    const [isLoading, setIsLoading] = useState(true);
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from('services')
+                    .select('albums')
+                    .eq('service_type', 'application')
+                    .single();
+
+                if (error) throw error;
+
+                if (data) {
+                    setData(data);
+                }
+            } catch (error) {
+                console.error('Resimler yüklenirken hata:', error);
+                toast.error('Resimler yüklenirken bir hata oluştu!');
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchImages();
+    }, []);
 
     const categories = [
         {
@@ -109,16 +139,17 @@ function Page() {
         },
     ];
 
-
     return (
-        <div className='mt-4 '>
+        <div className='mt-4'>
             {/* Main Content */}
             <section className="container mx-auto px-8 py-10 lg:py-14">
                 <div className="relative min-h-screen py-12">
                     {/* Hero Bölümü */}
                     <div className="relative w-full rounded-xl bg-cover bg-center h-80 md:h-96" style={{ backgroundImage: "url('/image/img1.jpg')" }}>
                         <div className="absolute rounded-xl inset-0 bg-black/50 flex items-center justify-center">
-                            <h1 className="text-white text-3xl md:text-5xl font-bold text-center">{t(texts.home_page.services.content.application.title)}</h1>
+                            <h1 className="text-white text-3xl md:text-5xl font-bold text-center">
+                                {t(texts.home_page.services.content.application.title)}
+                            </h1>
                         </div>
                     </div>
 
@@ -185,15 +216,32 @@ function Page() {
                             </div>
                         </div>
                     </div>
+
+                    {/* Image Gallery - Sadece resim varsa göster */}
                     <div className="space-y-12 mt-6 grid grid-cols-1 gap-6">
-                        {categories.map((category, index) => (
-                            <ImageGallery Images={category.images} key={index} title={language === 'tr' ? category.title.tr : category.title.en} />
-                        ))}
+                        {!isLoading && data?.albums?.map(album => 
+                            album.images?.length > 0 && (
+                                <div key={album.id}>
+                                    <ImageGallery 
+                                        Images={album.images.map(img => img.url)}
+                                        priority={true}
+                                        title={album.name}
+                                    />
+                                </div>
+                            )
+                        )}
+
+                        {/* Yükleme durumu */}
+                        {isLoading && (
+                            <div className="flex justify-center mt-12">
+                                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>
         </div>
-    )
+    );
 }
 
-export default Page
+export default Page;

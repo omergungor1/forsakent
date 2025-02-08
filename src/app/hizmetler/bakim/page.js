@@ -1,24 +1,43 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useLanguage } from "../../../../src/context/LanguageContext";
 import ImageGallery2 from 'src/components/image-gallery2';
-
+import { supabase } from '../../../../src/lib/supabaseClient';
+import { toast } from 'react-hot-toast';
 
 function Page() {
     const { texts, t, language } = useLanguage();
-    const Images = [
-        "/image/bakim-hizmetleri/img3.jpg",
-        "/image/bakim-hizmetleri/img4.jpg",
-        "/image/bakim-hizmetleri/img6.jpg",
-        "/image/bakim-hizmetleri/img7.jpg",
-        "/image/bakim-hizmetleri/img8.jpg",
-        "/image/bakim-hizmetleri/img10.jpg",
-        "/image/bakim-hizmetleri/img11.jpg",
-        "/image/bakim-hizmetleri/img12.jpg",
-    ]
+    const [isLoading, setIsLoading] = useState(true);
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from('services')
+                    .select('albums')
+                    .eq('service_type', 'maintenance')
+                    .single();
+
+                if (error) throw error;
+
+                if (data) {
+                    setData(data);
+                }
+            } catch (error) {
+                console.error('Resimler yüklenirken hata:', error);
+                toast.error('Resimler yüklenirken bir hata oluştu!');
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchImages();
+    }, []);
 
     return (
-        <div className='mt-4 '>
+        <div className='mt-4'>
             {/* Main Content */}
             <section className="container mx-auto px-8 py-10 lg:py-14">
                 <div className="relative min-h-screen py-12">
@@ -86,13 +105,33 @@ function Page() {
                     </div>
 
                     {/* Image Gallery */}
-                    <div className='space-y-12 mt-6 md:mt-12'>
-                        <ImageGallery2 Images={Images} />
-                    </div>
+                    {!isLoading && data?.albums && data.albums.map((album) => (
+                        <div key={album.id} className="space-y-12 mt-6 md:mt-12">
+                            <ImageGallery2 
+                                Images={album.images.map(img => img.url)}
+                                priority={true}
+                                title={album.name}
+                            />
+                        </div>
+                    ))}
+
+                    {/* Yükleme durumu */}
+                    {isLoading && (
+                        <div className="flex justify-center mt-12">
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+                        </div>
+                    )}
+
+                    {/* Resim bulunamadı durumu */}
+                    {!isLoading && (!data?.albums || data.albums.length === 0) && (
+                        <div className="text-center text-gray-500 mt-12">
+                            {language === "tr" ? "Henüz albüm eklenmemiş." : "No albums added yet."}
+                        </div>
+                    )}
                 </div>
             </section>
         </div>
-    )
+    );
 }
 
-export default Page
+export default Page;
