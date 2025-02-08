@@ -23,6 +23,7 @@ import {
   HomeIcon,
   PhoneIcon
 } from "@heroicons/react/24/solid";
+import { ClientPageRoot } from "next/dist/client/components/client-page";
 
 function NavItem({ children, href }) {
   return (
@@ -79,6 +80,7 @@ export function Navbar() {
     },
   ];
 
+
   const handleOpen = () => setOpen((cur) => !cur);
 
   useEffect(() => {
@@ -89,17 +91,24 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-        if (window.scrollY > 0) {
-            setIsScrolling(true);
-        } else {
-            setIsScrolling(false);
-        }
-    };
+    if (window.scrollY > 0 || pathname != '/') {
+      setIsScrolling(true);
+    } else {
+      setIsScrolling(false);
+    }
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    function handleScroll() {
+      if (window.scrollY > 0 || pathname != '/') {
+        setIsScrolling(true);
+      } else {
+        setIsScrolling(false);
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [pathname]);
 
   if (pathname == '/admin' || pathname == '/admin/login') {
     return null;
