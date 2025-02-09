@@ -55,7 +55,12 @@ const menuItems = [
         id: 'contact', 
         label: 'İletişim', 
         icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' 
-    }
+    },
+    { 
+        id: 'statistics', 
+        label: 'İstatistikler', 
+        icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'
+    },
 ];
 
 const socialMediaPlatforms = [
@@ -1683,6 +1688,151 @@ const ContactContent = () => {
     );
 };
 
+const StatisticsContent = () => {
+    const [statistics, setStatistics] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [newStat, setNewStat] = useState({
+        title_tr: '',
+        title_en: '',
+        count: ''
+    });
+
+    useEffect(() => {
+        fetchStatistics();
+    }, []);
+
+    const fetchStatistics = async () => {
+        try {
+            const { data, error } = await supabase
+                .from('statistics')
+                .select('*')
+                .order('created_at', { ascending: true });
+
+            if (error) throw error;
+            setStatistics(data || []);
+        } catch (error) {
+            toast.error('İstatistikler yüklenirken hata oluştu!');
+            console.error('Error:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleAddStatistic = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+
+        try {
+            const { error } = await supabase
+                .from('statistics')
+                .insert([newStat]);
+
+            if (error) throw error;
+
+            toast.success('İstatistik başarıyla eklendi!');
+            fetchStatistics();
+            setNewStat({ title_tr: '', title_en: '', count: '' });
+        } catch (error) {
+            toast.error('İstatistik eklenirken hata oluştu!');
+            console.error('Error:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleDeleteStatistic = async (id) => {
+        try {
+            const { error } = await supabase
+                .from('statistics')
+                .delete()
+                .eq('id', id);
+
+            if (error) throw error;
+
+            toast.success('İstatistik başarıyla silindi!');
+            fetchStatistics();
+        } catch (error) {
+            toast.error('İstatistik silinirken hata oluştu!');
+            console.error('Error:', error);
+        }
+    };
+
+    return (
+        <div className="space-y-6">
+            <h2 className="text-2xl font-bold mb-6">İstatistik Yönetimi</h2>
+            
+            {/* İstatistik Ekleme Formu */}
+            <Card className="bg-white">
+                <CardBody className="p-6">
+                    <h3 className="text-xl font-semibold mb-4">Yeni İstatistik Ekle</h3>
+                    <form onSubmit={handleAddStatistic} className="space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <Input
+                                label="Başlık (TR)"
+                                value={newStat.title_tr}
+                                onChange={(e) => setNewStat({ ...newStat, title_tr: e.target.value })}
+                                required
+                            />
+                            <Input
+                                label="Title (EN)"
+                                value={newStat.title_en}
+                                onChange={(e) => setNewStat({ ...newStat, title_en: e.target.value })}
+                                required
+                            />
+                            <Input
+                                label="Sayı (örn: 200+)"
+                                value={newStat.count}
+                                onChange={(e) => setNewStat({ ...newStat, count: e.target.value })}
+                                required
+                            />
+                        </div>
+                        <Button
+                            type="submit"
+                            disabled={isLoading}
+                            className="mt-4"
+                        >
+                            {isLoading ? 'Ekleniyor...' : 'İstatistik Ekle'}
+                        </Button>
+                    </form>
+                </CardBody>
+            </Card>
+
+            {/* İstatistik Listesi */}
+            <div className="grid grid-cols-1 gap-4">
+                {statistics.map((stat) => (
+                    <Card key={stat.id} className="bg-white">
+                        <CardBody className="p-4">
+                            <div className="flex justify-between items-center">
+                                <div className="grid grid-cols-3 gap-4 flex-1">
+                                    <div>
+                                        <div className="text-sm text-gray-500">Başlık (TR)</div>
+                                        <div>{stat.title_tr}</div>
+                                    </div>
+                                    <div>
+                                        <div className="text-sm text-gray-500">Title (EN)</div>
+                                        <div>{stat.title_en}</div>
+                                    </div>
+                                    <div>
+                                        <div className="text-sm text-gray-500">Sayı</div>
+                                        <div>{stat.count}</div>
+                                    </div>
+                                </div>
+                                <Button
+                                    color="red"
+                                    variant="text"
+                                    onClick={() => handleDeleteStatistic(stat.id)}
+                                >
+                                    Sil
+                                </Button>
+                            </div>
+                        </CardBody>
+                    </Card>
+                ))}
+            </div>
+        </div>
+    );
+};
+
 // AdminPanel içeriğini ayrı bir komponente taşıyalım
 const AdminPanelContent = () => {
     const router = useRouter();
@@ -1695,6 +1845,13 @@ const AdminPanelContent = () => {
     // Eksik state'leri ekleyelim
     const [projects, setProjects] = useState([]);
     const [references, setReferences] = useState([]);
+    const [statistics, setStatistics] = useState([]);
+    const [newStat, setNewStat] = useState({
+        title_tr: '',
+        title_en: '',
+        count: ''
+    });
+    const [isLoadingStats, setIsLoadingStats] = useState(false);
 
     // Section değiştiğinde URL'i güncelle
     const handleSectionChange = (section) => {
@@ -1764,10 +1921,79 @@ const AdminPanelContent = () => {
                 />;
             case 'contact':
                 return <ContactContent />;
+            case 'statistics':
+                return <StatisticsContent />;
             default:
                 return <DashboardContent />;
         }
     };
+
+    // İstatistikleri çek
+    const fetchStatistics = async () => {
+        try {
+            const { data, error } = await supabase
+                .from('statistics')
+                .select('*')
+                .order('created_at', { ascending: true });
+
+            if (error) throw error;
+            setStatistics(data || []);
+        } catch (error) {
+            toast.error('İstatistikler yüklenirken hata oluştu!');
+            console.error('Error:', error);
+        }
+    };
+
+    // İstatistik ekle
+    const handleAddStatistic = async (e) => {
+        e.preventDefault();
+        setIsLoadingStats(true);
+
+        try {
+            const { error } = await supabase
+                .from('statistics')
+                .insert([
+                    {
+                        title_tr: newStat.title_tr,
+                        title_en: newStat.title_en,
+                        count: newStat.count
+                    }
+                ]);
+
+            if (error) throw error;
+
+            toast.success('İstatistik başarıyla eklendi!');
+            fetchStatistics();
+            setNewStat({ title_tr: '', title_en: '', count: '' });
+        } catch (error) {
+            toast.error('İstatistik eklenirken hata oluştu!');
+            console.error('Error:', error);
+        } finally {
+            setIsLoadingStats(false);
+        }
+    };
+
+    // İstatistik sil
+    const handleDeleteStatistic = async (id) => {
+        try {
+            const { error } = await supabase
+                .from('statistics')
+                .delete()
+                .eq('id', id);
+
+            if (error) throw error;
+
+            toast.success('İstatistik başarıyla silindi!');
+            fetchStatistics();
+        } catch (error) {
+            toast.error('İstatistik silinirken hata oluştu!');
+            console.error('Error:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchStatistics();
+    }, []);
 
     if (!user) return null;
 

@@ -10,7 +10,7 @@ export function StatsCard({ count, title }) {
         {count}
       </Typography>
       <Typography variant="h6" color="blue-gray" className="mt-1 font-medium">
-        {t(title)}
+        {title}
       </Typography>
     </Card>
   );

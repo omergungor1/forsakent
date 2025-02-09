@@ -170,35 +170,6 @@ export const texts = {
                 tr: "Yılların tecrübesiyle, yenilikçi peyzaj tasarımlarımız ve profesyonel ekiplerimizle mekanlarınızı güzelleştirmek için buradayız.",
                 en: "With years of experience, we are here to beautify your spaces with our innovative landscape designs and professional teams."
             },
-            data: [
-                {
-                    count: "200+",
-                    title: {
-                        tr: "Tamamlanan Proje",
-                        en: "Completed Project"
-                    },
-                },
-                {
-                    count: "100+",
-                    title: {
-                        tr: "Memnun Müşteri",
-                        en: "Satisfied Customer"
-                    },
-                },
-                {
-                    count: "50",
-                    title: {
-                        tr: "Tasarımı Yapılan Bahçe",
-                        en: "Garden Designed"
-                    },
-                },
-                {
-                    count: "10+",
-                    title: {
-                        tr: "Yıllık Deneyim",
-                        en: "Years of Experience"
-                    },
-                }]
         },
         sss: {
             title: {

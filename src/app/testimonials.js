@@ -37,9 +37,9 @@ export function Testimonials() {
   }, []);
 
   return (
-    <section className="py-8 px-8 lg:py-20 overflow-hidden">
+    <section className="py-8 px-4 lg:px-8 lg:py-20 overflow-hidden">
       <div className="container mx-auto text-center">
-        <Typography variant="h2" color="blue-gray" className="mb-8">
+        <Typography variant="h2" color="blue-gray" className="mb-4 lg:mb-8">
           {t(texts.home_page.reffereces.title)}
         </Typography>
 
@@ -48,14 +48,14 @@ export function Testimonials() {
             {/* İlk slider */}
             <div className="flex animate-infinite-scroll">
               {references.map((ref) => (
-                <div key={ref.id} className="flex-shrink-0 mx-8">
+                <div key={ref.id} className="flex-shrink-0 mx-2 md:mx-8">
                   {ref.image?.url && (
-                    <div className="relative w-40 h-20">
+                    <div className="relative w-24 h-12 md:w-40 md:h-20">
                       <Image
                         fill
                         src={ref.image.url}
                         alt={ref.name}
-                        sizes="160px"
+                        sizes="(max-width: 768px) 96px, 160px"
                         className="object-contain"
                         priority
                       />
@@ -65,14 +65,14 @@ export function Testimonials() {
               ))}
               {/* Sonsuz scroll için tekrar */}
               {references.map((ref) => (
-                <div key={`duplicate-${ref.id}`} className="flex-shrink-0 mx-8">
+                <div key={`duplicate-${ref.id}`} className="flex-shrink-0 mx-2 md:mx-8">
                   {ref.image?.url && (
-                    <div className="relative w-40 h-20">
+                    <div className="relative w-24 h-12 md:w-40 md:h-20">
                       <Image
                         fill
                         src={ref.image.url}
                         alt={ref.name}
-                        sizes="160px"
+                        sizes="(max-width: 768px) 96px, 160px"
                         className="object-contain"
                         priority
                       />
@@ -83,16 +83,16 @@ export function Testimonials() {
             </div>
 
             {/* İkinci slider (ters yönde) */}
-            <div className="flex animate-infinite-scroll-reverse mt-8">
+            <div className="flex animate-infinite-scroll-reverse mt-4 md:mt-8">
               {references.slice().reverse().map((ref) => (
-                <div key={ref.id} className="flex-shrink-0 mx-8">
+                <div key={ref.id} className="flex-shrink-0 mx-2 md:mx-8">
                   {ref.image?.url && (
-                    <div className="relative w-40 h-20">
+                    <div className="relative w-24 h-12 md:w-40 md:h-20">
                       <Image
                         fill
                         src={ref.image.url}
                         alt={ref.name}
-                        sizes="160px"
+                        sizes="(max-width: 768px) 96px, 160px"
                         className="object-contain"
                         priority
                       />
@@ -102,14 +102,14 @@ export function Testimonials() {
               ))}
               {/* Sonsuz scroll için tekrar */}
               {references.slice().reverse().map((ref) => (
-                <div key={`duplicate-${ref.id}`} className="flex-shrink-0 mx-8">
+                <div key={`duplicate-${ref.id}`} className="flex-shrink-0 mx-2 md:mx-8">
                   {ref.image?.url && (
-                    <div className="relative w-40 h-20">
+                    <div className="relative w-24 h-12 md:w-40 md:h-20">
                       <Image
                         fill
                         src={ref.image.url}
                         alt={ref.name}
-                        sizes="160px"
+                        sizes="(max-width: 768px) 96px, 160px"
                         className="object-contain"
                         priority
                       />
