@@ -10,34 +10,42 @@ import { supabase } from '../lib/supabaseClient';
 
 const CURRENT_YEAR = new Date().getFullYear();
 
-const phoneNumber = "+905051333322";
-const whatsappMessage = "Merhaba, size web siteniz üzerinden ulaşıyorum. Sizden bilgi almak istiyorum.";
-
-
-
 export function Footer() {
   const { language } = useLanguage();
   const pathname = usePathname();
   const [socialMedia, setSocialMedia] = useState({});
+  const [contactInfo, setContactInfo] = useState({
+    tel_phone: '',
+    wp_phone: ''
+  });
+  const [isLoading, setIsLoading] = useState(true);
+  const whatsappMessage = "Merhaba, size web siteniz üzerinden ulaşıyorum. Sizden bilgi almak istiyorum.";
 
   useEffect(() => {
-    const fetchSocialMedia = async () => {
+    const fetchContactInfo = async () => {
       try {
         const { data, error } = await supabase
           .from('contact')
-          .select('social_media')
+          .select('social_media, tel_phone, wp_phone')
           .single();
 
         if (error) throw error;
-        if (data?.social_media) {
-          setSocialMedia(data.social_media);
+
+        if (data) {
+          setSocialMedia(data.social_media || {});
+          setContactInfo({
+            tel_phone: data.tel_phone || '',
+            wp_phone: data.wp_phone || ''
+          });
         }
       } catch (error) {
-        console.error('Sosyal medya bilgileri çekilirken hata:', error);
+        console.error('İletişim bilgileri çekilirken hata:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    fetchSocialMedia();
+    fetchContactInfo();
   }, []);
 
   if (pathname == '/admin' || pathname == '/admin/login') {
@@ -84,22 +92,33 @@ export function Footer() {
             {language == 'tr' ? "Tüm soru ve önerileriniz için bizimle iletişime geçebilirsiniz." : "You can contact us for all your questions and suggestions."}
           </Typography>
           <div className="flex w-full md:w-fit gap-3 mt-2 flex-col md:flex-row">
-            <Button
-              onClick={() => {
-                window.location.href = `tel:${phoneNumber}`;
-              }}
-              color="blue" size="md" className="flex items-center justify-center gap-2 animate-pulse">
-              <i className="fa-solid fa-phone  text-md" />
-              {language == 'tr' ? "Hemen Ara" : "Call Now"}
-            </Button>
-            <Button
-              onClick={() => {
-                window.open(`https://wa.me/${phoneNumber.replace("+", "")}?text=${encodeURIComponent(whatsappMessage)}`);
-              }}
-              color="green" size="md" className="flex items-center justify-center gap-2 animate-pulse">
-              <i className="fa-brands fa-whatsapp  text-xl" />
-              WhatsApp
-            </Button>
+            {contactInfo.tel_phone && (
+              <Button
+                onClick={() => {
+                  window.location.href = `tel:${contactInfo.tel_phone}`;
+                }}
+                color="blue" 
+                size="md" 
+                className="flex items-center justify-center gap-2 animate-pulse"
+              >
+                <i className="fa-solid fa-phone text-md" />
+                {language == 'tr' ? "Hemen Ara" : "Call Now"}
+              </Button>
+            )}
+            
+            {contactInfo.wp_phone && (
+              <Button
+                onClick={() => {
+                  window.open(`https://wa.me/${contactInfo.wp_phone.replace("+", "")}?text=${encodeURIComponent(whatsappMessage)}`);
+                }}
+                color="green" 
+                size="md" 
+                className="flex items-center justify-center gap-2 animate-pulse"
+              >
+                <i className="fa-brands fa-whatsapp text-xl" />
+                WhatsApp
+              </Button>
+            )}
           </div>
         </div>
         <div className="flex flex-col md:flex-row items-center !justify-between">
