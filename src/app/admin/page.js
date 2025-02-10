@@ -235,7 +235,12 @@ const ServicesContent = ({
 }) => {
     const [albums, setAlbums] = useState([]);
     const [selectedAlbum, setSelectedAlbum] = useState(null);
-    const [newAlbumName, setNewAlbumName] = useState('');
+    const [newAlbum, setNewAlbum] = useState({
+        title_tr: '',
+        title_en: '',
+        desc_tr: '',
+        desc_en: ''
+    });
     const [isUploading, setIsUploading] = useState(false);
     const [albumToDelete, setAlbumToDelete] = useState(null);
 
@@ -264,19 +269,22 @@ const ServicesContent = ({
 
     // Yeni albüm oluştur
     const handleCreateAlbum = async () => {
-        if (!newAlbumName.trim()) {
-            toast.error('Albüm adı boş olamaz!');
-                return;
-            }
+        if (!newAlbum.title_tr.trim() || !newAlbum.title_en.trim()) {
+            toast.error('Albüm başlığı (TR/EN) zorunludur!');
+            return;
+        }
 
-        const newAlbum = {
+        const newAlbumData = {
             id: crypto.randomUUID(),
-            name: newAlbumName.trim(),
+            title_tr: newAlbum.title_tr.trim(),
+            title_en: newAlbum.title_en.trim(),
+            desc_tr: newAlbum.desc_tr.trim(),
+            desc_en: newAlbum.desc_en.trim(),
             images: []
         };
 
         try {
-            const updatedAlbums = [...albums, newAlbum];
+            const updatedAlbums = [...albums, newAlbumData];
             const { error } = await supabase
                 .from('services')
                 .update({ 
@@ -288,7 +296,12 @@ const ServicesContent = ({
             if (error) throw error;
 
             setAlbums(updatedAlbums);
-            setNewAlbumName('');
+            setNewAlbum({
+                title_tr: '',
+                title_en: '',
+                desc_tr: '',
+                desc_en: ''
+            });
             toast.success('Yeni albüm oluşturuldu!');
         } catch (error) {
             console.error('Albüm oluşturma hatası:', error);
@@ -463,31 +476,60 @@ const ServicesContent = ({
                         <CardBody className="p-6">
                             <h3 className="text-xl font-semibold mb-4">Yeni Albüm Oluştur</h3>
                             <div className="bg-gray-50 p-6 rounded-xl space-y-4">
-                                <div className="max-w-2xl">
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        Albüm Adı
-                                    </label>
-                                    <div className="flex gap-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Albüm Başlığı (TR)
+                                        </label>
                                         <Input
-                                            value={newAlbumName}
-                                            onChange={(e) => setNewAlbumName(e.target.value)}
-                                            placeholder="Örn: 2023 Projeleri"
-                                            className="flex-1"
-                                            size="lg"
+                                            value={newAlbum.title_tr}
+                                            onChange={(e) => setNewAlbum({ ...newAlbum, title_tr: e.target.value })}
+                                            placeholder="Örn: Bakım Ürünleri"
+                                            required
                                         />
-                                        <Button
-                                            color="blue"
-                                            size="lg"
-                                            onClick={handleCreateAlbum}
-                                            className="px-6"
-                                        >
-                                            Albüm Oluştur
-                                        </Button>
-                </div>
-                                    <p className="mt-2 text-sm text-gray-500">
-                                        Albüm oluşturduktan sonra içine resim ekleyebilirsiniz.
-                                    </p>
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Album Title (EN)
+                                        </label>
+                                        <Input
+                                            value={newAlbum.title_en}
+                                            onChange={(e) => setNewAlbum({ ...newAlbum, title_en: e.target.value })}
+                                            placeholder="Ex: Maintenance Products"
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Albüm Açıklaması (TR)
+                                        </label>
+                                        <Textarea
+                                            value={newAlbum.desc_tr}
+                                            onChange={(e) => setNewAlbum({ ...newAlbum, desc_tr: e.target.value })}
+                                            placeholder="Albüm açıklaması (isteğe bağlı)"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Album Description (EN)
+                                        </label>
+                                        <Textarea
+                                            value={newAlbum.desc_en}
+                                            onChange={(e) => setNewAlbum({ ...newAlbum, desc_en: e.target.value })}
+                                            placeholder="Album description (optional)"
+                                        />
+                                    </div>
                                 </div>
+                                <Button
+                                    color="blue"
+                                    onClick={handleCreateAlbum}
+                                    className="mt-4"
+                                >
+                                    Albüm Oluştur
+                                </Button>
+                                <p className="mt-2 text-sm text-gray-500">
+                                    Albüm oluşturduktan sonra içine resim ekleyebilirsiniz.
+                                </p>
                             </div>
                         </CardBody>
                     </Card>
@@ -504,64 +546,84 @@ const ServicesContent = ({
                             <div className="space-y-6">
                                 {albums.map((album) => (
                                     <Card key={album.id} className="overflow-hidden">
-                                        <CardHeader className="flex justify-between items-center p-6 border-b">
-                                            <h3 className="text-xl font-semibold text-gray-800">{album.name}</h3>
-                                            <div className="flex gap-3">
+                                        <CardHeader className="p-6 border-b">
+                                            {/* Başlıklar */}
+                                            <div className="space-y-4">
+                                                <div className="flex justify-between items-start">
+                                                    <div className="space-y-1">
+                                                        <div className="text-sm text-gray-500">Başlık (TR)</div>
+                                                        <h3 className="text-xl font-semibold text-gray-800">
+                                                            {album.title_tr}
+                                                        </h3>
+                                                    </div>
+                                                    <div className="space-y-1 text-right">
+                                                        <div className="text-sm text-gray-500">Title (EN)</div>
+                                                        <h3 className="text-xl font-semibold text-gray-800">
+                                                            {album.title_en}
+                                                        </h3>
+                                                    </div>
+                                                </div>
+
+                                                {/* Açıklamalar - Eğer varsa göster */}
+                                                {(album.desc_tr || album.desc_en) && (
+                                                    <div className="flex justify-between items-start pt-2 border-t">
+                                                        <div className="w-1/2 pr-4">
+                                                            {album.desc_tr && (
+                                                                <>
+                                                                    <div className="text-sm text-gray-500">Açıklama (TR)</div>
+                                                                    <p className="text-gray-700 mt-1">
+                                                                        {album.desc_tr}
+                                                                    </p>
+                                                                </>
+                                                            )}
+                                                        </div>
+                                                        <div className="w-1/2 pl-4">
+                                                            {album.desc_en && (
+                                                                <>
+                                                                    <div className="text-sm text-gray-500">Description (EN)</div>
+                                                                    <p className="text-gray-700 mt-1">
+                                                                        {album.desc_en}
+                                                                    </p>
+                                                                </>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            {/* Butonlar */}
+                                            <div className="flex gap-3 mt-4">
                                                 <input
                                                     type="file"
-                                                    accept="image/jpeg,image/png,image/gif"
-                                                    multiple
-                                                    onChange={(e) => handleUploadImages(e, album.id)}
+                                                    id={`album-images-${album.id}`}
                                                     className="hidden"
-                                                    id={`album-image-upload-${album.id}`}
-                                                    disabled={isUploading}
+                                                    multiple
+                                                    accept="image/*"
+                                                    onChange={(e) => handleUploadImages(e, album.id)}
                                                 />
-                                                <label
-                                                    htmlFor={`album-image-upload-${album.id}`}
-                                                    className={`inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium
-                                                        ${isUploading 
-                                                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                                                            : 'bg-blue-50 text-blue-700 hover:bg-blue-100 cursor-pointer'}`}
+                                                <Button
+                                                    color="blue"
+                                                    size="sm"
+                                                    className="flex items-center gap-2"
+                                                    onClick={() => document.getElementById(`album-images-${album.id}`).click()}
                                                 >
-                                                    <svg 
-                                                        className="w-5 h-5 mr-2" 
-                                                        fill="none" 
-                                                        stroke="currentColor" 
-                                                        viewBox="0 0 24 24"
-                                                    >
-                                                        <path 
-                                                            strokeLinecap="round" 
-                                                            strokeLinejoin="round" 
-                                                            strokeWidth="2" 
-                                                            d="M12 4v16m8-8H4" 
-                                                        />
-                                                    </svg>
-                                                    {isUploading ? 'Yükleniyor...' : 'Resim Ekle'}
-                                                </label>
+                                                    <i className="fas fa-upload" />
+                                                    Resim Yükle
+                                                </Button>
                                                 <Button
                                                     color="red"
                                                     variant="text"
                                                     size="sm"
-                                                    onClick={() => setAlbumToDelete(album)}
                                                     className="flex items-center gap-2"
+                                                    onClick={() => setAlbumToDelete(album)}
                                                 >
-                                                    <svg 
-                                                        className="w-5 h-5" 
-                                                        fill="none" 
-                                                        stroke="currentColor" 
-                                                        viewBox="0 0 24 24"
-                                                    >
-                                                        <path 
-                                                            strokeLinecap="round" 
-                                                            strokeLinejoin="round" 
-                                                            strokeWidth="2" 
-                                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" 
-                                                    />
-                                                    </svg>
+                                                    <i className="fas fa-trash" />
                                                     Albümü Sil
                                                 </Button>
                                             </div>
                                         </CardHeader>
+
+                                        {/* Albüm Resimleri */}
                                         <CardBody className="p-6">
                                             {album.images.length === 0 ? (
                                                 <div className="text-center py-8 text-gray-500">
@@ -592,7 +654,7 @@ const ServicesContent = ({
                                                             </button>
                                                         </div>
                                                     ))}
-            </div>
+                                                </div>
                                             )}
                                         </CardBody>
                                     </Card>
@@ -635,7 +697,7 @@ const ServicesContent = ({
                 <DialogBody className="px-6 py-4">
                     <div className="space-y-3">
                         <p className="text-gray-600">
-                            <span className="font-medium text-gray-900">{albumToDelete?.name}</span> albümünü silmek istediğinizden emin misiniz?
+                            <span className="font-medium text-gray-900">{albumToDelete?.title_tr}</span> albümünü silmek istediğinizden emin misiniz?
                         </p>
                         <p className="text-sm text-gray-500 bg-gray-50 p-3 rounded-lg border border-gray-100">
                             ⚠️ Bu işlem geri alınamaz ve albümdeki tüm resimler kalıcı olarak silinecektir.
@@ -2062,7 +2124,7 @@ const AdminPanelContent = () => {
                                     {item.label}
                                 </button>
                             ))}
-                        </div>
+            </div>
                     </nav>
 
                     {/* Çıkış Butonu */}
@@ -2076,8 +2138,8 @@ const AdminPanelContent = () => {
                             </svg>
                             Çıkış Yap
                         </button>
-                    </div>
-                </div>
+                                </div>
+                        </div>
             </div>
 
             {/* Main Content */}

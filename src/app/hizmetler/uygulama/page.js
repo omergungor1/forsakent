@@ -219,17 +219,18 @@ function Page() {
 
                     {/* Image Gallery - Sadece resim varsa göster */}
                     <div className="space-y-12 mt-6 grid grid-cols-1 gap-6">
-                        {!isLoading && data?.albums?.map(album => 
-                            album.images?.length > 0 && (
-                                <div key={album.id}>
-                                    <ImageGallery 
-                                        Images={album.images.map(img => img.url)}
-                                        priority={true}
-                                        title={album.name}
-                                    />
-                                </div>
-                            )
-                        )}
+                        {!isLoading && data?.albums && data.albums.map((album) => (
+                            <div key={album.id} className="space-y-12 mt-6 md:mt-12">
+                                <ImageGallery 
+                                    Images={album.images.map(img => img.url)}
+                                    priority={true}
+                                    title_tr={album.title_tr}
+                                    title_en={album.title_en}
+                                    desc_tr={album.desc_tr}
+                                    desc_en={album.desc_en}
+                                />
+                            </div>
+                        ))}
 
                         {/* Yükleme durumu */}
                         {isLoading && (

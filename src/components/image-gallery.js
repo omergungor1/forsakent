@@ -4,8 +4,21 @@ import { useState } from 'react'
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
 import Image from "next/image";
+import { useLanguage } from "../context/LanguageContext";
 
-const ImageGallery = ({ Images, priority = false, title = null }) => {
+const ImageGallery = ({ 
+    Images, 
+    priority = false, 
+    title_tr = null,
+    title_en = null,
+    desc_tr = null,
+    desc_en = null 
+}) => {
+    const { language } = useLanguage();
+    
+    const title = language === 'tr' ? title_tr : title_en;
+    const description = language === 'tr' ? desc_tr : desc_en;
+
     return (
         <div className="space-y-4">
             {/* Albüm Başlığı */}
@@ -13,6 +26,13 @@ const ImageGallery = ({ Images, priority = false, title = null }) => {
                 <h3 className="text-2xl font-bold text-gray-800 mb-6">
                     {title}
                 </h3>
+            )}
+            
+            {/* Albüm Açıklaması */}
+            {description && (
+                <p className="text-gray-600 mb-6">
+                    {description}
+                </p>
             )}
 
             {/* Ana Grid */}
@@ -25,7 +45,7 @@ const ImageGallery = ({ Images, priority = false, title = null }) => {
                             >
                                 <Image
                                     src={image}
-                                    alt={`Gallery image ${index + 1}`}
+                                    alt={`${title || 'Gallery'} image ${index + 1}`}
                                     fill
                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                                     className="object-cover hover:scale-110 transition-transform duration-300"

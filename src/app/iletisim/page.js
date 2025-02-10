@@ -180,15 +180,15 @@ function Iletisim() {
 
                         {/* Map */}
                         <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-                            <iframe
-                                title="Location Map"
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12055.42170734965!2d29.2238121!3d40.9606404!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab3d7a95e983f%3A0xa3c9c6f658b7a5af!2sAk%C5%9Femsettin%20Mah.%20Petrol%20Yolu%20Cd.%20No%3A482%20A%2F1%2C%2034940%20Sultanbeyli%2F%C4%B0stanbul!5e0!3m2!1str!2str!4v1617356412981!5m2!1str!2str"
-                                width="100%"
-                                height="350"
-                                style={{ border: 0 }}
-                                allowFullScreen=""
-                                loading="lazy"
-                            ></iframe>
+                                  <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3015.35905480932!2d29.393608077113473!3d40.90787256975498!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cad822bbb4f883%3A0xef84de635f92d26b!2zU8O8bGV5bWFuaXllIEJ1bHZhcsSxICYgU2ViYXQgU29rYcSfaSwgVGVwZcO2cmVuLCAzNDk1OSBUdXpsYS_EsHN0YW5idWw!5e0!3m2!1str!2str!4v1739221683253!5m2!1str!2str"
+                                    width="100%"
+                                    height="100%"
+                                    style={{ border: 0 }}
+                                    allowFullScreen
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                />
                         </div>
                     </div>
                 </main>

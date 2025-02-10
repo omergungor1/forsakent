@@ -125,7 +125,10 @@ function Page() {
                                 <ImageGallery 
                                     Images={album.images.map(img => img.url)}
                                     priority={true}
-                                    title={album.name}
+                                    title_tr={album.title_tr}
+                                    title_en={album.title_en}
+                                    desc_tr={album.desc_tr}
+                                    desc_en={album.desc_en}
                                 />
                             </div>
                         ))}

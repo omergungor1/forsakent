@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useLanguage } from "../../../../src/context/LanguageContext";
-import ImageGallery2 from 'src/components/image-gallery2';
+import ImageGallery from "../../../components/image-gallery";
 import { supabase } from '../../../../src/lib/supabaseClient';
 import { toast } from 'react-hot-toast';
 
@@ -102,15 +102,17 @@ function Page() {
                                 </p>
                             </div>
                         </div>
-                    </div>
 
                     {/* Image Gallery */}
                     {!isLoading && data?.albums && data.albums.map((album) => (
                         <div key={album.id} className="space-y-12 mt-6 md:mt-12">
-                            <ImageGallery2 
+                            <ImageGallery 
                                 Images={album.images.map(img => img.url)}
                                 priority={true}
-                                title={album.name}
+                                title_tr={album.title_tr}
+                                title_en={album.title_en}
+                                desc_tr={album.desc_tr}
+                                desc_en={album.desc_en}
                             />
                         </div>
                     ))}
@@ -128,7 +130,8 @@ function Page() {
                             {language === "tr" ? "Henüz albüm eklenmemiş." : "No albums added yet."}
                         </div>
                     )}
-                </div>
+                    </div>
+                    </div>
             </section>
         </div>
     );

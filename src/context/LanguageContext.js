@@ -40,8 +40,8 @@ export const texts = {
             en: "Dream Spaces"
         },
         text2: {
-            tr: "Forsa Peyzaj",
-            en: "Forsa Landscape"
+            tr: "Forsa Kent Tasarım",
+            en: "Forsa City Design"
         },
         text3: {
             tr: "Estetik ve fonksiyonelliği bir araya getiren peyzaj tasarımları.",
@@ -177,8 +177,8 @@ export const texts = {
                 en: "Frequently Asked Questions"
             },
             text: {
-                tr: "Hoş geldiniz! Forsa Peyzaj olarak, İstanbul'da sunduğumuz profesyonel peyzaj hizmetleriyle ilgili en sık sorulan soruları bu bölümde yanıtlıyoruz. Amacımız, peyzaj projelerinizi en verimli şekilde tasarlamak ve uygulamak. Aşağıda, hizmetlerimiz ve süreçlerimizle ilgili merak edilen tüm detayları bulabilirsiniz.",
-                en: "Welcome! As Forsa Landscape, we answer the most frequently asked questions about the professional landscaping services we offer in Istanbul in this section. Our aim is to design and implement your landscape projects in the most efficient way. Below, you can find all the details about our services and processes."
+                tr: "Hoş geldiniz! Forsa Kent Tasarım olarak, Türkiye'de sunduğumuz profesyonel peyzaj hizmetleriyle ilgili en sık sorulan soruları bu bölümde yanıtlıyoruz. Amacımız, peyzaj projelerinizi en verimli şekilde tasarlamak ve uygulamak. Aşağıda, hizmetlerimiz ve süreçlerimizle ilgili merak edilen tüm detayları bulabilirsiniz.",
+                en: "Welcome! As Forsa Kent Tasarım, we answer the most frequently asked questions about the professional landscaping services we offer in Turkey in this section. Our aim is to design and implement your landscape projects in the most efficient way. Below, you can find all the details about our services and processes."
             },
             data: [
                 {
@@ -193,12 +193,12 @@ export const texts = {
                 },
                 {
                     title: {
-                        tr: "2. Hizmetleriniz İstanbul'un hangi bölgelerinde geçerli?",
-                        en: "2. In which regions of Istanbul are your services available?"
+                        tr: "2. Hizmetleriniz hangi bölgelerinde geçerli?",
+                        en: "2. In which regions are your services available?"
                     },
                     desc: {
-                        tr: "Forsa Peyzaj, İstanbul'un her bölgesine hizmet vermektedir. Beşiktaş, Kadıköy, Şişli, Bakırköy, Üsküdar gibi merkezi bölgelerden, Ataşehir, Pendik, Ümraniye gibi dış ilçelere kadar geniş bir hizmet ağına sahibiz.",
-                        en: "Forsa Landsicape serves every region of Istanbul. We have a wide service network from central regions such as Beşiktaş, Kadıköy, Şişli, Bakırköy, Üsküdar to outer districts such as Ataşehir, Pendik, Ümraniye."
+                        tr: "Forsa Kent Tasarım, Türkiye’nin tüm bölgelerinde profesyonel hizmet sunmaktadır. Büyükşehirlerden küçük yerleşimlere kadar geniş bir hizmet ağıyla, peyzaj çözümleriyle her yerde yanınızdayız.",
+                        en: "Forsa Urban Design offers professional services in all regions of Turkey. With a wide service network from metropolitan cities to small settlements, we are with you everywhere with landscaping solutions."
                     }
                 },
                 {
